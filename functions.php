@@ -60,7 +60,7 @@ function publicacao_post_type() {
     add_action('admin_print_styles', 'dp_styles');
     function dp_scripts() {
         wp_enqueue_script('jquery-ui-datepicker');
-        wp_enqueue_script('datePick-datepicker', get_template_directory_uri() . '/js/date-picker-class.js', array(), '20150311', true );
+        wp_enqueue_script('datePick-datepicker', get_stylesheet_directory_uri() . '/js/date-picker-class.js', array(), '20150311', true );
     }
     add_action( 'admin_enqueue_scripts', 'dp_scripts' );
 
@@ -122,7 +122,7 @@ function publicacao_post_type() {
 
         // verify this came from the our screen and with proper authorization,
         // because save_post can be triggered at other times
-        if ( !wp_verify_nonce( $_POST['publicacaometa_noncename'], plugin_basename(__FILE__) )) {
+        if ( !isset($_POST['publicacaometa_noncename']) || !wp_verify_nonce( $_POST['publicacaometa_noncename'], plugin_basename(__FILE__) )) {
             return $post->ID;
         }
 
