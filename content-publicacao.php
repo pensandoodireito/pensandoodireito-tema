@@ -1,10 +1,14 @@
 <div class="container">
     <div class="row mt-md" id="publicacao">
         <div class="col-md-9">
-          <h2 class="font-roboto red">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?> | <?php the_title(); ?></h2>
+          <h2 class="font-roboto red">
+              <a href="<?php echo get_post_permalink(); ?>">
+                Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?> | <?php the_title(); ?>
+              </a>
+          </h2>
            <div class="description">
             <p><mark>Data da publicação: <?php the_date(); ?></mark></p>
-            <p><?php the_excerpt(); ?></p>
+            <!--p><?php the_excerpt(); ?></p-->
             <p><?php the_content(); ?></p>
             <p><small><a href="#">Ver autores</a></small></p>
          </div>   
@@ -47,79 +51,31 @@
             <!--/div-->
                  <div class="btn-group btn-group-justified" role="group" aria-label="">
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default btn-lg"> <i class="fa fa-angle-left"></i> Anterior</button>
+                      <?php
+                      $prev_post = get_previous_post();
+                      if($prev_post) { ?>
+                        <button type="button" class="btn btn-default btn-lg" onClick="window.location='<?php echo get_permalink($prev_post->ID); ?>'"><i class="fa fa-angle-left"></i> Anterior</button>
+                      <?php } else { ?>
+                          <button type="button" class="btn btn-default btn-lg disabled" disabled><i class="fa fa-angle-left"></i> Anterior</button>
+                      <?php } ?>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default btn-lg"><i class="fa fa-angle-right"></i> Próxima</button>
+                      <?php
+                      $next_post = get_next_post();
+                      if($next_post) { ?>
+                          <button type="button" class="btn btn-default btn-lg" onClick="window.location='<?php echo get_permalink($next_post->ID); ?>'">Próxima <i class="fa fa-angle-right"></i></button>
+                      <?php } else { ?>
+                          <button type="button" class="btn btn-default btn-lg disabled" disabled>Próxima <i class="fa fa-angle-right"></i></button>
+                      <?php } ?>
                   </div>
                 </div>     
         </div>
 
         <div class="col-md-3">
-          <h6>Outras Publicações:</h6> 
-          <div class="panel panel-default">
-            <div class="panel-body">
-                <ul class="list-unstyled">
-                    <li>    
-                    <!-- card lateral -->
-                     <a href="#" class="nounderline">
-                       <div class="capa"> 
-                        <div class="card"> 
-                        <p>Título da publicação</p>       
-                        </div>
-                       </div>  
-                    </a>  
-                  <!-- /card lateral -->
-                   </li>
-                   <li>
-                  <!-- card lateral -->
-                     <a href="#" class="nounderline">
-                       <div class="capa"> 
-                        <div class="card"> 
-                        <p>Título da publicação</p>       
-                        </div>
-                       </div>
-                    </a>  
-                  <!-- /card lateral -->
-                   </li>
-                   <li>
-                 <!-- card lateral -->
-                     <a href="#" class="nounderline">
-                       <div class="capa"> 
-                        <div class="card"> 
-                        <p>Título da publicação</p>       
-                        </div>
-                       </div>  
-                    </a>  
-                  <!-- /card lateral -->
-                   </li>
-                   <li>                    
-                  <!-- card lateral -->
-                     <a href="#" class="nounderline">
-                       <div class="capa"> 
-                        <div class="card"> 
-                        <p>Título da publicação</p>       
-                        </div>
-                       </div>
-                    </a>  
-                  <!-- /card lateral -->
-                   </li>
-                   <li> 
-                 <!-- card lateral -->
-                     <a href="#" class="nounderline">
-                       <div class="capa"> 
-                        <div class="card"> 
-                        <p>Título da publicação</p>       
-                        </div>
-                       </div>
-                    </a>  
-                  <!-- /card lateral -->   
-                  </li>
-               <button type="button" class="btn btn-link">Ver todas</button> 
-              <ul> 
-            </div> <!-- panel body -->                                    
-          </div> <!-- panel -->
+            <?php get_sidebar('publicacao');?>
+            <!-- Outras Publicações SIDEBAR -->
         </div>
+
     </div>    
 </div>    
 

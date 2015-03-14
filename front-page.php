@@ -19,7 +19,7 @@
                         frameborder="0" allowfullscreen></iframe> -->
                     </div>
                     <div class="col-xs-4 description-destaque font-roboto">
-                        <h6 class="font-roboto">Pensando o direito</h6>
+                        <h6 class="font-roboto"><?php echo get_bloginfo('title'); ?></h6>
                         <h2 class="font-roboto">O que é?</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                         <p>Sed lobortis est eget tristique vestibulum. Fusce et pulvinar erat, id viverra sem. Vivamus porttitor. </p>

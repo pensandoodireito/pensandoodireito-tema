@@ -1,5 +1,11 @@
 <?php
 
+// this adds jquery tooltip and styles it
+function pensandoodireito_scripts() {
+    wp_enqueue_script('pensandoodireito', get_stylesheet_directory_uri() . '/js/pensandoodireito.js', array(), '20150313', true );
+}
+add_action( 'admin_enqueue_scripts', 'pensandoodireito_scripts' );
+
 /**
  * Registar post type publicação
  */
@@ -60,7 +66,6 @@ function publicacao_post_type() {
     add_action('admin_print_styles', 'dp_styles');
     function dp_scripts() {
         wp_enqueue_script('jquery-ui-datepicker');
-        wp_enqueue_script('datePick-datepicker', get_stylesheet_directory_uri() . '/js/date-picker-class.js', array(), '20150311', true );
     }
     add_action( 'admin_enqueue_scripts', 'dp_scripts' );
 
@@ -204,3 +209,19 @@ function publicacao_post_type() {
 
 // Iniciarlizar publicação.
 add_action( 'init', 'publicacao_post_type', 0 );
+
+/*add_action( 'widgets_init', 'pensandoodireito_widgets_init' );
+function pensandoodireito_widgets_init()
+{
+    register_sidebar(array(
+        'name' => __('Outras Publicações', 'pensandoodireito'),
+        'id' => 'pensando-outras-publicacoes',
+        'description' => '',
+        'class' => '',
+        'before_widget' => '<li id="%1$s" class="widget %2$s">',
+        'after_widget' => '</li>',
+        'before_title' => '<h2 class="widgettitle">',
+        'after_title' => '</h2>'));
+
+}*/
+
