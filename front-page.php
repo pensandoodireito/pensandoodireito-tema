@@ -14,7 +14,6 @@
                         <h6 class="font-roboto"><?php echo get_bloginfo('title'); ?></h6>
                         <h2 class="font-roboto">O que é?</h2>
                         <p>Apresentamos aqui a Série Pensando o Direito: pesquisas que partem da observação da realidade e do diálogo entre mais de um campo do saber para compreender grandes temas e orientar o governo em sua capacidade de atuar  sobre a vida dos cidadãos por meio de políticas públicas.</p>
-                        <p>Pensar o Direito não significa teorizá-lo, mas buscar, na prática, respostas que possam colaborar para a criação e para o aperfeiçoamento de leis e instituições. Com dados concretos, estas publicações apresentam soluções de real potencial transformador, contribuindo para a consolidação do processo democrático de produção de normas. Esse é o objetivo do Ministério da Justiça.</p>
                     </div>
                 </div>
             </div>
@@ -44,7 +43,7 @@
                     <div class="">
                      <a href="#">   
                         <div class="text-center">
-                            <img src="/wp-content/themes/participacao-tema/images/home/mc-home.png" class="img-adaptative" alt="Debate">
+                            <img src="/wp-content/themes/marcocivil-tema/images/logo.png" class="img-adaptative" alt="Debate">
                         </div>
                         <div class="description">
                             <strong class="red">Título do Debate</strong>
@@ -57,7 +56,7 @@
                     <div class="">
                      <a href="#">   
                         <div class="text-center">
-                            <img src="/wp-content/themes/participacao-tema/images/home/dp-home.gif" class="img-adaptative" alt="Debate">
+                            <img src="/wp-content/themes/dadospessoais-tema/images/logo.png" class="img-adaptative" alt="Debate">
                         </div>
                         <div class="description">
                             <strong class="red">Título do Debate</strong>
@@ -70,11 +69,11 @@
                     <div class="">
                      <a href="#">   
                         <div class="text-center">
-                            <img src="/wp-content/themes/participacao-tema/images/home/mc-home.png" class="img-adaptative" alt="Debate">
+                            <a href="/blog/pauta"><img src="/wp-content/themes/pensandoodireito-tema/images/icone-debates.png" class="img-adaptative" alt="Debate"></a>
                         </div>
                         <div class="description">
-                            <strong class="red">Título do Debate</strong>
-                            <p><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. </small></p>
+                            <strong class="red">Comece um debate</strong>
+                            <p><small>Tem algum assunto que quer ver debatido? Faça sua sugestão aqui.</small></p>
                         </div>
                      </a>
                     </div>
