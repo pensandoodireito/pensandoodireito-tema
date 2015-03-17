@@ -5,24 +5,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-7">
-
-<!-- 4:3 aspect ratio -->
-<div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/EHHmVbNNvHQ?controls=1&autohide=1"></iframe>
-</div>
-
-
-
-
-                <!--         <iframe id="ytplayer" type="text/html" width="640" height="315"
-                        src="https://www.youtube.com/embed/EHHmVbNNvHQ?controls=1&autohide=1"
-                        frameborder="0" allowfullscreen></iframe> -->
+                    <!-- 4:3 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/EHHmVbNNvHQ?controls=1&autohide=1"></iframe>
+                    </div>
                     </div>
                     <div class="col-xs-4 description-destaque font-roboto">
                         <h6 class="font-roboto"><?php echo get_bloginfo('title'); ?></h6>
                         <h2 class="font-roboto">O que é?</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                        <p>Sed lobortis est eget tristique vestibulum. Fusce et pulvinar erat, id viverra sem. Vivamus porttitor. </p>
+                        <p>Apresentamos aqui a Série Pensando o Direito: pesquisas que partem da observação da realidade e do diálogo entre mais de um campo do saber para compreender grandes temas e orientar o governo em sua capacidade de atuar  sobre a vida dos cidadãos por meio de políticas públicas.</p>
+                        <p>Pensar o Direito não significa teorizá-lo, mas buscar, na prática, respostas que possam colaborar para a criação e para o aperfeiçoamento de leis e instituições. Com dados concretos, estas publicações apresentam soluções de real potencial transformador, contribuindo para a consolidação do processo democrático de produção de normas. Esse é o objetivo do Ministério da Justiça.</p>
                     </div>
                 </div>
             </div>
@@ -31,11 +23,9 @@
     <div class="container">
         <h2 class="font-roboto red">Participe dos debates!</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis.</p>
-    </div> 
-
+    </div>
 
 <?php get_template_part('mini-tutorial'); ?>
-
 
  <section id="destaque-home-debates">       
         <div class="container">
@@ -54,7 +44,7 @@
                     <div class="">
                      <a href="#">   
                         <div class="text-center">
-                            <img src="/wp-content/themes/pensandoodireito-tema/images/home/mc-home.png" class="img-adaptative" alt="Debate">
+                            <img src="/wp-content/themes/participacao-tema/images/home/mc-home.png" class="img-adaptative" alt="Debate">
                         </div>
                         <div class="description">
                             <strong class="red">Título do Debate</strong>
@@ -67,7 +57,7 @@
                     <div class="">
                      <a href="#">   
                         <div class="text-center">
-                            <img src="/wp-content/themes/pensandoodireito-tema/images/home/dp-home.gif" class="img-adaptative" alt="Debate">
+                            <img src="/wp-content/themes/participacao-tema/images/home/dp-home.gif" class="img-adaptative" alt="Debate">
                         </div>
                         <div class="description">
                             <strong class="red">Título do Debate</strong>
@@ -80,7 +70,7 @@
                     <div class="">
                      <a href="#">   
                         <div class="text-center">
-                            <img src="/wp-content/themes/pensandoodireito-tema/images/home/mc-home.png" class="img-adaptative" alt="Debate">
+                            <img src="/wp-content/themes/participacao-tema/images/home/mc-home.png" class="img-adaptative" alt="Debate">
                         </div>
                         <div class="description">
                             <strong class="red">Título do Debate</strong>
@@ -95,6 +85,12 @@
      </section>   
     </div>
 
+<?php
+    $fp_pub_query = new WP_Query(array (
+        'post_type' => 'publicacao',
+        'posts_per_page' => 1));
+    $fp_pub_query->the_post();?>
+
     <div class="container">
             <div class="row mt-md" id="publicacoes">
                 <div class="col-md-8" id="publicacao-destaque">
@@ -103,22 +99,29 @@
                         <div class="col-xs-6 col-md-4">
                             <a href="#" class="nounderline">
                               <div class="destaque text-center"> 
-                               <p>Título da publicação</p>       
+                               <p><?php the_title(); ?></p>
                               </div>
                             </a>
                         </div>
                         <div class="description col-md-8">
-                            <h4 class="font-roboto red">Volume 50</h4>
-                            <p><mark>Data da publicação: 11 de maio 2013</mark></p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. <a href="#">Leia mais</a> 
-                            </p>
+                            <h4 class="font-roboto red">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></h4>
+                            <p><mark>Data da publicação: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?></mark></p>
+                            <p><?php the_excerpt(); ?> <a href="<?php echo get_post_permalink(); ?>">Leia mais</a></p>
                             <div class="row">
                              <div class="col-md-12 text-left">
-                                <div class="btn-group mt-sm" role="group">
-                                  <button type="button" class="btn btn-default">BAIXAR</button>
-                                  <button type="button" class="btn btn-danger">VISUALIZAR</button>
-                                </div>
-                             </div>  
+                                 <div class="btn-group mt-sm" role="group">
+                                     <?php
+                                     $dld_file = get_post_meta(get_the_ID(), 'pub_dld_file', true);
+                                     if( ! empty($dld_file)) { ?>
+                                         <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
+                                     <?php } else { ?>
+                                         <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
+                                     <?php }?>
+                                 </div>
+                                 <div class="btn-group btn-danger mt-sm" role="group">
+                                     <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
+                                 </div>
+                             </div>
                            </div>   
                         </div>
                     </div>
@@ -126,13 +129,10 @@
                 <div class="col-md-4 well box-publicacao">
                     <h5 class="red">Saiba mais sobre a série Pensando o Direito</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet</p>
-                    <strong><a href="#">Todas as publicações</a></strong></br>
-                    <strong><a href="#">Editais de participação</a></strong>
+                    <strong><a href="publicacao">Todas as publicações</a></strong></br>
                     </div>
                 </div>
             </div>
         </div>
-
-
 
 <?php get_footer(); ?>

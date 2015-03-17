@@ -57,7 +57,7 @@
                         <div class="description col-md-8">
                             <h4 class="font-roboto red"><a href="<?php echo get_post_permalink(); ?>">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></a></h4>
                             <p><mark>Data: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?></mark></p>
-                            <p><?php the_excerpt(); ?><a href="<?php echo get_post_permalink(); ?>">Leia mais</a>
+                            <p><?php the_excerpt(); ?><a href="<?php echo get_post_permalink(); ?>">Leia mais</a></p>
                             <p><small><a href="#">Ver autores</a></small></p>
                             </p>
 
@@ -90,8 +90,12 @@
                              </div> 
                              <div class="col-md-8 text-right">
                                 <div class="btn-group mt-sm" role="group">
-                                  <button type="button" class="btn btn-default">BAIXAR</button>
-                                  <button type="button" class="btn btn-danger">VISUALIZAR</button>
+                                    <div class="btn-group mt-sm" role="group">
+                                        <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
+                                    </div>
+                                    <div class="btn-group btn-danger mt-sm" role="group">
+                                        <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
+                                    </div>
                                 </div>
                              </div>  
                            </div>   
@@ -107,8 +111,8 @@
                       </div>
                       <div class="panel-body">
                         <div class="description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis.
-                            </p>
+                            <p>Apresentamos aqui a Série Pensando o Direito: pesquisas que partem da observação da realidade e do diálogo entre mais de um campo do saber para compreender grandes temas e orientar o governo em sua capacidade de atuar  sobre a vida dos cidadãos por meio de políticas públicas.</p>
+                            <p>Pensar o Direito não significa teorizá-lo, mas buscar, na prática, respostas que possam colaborar para a criação e para o aperfeiçoamento de leis e instituições. Com dados concretos, estas publicações apresentam soluções de real potencial transformador, contribuindo para a consolidação do processo democrático de produção de normas. Esse é o objetivo do Ministério da Justiça.</p>
                         </div>
                       </div>
                     </div>
@@ -191,10 +195,18 @@
                                   </small>
                              </div>
                             </br>
-                            <div class="btn-group btn-group-justified btn-group-sm" role="group" aria-label="">
-                                  <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default" role="button">BAIXAR</a>
-                                  <a href="#" class="btn btn-default" role="button">VISUALIZAR</a>
-                            </div>
+                              <div class="btn-group mt-sm" role="group">
+                                  <?php
+                                  $dld_file = get_post_meta(get_the_ID(), 'pub_dld_file', true);
+                                  if( ! empty($dld_file)) { ?>
+                                      <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
+                                  <?php } else { ?>
+                                      <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
+                                  <?php }?>
+                              </div>
+                              <div class="btn-group btn-danger mt-sm" role="group">
+                                  <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
+                              </div>
                           </div>
                         </div>
                     </div>
