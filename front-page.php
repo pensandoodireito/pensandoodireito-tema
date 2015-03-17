@@ -85,6 +85,12 @@
      </section>   
     </div>
 
+<?php
+    $fp_pub_query = new WP_Query(array (
+        'post_type' => 'publicacao',
+        'posts_per_page' => 1));
+    $fp_pub_query->the_post();?>
+
     <div class="container">
             <div class="row mt-md" id="publicacoes">
                 <div class="col-md-8" id="publicacao-destaque">
@@ -93,22 +99,29 @@
                         <div class="col-xs-6 col-md-4">
                             <a href="#" class="nounderline">
                               <div class="destaque text-center"> 
-                               <p>Título da publicação</p>       
+                               <p><?php the_title(); ?></p>
                               </div>
                             </a>
                         </div>
                         <div class="description col-md-8">
-                            <h4 class="font-roboto red">Volume 50</h4>
-                            <p><mark>Data da publicação: 11 de maio 2013</mark></p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. <a href="#">Leia mais</a> 
-                            </p>
+                            <h4 class="font-roboto red">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></h4>
+                            <p><mark>Data da publicação: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?></mark></p>
+                            <p><?php the_excerpt(); ?> <a href="<?php echo get_post_permalink(); ?>">Leia mais</a></p>
                             <div class="row">
                              <div class="col-md-12 text-left">
-                                <div class="btn-group mt-sm" role="group">
-                                  <button type="button" class="btn btn-default">BAIXAR</button>
-                                  <button type="button" class="btn btn-danger">VISUALIZAR</button>
-                                </div>
-                             </div>  
+                                 <div class="btn-group mt-sm" role="group">
+                                     <?php
+                                     $dld_file = get_post_meta(get_the_ID(), 'pub_dld_file', true);
+                                     if( ! empty($dld_file)) { ?>
+                                         <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
+                                     <?php } else { ?>
+                                         <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
+                                     <?php }?>
+                                 </div>
+                                 <div class="btn-group btn-danger mt-sm" role="group">
+                                     <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
+                                 </div>
+                             </div>
                            </div>   
                         </div>
                     </div>
