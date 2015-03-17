@@ -116,8 +116,7 @@
                 <div class="col-md-4 well box-publicacao">
                     <h5 class="red">Saiba mais sobre a série Pensando o Direito</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet</p>
-                    <strong><a href="#">Todas as publicações</a></strong></br>
-                    <strong><a href="#">Editais de participação</a></strong>
+                    <strong><a href="publicacao">Todas as publicações</a></strong></br>
                     </div>
                 </div>
             </div>
