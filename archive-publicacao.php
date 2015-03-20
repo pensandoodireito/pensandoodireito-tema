@@ -1,9 +1,8 @@
 <?php
     get_header();
-    if($wp_query->get('page') == 0 && empty($_POST)) session_unset();
 
+    $query_array = array ('post_type' => 'publicacao', 'posts_per_page' => 9);
     if(!empty($_POST)) {
-        $query_array = array ('post_type' => 'publicacao', 'posts_per_page' => 9);
 
         if (isset($_POST['filter-name'])) {
             $query_array['s'] = $_POST['filter-name'];
@@ -21,9 +20,11 @@
             }
             $query_array['order'] = 'ASC';
         }
-
-        query_posts( $query_array);
     }
+    query_posts( $query_array);
+
+    //TODO: Como adicionar diversos autores e mostrá-los?
+    $autores = false;
 ?>
     <div class="conteudo">
         <div class="container mt-sm">
@@ -58,8 +59,7 @@
                             <h4 class="font-roboto red"><a href="<?php echo get_post_permalink(); ?>">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></a></h4>
                             <p><mark>Data: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?></mark></p>
                             <p><?php the_excerpt(); ?><a href="<?php echo get_post_permalink(); ?>">Leia mais</a></p>
-                            <p><small><a href="#">Ver autores</a></small></p>
-                            </p>
+                            <?php if($autores) { ?><p><small><a href="#">Ver autores</a></small></p> <?php } ?>
 
                             <div class="row">
                              <div id="social-bar" class="col-md-4">
@@ -166,8 +166,8 @@
                           <div class="caption small">
                             <h6><a href="<?php echo get_post_permalink(); ?>">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?> | <?php the_title(); ?></a></h6>
                             <p><mark>Data: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?></mark></p>
-                            <p><?php the_excerpt(); ?></p>
-                             <p><small><a href="#">Ver autores</a></small></p>
+                            <p><?php the_excerpt(); ?></p><?php if($autores) { ?><p><small><a href="#">Ver autores</a></small></p> <?php } ?>
+
                              <div id="social-bar">
                                   <small>
                                     <a href="#" class="nounderline">
