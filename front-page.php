@@ -18,71 +18,14 @@
                 </div>
             </div>
         </section>
-    </br>    
     <div class="container">
         <h2 class="font-roboto red">Participe dos debates!</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis.</p>
     </div>
 
+<?php get_template_part('destaque', 'debates'); ?>
+
 <?php get_template_part('mini-tutorial'); ?>
-
- <section id="destaque-home-debates">       
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="font-roboto red">Debates Abertos:</h3>
-                </div>
-                <div class="col-md-6 text-right">
-                    <p class="mt-sm">
-                        <strong class="mt-xs ml-md"><a href="#">Veja todos os debates</a></strong>
-                    </p>
-                </div>
-            </div>
-            <div class="row" id="debates-home">
-                <div class="col-md-4">
-                    <div class="">
-                     <a href="#">   
-                        <div class="text-center">
-                            <img src="/wp-content/themes/marcocivil-tema/images/logo.png" class="img-adaptative" alt="Debate">
-                        </div>
-                        <div class="description">
-                            <strong class="red">Título do Debate</strong>
-                            <p><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. </small></p>
-                        </div>
-                     </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="">
-                     <a href="#">   
-                        <div class="text-center">
-                            <img src="/wp-content/themes/dadospessoais-tema/images/logo.png" class="img-adaptative" alt="Debate">
-                        </div>
-                        <div class="description">
-                            <strong class="red">Título do Debate</strong>
-                            <p><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. </small></p>
-                        </div>
-                     </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="">
-                     <a href="#">   
-                        <div class="text-center">
-                            <a href="/blog/pauta"><img src="/wp-content/themes/pensandoodireito-tema/images/icone-debates.png" class="img-adaptative" alt="Debate"></a>
-                        </div>
-                        <div class="description">
-                            <strong class="red">Comece um debate</strong>
-                            <p><small>Tem algum assunto que quer ver debatido? Faça sua sugestão aqui.</small></p>
-                        </div>
-                     </a>
-                    </div>
-
-                </div>                
-            </div>
-        </div>
-     </section>   
-    </div>
 
 <?php
     $fp_pub_query = new WP_Query(array (
@@ -136,6 +79,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
+    </div>
 <?php }
 get_footer(); ?>

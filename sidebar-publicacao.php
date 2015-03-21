@@ -71,7 +71,7 @@
                         </li>
                     <?php endwhile; ?>
                 <ul>
-                <button type="button" class="btn btn-link" onClick="document.location.href='/pensandoodireito/publicacao';">Ver todas</button>
+                <a href="<?php echo get_post_type_archive_link('publicacao'); ?>" class="btn btn-link" >Ver todas</a>
             </div> <!-- panel body -->
         </div> <!-- panel -->
     <?php }
