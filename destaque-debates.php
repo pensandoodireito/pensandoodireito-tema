@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6 text-right">
                 <p class="mt-sm">
-                    <strong class="mt-xs ml-md"><a href="#">Veja todos os debates</a></strong>
+<!--                    <strong class="mt-xs ml-md"><a href="#">Veja todos os debates</a></strong>-->
                 </p>
             </div>
         </div>

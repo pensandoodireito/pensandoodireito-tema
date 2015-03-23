@@ -18,14 +18,12 @@
                 </div>
             </div>
         </section>
-    <div class="container">
-        <h2 class="font-roboto red">Participe dos debates!</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis.</p>
-    </div>
 
 <?php get_template_part('destaque', 'debates'); ?>
 
 <?php get_template_part('mini-tutorial'); ?>
+
+<?php get_template_part('noticias'); ?>
 
 <?php
     $fp_pub_query = new WP_Query(array (
@@ -33,7 +31,6 @@
         'posts_per_page' => 1));
 
     if ($fp_pub_query->have_posts()) {
-
 
         $fp_pub_query->the_post();?>
 
@@ -75,10 +72,10 @@
                     <div class="col-md-4 well box-publicacao">
                         <h5 class="red">Saiba mais sobre a série Pensando o Direito</h5>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet cursus metus, nec feugiat sablandit diam facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet</p>
-                        <strong><a href="publicacao">Todas as publicações</a></strong></br>
-                        </div>
+                        <strong><a href="<?php echo get_post_type_archive_link('publicacao'); ?>">Todas as publicações</a></strong></br>
                     </div>
                 </div>
+            </div>
     </div>
 <?php }
 get_footer(); ?>
