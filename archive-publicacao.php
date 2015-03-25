@@ -93,7 +93,7 @@
                                     <div class="btn-group mt-sm" role="group">
                                         <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
                                     </div>
-                                    <div class="btn-group btn-danger mt-sm" role="group">
+                                    <div class="btn-group mt-sm" role="group">
                                         <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
                                     </div>
                                 </div>
@@ -204,7 +204,7 @@
                                       <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
                                   <?php }?>
                               </div>
-                              <div class="btn-group btn-danger mt-sm" role="group">
+                              <div class="btn-group mt-sm" role="group">
                                   <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
                               </div>
                           </div>

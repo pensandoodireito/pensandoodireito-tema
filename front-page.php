@@ -60,9 +60,7 @@
                                          <?php } else { ?>
                                              <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
                                          <?php }?>
-                                     </div>
-                                     <div class="btn-group btn-danger mt-sm" role="group">
-                                         <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
+                                         <a href="<?php echo get_post_permalink(); ?>" class="btn btn-danger">VISUALIZAR</a>
                                      </div>
                                  </div>
                                </div>
