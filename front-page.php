@@ -4,13 +4,13 @@
     <section id="destaque-home">
         <div class="container">
             <div class="row">
-                <div class="col-xs-7">
+                <div class="col-md-7">
                     <!-- 4:3 aspect ratio -->
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/EHHmVbNNvHQ?controls=1&autohide=1"></iframe>
                     </div>
                 </div>
-                <div class="col-xs-4 description-destaque font-roboto mt-lg">
+                <div class="col-md-4 description-destaque font-roboto mt-lg">
                     <h6 class="font-roboto"><?php echo get_bloginfo('title'); ?></h6>
                     <h2 class="font-roboto">O que é?</h2>
                     <p>Apresentamos aqui a Série Pensando o Direito: pesquisas que partem da observação da realidade e do diálogo entre mais de um campo do saber para compreender grandes temas e orientar o governo em sua capacidade de atuar  sobre a vida dos cidadãos por meio de políticas públicas.</p>
