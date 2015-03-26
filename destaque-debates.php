@@ -22,7 +22,7 @@
             <div class="col-md-4">
                 <div class="">
                     <div class="text-center">
-                        <a href="<?php echo $blog_details->siteurl; ?>"><img src="<?php echo $blog_settings['logo']; ?>" class="img-adaptative" alt="<?php echo $blog_details->blogname; ?>"></a>
+                        <a href="<?php echo $blog_details->siteurl; ?>"><img src="<?php echo $blog_settings['logo']; ?>" class="img-adptive" alt="<?php echo $blog_details->blogname; ?>"></a>
                     </div>
                     <div class="description">
                         <strong class="red"><a href="<?php echo $blog_details->siteurl; ?>"><?php echo $blog_details->blogname; ?></a></strong>
@@ -35,7 +35,7 @@
             <div class="col-md-4">
                 <div class="">
                     <div class="text-center">
-                        <a href="<?php echo get_post_type_archive_link('pauta'); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/icone-debates.png" class="img-adaptative" alt="Debate"></a>
+                        <a href="<?php echo get_post_type_archive_link('pauta'); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/icone-debates.png" class="img-adptive" alt="Debate"></a>
                     </div>
                     <div class="description">
                         <strong class="red"><a href="<?php echo get_post_type_archive_link('pauta'); ?>">Comece um debate</a></strong>
