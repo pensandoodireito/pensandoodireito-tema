@@ -33,11 +33,11 @@
                 <h3 class="font-roboto red">Publicações da Série Pensando o Direito</h3>
                 <div class="panel-body">
                     <div class="col-xs-6 col-md-4">
-                        <a href="#" class="nounderline">
-                            <div class="destaque text-center">
-                                <p><?php the_title(); ?></p>
-                            </div>
-                        </a>
+                        
+                        <div class="destaque text-center">
+                            <a href="#" class="nounderline"><p><?php the_title(); ?></p></a>
+                        </div>
+                        
                     </div>
                     <div class="description col-md-8">
                         <h4 class="font-roboto red">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></h4>
@@ -70,5 +70,6 @@
         </div>
     </div>
 </div>
+<a href="comece-debate.php" class="btn btn-danger font-roboto">link</a>
 <?php }
 get_footer(); ?>
