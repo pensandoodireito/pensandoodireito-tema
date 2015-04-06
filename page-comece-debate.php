@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 text-center mt">
+      <div class="col-md-12 text-center mt-lg">
         <strong>
         <p>Conheça mais um pouco sobre os tópicos de debate: </p>
         </strong>
@@ -118,7 +118,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-ms-10 col-md-4 mt">
+    <div class="col-ms-10 col-md-4 mt-lg">
       <div class="proposal">
         <figure class="img-responsive">
           <img src="http://lorempixel.com/output/business-q-c-400-300-9.jpg">
