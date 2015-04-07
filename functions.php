@@ -57,6 +57,7 @@ function publicacao_post_type() {
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
         'register_meta_box_cb' => 'add_publicacao_metaboxes', //Para adicionar novos campos
+        'rewrite'             => array( 'slug' => 'publicacoes', 'with_front' => false),
     );
 
     // this adds jquery datepicker and styles it
