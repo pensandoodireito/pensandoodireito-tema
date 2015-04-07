@@ -159,7 +159,7 @@
                               <div class="ribbon">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></div>
                             </div>
                             <div class="card">
-                            <p><?php the_title(); ?></p>
+                            <p><?php the_title_limit(70); ?></p>
                             </div>
                            </div>
                         </a>
