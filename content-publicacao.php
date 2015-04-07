@@ -2,7 +2,7 @@
   <div class="col-md-9">
     <h2 class="font-roboto red">
     <a href="<?php echo get_post_permalink(); ?>">
-      Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?> | <?php the_title(); ?>
+      Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?> | <?php the_title_limit(70); ?>
     </a>
     </h2>
     <div class="description">

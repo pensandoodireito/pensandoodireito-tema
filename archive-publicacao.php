@@ -51,7 +51,7 @@
                         <div class="col-xs-6 col-md-4">
                             <a href="<?php echo get_post_permalink(); ?>" class="nounderline">
                               <div class="destaque text-center">
-                               <p><?php the_title(); ?></p>
+                               <p><?php the_title_limit(70); ?></p>
                               </div>
                             </a>
                         </div>
