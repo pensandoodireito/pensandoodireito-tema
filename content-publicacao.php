@@ -7,8 +7,10 @@
     </h2>
     <div class="description">
       <p><mark>Data da publicação: <?php the_date(); ?></mark></p>
-      <!--p><?php the_excerpt(); ?></p-->
-      <p><?php the_content(); ?></p>
+      
+        <!--p><?php the_excerpt(); ?></p-->
+        <p><?php the_content(); ?></p>
+      
       <p><small><a href="#">Ver autores</a></small></p>
     </div>
     <div class="row">
@@ -16,24 +18,24 @@
         <small>
         <a href="#" class="nounderline">
           <span class="fa-stack fa-lg">
-          <i class="fa fa-square-o fa-stack-2x"></i>
-          <i class="fa fa-facebook fa-stack-1x"></i>
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x"></i>
           </span>
         </a>
         </small>
         <small>
         <a href="#" class="nounderline">
           <span class="fa-stack fa-lg">
-          <i class="fa fa-square-o fa-stack-2x"></i>
-          <i class="fa fa-twitter fa-stack-1x"></i>
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x"></i>
           </span>
         </a>
         </small>
         <small>
         <a href="#" class="nounderline">
           <span class="fa-stack fa-lg">
-          <i class="fa fa-square-o fa-stack-2x"></i>
-          <i class="fa fa-linkedin fa-stack-1x"></i>
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-linkedin fa-stack-1x"></i>
           </span>
         </a>
         </small>

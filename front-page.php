@@ -70,6 +70,5 @@
         </div>
     </div>
 </div>
-<a href="comece-debate.php" class="btn btn-danger font-roboto">link</a>
 <?php }
 get_footer(); ?>
