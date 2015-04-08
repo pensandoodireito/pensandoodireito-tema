@@ -210,7 +210,7 @@
           <figcaption>
           <h5 class="font-roboto">Título da proposta</h5>
           <small>Nome do criador</small>
-          <span class="proposal-details">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever  dummy text ever.</span>
+          <span class="proposal-details gradient-mesh">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever  dummy text ever.</span>
           <div class="proposal-footer">
             <small>Resultado parcial da votação:</small>
             <div class="progress">
