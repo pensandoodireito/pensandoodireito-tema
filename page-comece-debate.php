@@ -14,8 +14,8 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 text-center">
         <h3>Você tem algum tópico que acha valer a pena ser discutido pela sociedade?</h3>
-        <!--<h2 class="roboto">Proponha um debate!</h2>-->
-        <div class="mt-lg">
+        <h2 class="roboto mt-md">Proponha um debate!</h2>
+        <div class="mt-md">
           <button type="button" class="btn btn-default btn-lg mr-xs font-roboto">Explore e vote</button>
           ou
           <button type="button" class="btn btn-danger btn-lg ml-xs font-roboto">Proponha um debate!</button>
@@ -80,7 +80,7 @@
         <h3 class="font-roboto">Participar do processo legislativo nunca foi tão fácil!</h3>
       </div>
     </div>
-    <div class="col-md-7 col-md-offset-1">
+    <div class="col-sm-7 col-md-offset-1">
       <ul class="list-unstyled">
         <li>1. Proponha um debate</li>
         <li>2. Exponha sua proposta para a sociedade</li>
@@ -90,7 +90,7 @@
         <li>6. Participe sempre: criando, votando ou expondo seu ponto de vista</li>
       </ul>
     </div>
-    <div class="col-lg-4">
+    <div class="col-sm-4 text-center">
       <i class="fa fa-thumbs-o-up"></i>
     </div>
   </div>
@@ -125,7 +125,7 @@
           <figcaption>
           <h5 class="font-roboto">Título da proposta</h5>
           <small>Nome do criador</small>
-          <span class="proposal-details">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever  dummy text ever.</span>
+          <span class="proposal-details gradient-mesh">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever  dummy text ever.</span>
           <div class="proposal-footer">
             <small>Resultado parcial da votação:</small>
             <div class="progress">
