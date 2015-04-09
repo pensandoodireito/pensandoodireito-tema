@@ -11,15 +11,14 @@
 <!-- /destaque-border-gray -->
 <div id="hello">
   <div class="container text-center">
-    <div class="row pt-sm pb-sm">
+    <div class="row">
       <div class="col-md-5">
-        <h1 class="h4 font-amatic red"><strong>Proponha também um debate!</strong></h1>
-        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/propor-debate/debates-megafones.png" class="img-adptive" alt="Proteção de Dados Pessoais">
+        <h1 class="h4 font-amatic red" id="proponha"><strong>Proponha também um debate!</strong></h1>
       </div>
       <div class="col-md-7">
         <div class="mt-lg">
           <h3 class="">Você tem algum assunto que possa ser discutido pela sociedade?</h3>
-          <div class="row mt-lg">
+          <div class="row mt-lg" id="discuss">
             <div class="col-sm-5">
               <a href="#" class="btn btn-danger btn-lg font-roboto width-full">QUERO PROPOR</a>
               <p class="mt-sm"><strong>Faça sua ideia de debate ser votada também!</strong></p>
@@ -211,7 +210,7 @@
           <figcaption>
           <h5 class="font-roboto">Título da proposta</h5>
           <small>Nome do criador</small>
-          <span class="proposal-details gradient-mesh">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever  dummy text ever.</span>
+          <span class="proposal-details">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever  dummy text ever.</span>
           <div class="proposal-footer">
             <small>Resultado parcial da votação:</small>
             <div class="progress">
