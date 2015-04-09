@@ -41,7 +41,6 @@
     <div class="col-lg-10 col-md-offset-1">
       
       <p class="text-center font-roboto"><strong>Conheça mais um pouco sobre os tópicos de debate: </strong></p>
-      
       <!--
       <div id="accordion">
         <div class="panel">
