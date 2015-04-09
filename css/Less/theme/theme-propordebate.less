@@ -2,34 +2,25 @@
 @import "../bootstrap/variables.less";
 @import "../bootstrap/mixins.less";
 #hello {
-    width: 100%;
+    //width: 100%;
     //padding-top: 40px;
     //padding-bottom: 70px;
     background: url("../images/propor-debate/bg-gray.png") #c1c1c1 repeat;
-    /*h2 {
-        font-size: 40px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        color: #d9534f;
+    #proponha {
+        margin: 0;
+        @media(min-width: @screen-md) {
+            height: 347px;
+            background: url("../images/propor-debate/debates-megafones.png") center bottom no-repeat;
+        }
     }
-    h4 {
-        font-size: 20px;
+    #discuss {
+        @media(max-width: @screen-md) {
+            padding-bottom: 347px;
+            background: url("../images/propor-debate/debates-megafones.png") center bottom no-repeat;
+        }
     }
-    h3 {
-        color: #555;
-        font-weight: 400;
-        font-size: 30px;
-    }
-    p {
-        color: #555 font-size;
-    }
-    .panel {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
-    }*/
-
 }
+
 #bg-red {
     background: url("../images/propor-debate/bg-red.png") repeat;
     padding-top: 50px;
@@ -51,6 +42,7 @@
         margin-bottom: 30px;
     }
 }
+
 #featured-border-gray {
     background-color: white;
     padding-top: 15px;
@@ -84,6 +76,7 @@
         background-color: #74cfae;
     }
 }
+
 #bgcolor2 {
     background-color: #74cfae;
     padding-top: 50px;
@@ -95,12 +88,14 @@
         font-weight: 400;
     }
 }
+
 .grid img {
     opacity: .7;
     &:hover {
         opacity: 1;
     }
 }
+
 .proposal {
     margin-bottom: 30px;
     vertical-align: top;
@@ -110,7 +105,6 @@
     width: 100%;
     border: 1px solid #E7E7E7;
     figure {
-
         figcaption {
             position: relative;
             z-index: 10;
@@ -174,14 +168,18 @@
         display: block;
     }
 }
-.proposal-vote-no, .days {
+
+.proposal-vote-no,
+.days {
     color: #0f2105;
     font-weight: bold;
 }
+
 .progress {
     background-color: #CC3300;
     height: 5px;
 }
+
 .balao {
     background: #d9534f;
     border-radius: 15px;
@@ -220,16 +218,19 @@
     border-radius: 10px;
     margin-top: 10px;
 }*/
+
 #form-proposal label {
     background-color: #ddd;
     padding: 8px;
     border-radius: 8px 0 0 8px;
     font-weight: normal;
 }
+
 .green {
     font-weight: bold;
     color: #00CC00;
 }
+
 .detail-box {
     padding: 10px;
     border-radius: 10px;
@@ -240,6 +241,7 @@
         margin-bottom: 20px;
     }
 }
+
 .countdown {
     font-size: 20px;
     padding-top: 20px;
