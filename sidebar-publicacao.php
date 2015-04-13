@@ -63,7 +63,7 @@
                                          $myExcerpt = str_replace($tags, "", $myExcerpt);
                                          echo $myExcerpt;
                                          ?>">
-                                        <p><?php the_title(); ?></p>
+                                        <p><?php the_title_limit(70); ?></p>
                                     </div>
                                 </div>
                             </a>

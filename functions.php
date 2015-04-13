@@ -225,3 +225,20 @@ function pensandoodireito_widgets_init()
 
 }*/
 
+//Function used to limit the 'publicacao' title when printing it on the page.
+function the_title_limit($length, $replacer = '...') {
+  $string = the_title('','',FALSE);
+  if(strlen($string) > $length) {
+    $words = explode(" ", $string);
+    $word_index = 1;
+    $output = $words[0];
+    while (strlen($output) + strlen($words[$word_index]) < $length - 4) {
+        $output .= ' ' . $words[$word_index];
+        $word_index += 1;
+    }
+    $output .= ' ...';
+  } else {
+    $output = $string;
+  }
+  echo $output;
+}
