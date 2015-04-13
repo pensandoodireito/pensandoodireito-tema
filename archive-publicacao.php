@@ -19,8 +19,15 @@ if (!empty($_POST)) {
     }
 }
 query_posts($query_array);
+
 //TODO: Como adicionar diversos autores e mostrá-los?
 $autores = false;
+
+function custom_excerpt_length( $length ) {
+      return 50;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
 ?>
 <div class="conteudo">
   <div class="container mt-sm">
