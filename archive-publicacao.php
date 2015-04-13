@@ -23,10 +23,13 @@ query_posts($query_array);
 //TODO: Como adicionar diversos autores e mostrá-los?
 $autores = false;
 
-function custom_excerpt_length( $length ) {
-      return 50;
+function custom_excerpt_length_530( $length ) {
+  return 530;
 }
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+function custom_excerpt_length_200( $length ) {
+  return 200; 
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length_530', 999 );
 
 ?>
 <div class="conteudo">
@@ -108,6 +111,7 @@ add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
             </div>
           </div><!-- Fim da Publicação em destaque -->
         </div>
+        <?php add_filter( 'excerpt_length', 'custom_excerpt_length_200', 999 ); ?>
         <div class="col-md-4">
           <div class="panel panel-default" id="info-publicacao">
             <div class="panel-heading">
@@ -125,7 +129,7 @@ add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
       </div>
     </div>
     <div class="container mt-sm">
-      <form id="sort-filter-form" action="/pensandoodireito/publicacao" method="post">
+      <form id="sort-filter-form" action="/publicacao" method="post">
         <div class="row">
           <div class="col-sm-10">
             <div class="input-group">
