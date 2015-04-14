@@ -2,9 +2,22 @@
 
 // this adds jquery tooltip and styles it
 function pensandoodireito_scripts() {
-    wp_enqueue_script('pensandoodireito', get_stylesheet_directory_uri() . '/js/pensandoodireito.js', array(), '20150313', true );
+    wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js' , array(), false, true );
 }
 add_action( 'admin_enqueue_scripts', 'pensandoodireito_scripts' );
+
+//Script to ajax load more publicacoes
+function publicacoes_scripts() {
+  wp_enqueue_script( 'publicacoes', get_stylesheet_directory_uri() . '/js/publicacoes.js' , array(), false, true );
+  $publicacoes_data = array(
+    'ajaxurl' => admin_url('admin-ajax.php'),
+    'paginaAtual' => 3,
+    'ajaxgif' => get_template_directory_uri() . '/images/ajax-loader.gif'
+  );
+
+  wp_localize_script( 'publicacoes', 'publicacoes', $publicacoes_data );
+}
+add_action( 'wp_enqueue_scripts', 'publicacoes_scripts' );
 
 /**
  * Registar post type publicação
@@ -243,3 +256,61 @@ function the_title_limit($length, $replacer = '...') {
   }
   echo $output;
 }
+
+/**
+ * Função ajax pra paginação infinita
+ */
+function publicacoes_paginacao_infinita(){
+    $paged = $_POST['paged'];
+    $destaqueID = $_POST['destaqueID'];
+
+    $pubs_args = array(
+      'paged' => $paged,
+      'post_type' => 'publicacao',
+      'posts_per_page' => 4,
+      'post__not_in' => array($destaqueID ),
+    );
+
+    if ( !empty($_POST) ) {
+      if ( isset($_POST['filter-name']) ) {
+        $pubs_args['s'] = $_POST['filter-name'];
+      }
+      if ( isset($_POST['sort-option']) ) {
+        switch ($_POST['sort-option']) {
+          case 'pub_number':
+            $pubs_args['orderby'] = 'meta_value_num';
+            $pubs_args['meta_key'] = 'pub_number';
+            break;
+          case 'title':
+            $pubs_args['orderby'] = 'title';
+            break;
+        }
+      } else {
+        $pubs_args['orderby'] = 'meta_value_num';
+        $pubs_args['meta_key'] = 'pub_number';
+      }
+      if ( isset($_POST['sort-order']) ) {
+        $pubs_args['order'] = $_POST['sort-order'];
+      } else {
+        $pubs_args['order'] = 'DESC';
+      }
+    }
+
+    $publicacoes = new WP_Query ($pubs_args);
+
+    $counter = 0;
+    if ($publicacoes->have_posts()) {
+        while ($publicacoes->have_posts()) {
+          $publicacoes->the_post();
+            if ($counter % 4 == 0) { ?> <div class="row"> <?php }
+            get_template_part('publicacao','card');
+            if (($counter + 1) % 4 == 0) { ?> </div> <?php }
+            $counter++;
+        }
+    }
+
+    exit;
+}
+
+add_action('wp_ajax_publicacoes_paginacao_infinita', 'publicacoes_paginacao_infinita');
+add_action('wp_ajax_nopriv_publicacoes_paginacao_infinita', 'publicacoes_paginacao_infinita');

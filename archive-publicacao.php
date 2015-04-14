@@ -1,36 +1,58 @@
 <?php
 get_header();
-$query_array = array('post_type' => 'publicacao', 'posts_per_page' => 9);
-if (!empty($_POST)) {
-    if (isset($_POST['filter-name'])) {
-        $query_array['s'] = $_POST['filter-name'];
+
+// Recuperando o "Post de Destaque", levando em consideração os filtros aplicados
+$destaque_query_array = array(
+    'post_type' => 'publicacao',
+    'posts_per_page' => 1,
+);
+if ( !empty($_POST) ) {
+    if ( isset($_POST['filter-name']) ) {
+        $destaque_query_array['s'] = $_POST['filter-name'];
     }
-    if (isset($_POST['sort-option'])) {
+    if ( isset($_POST['sort-option']) ) {
         switch ($_POST['sort-option']) {
             case 'pub_number':
-                $query_array['orderby'] = 'meta_value_num';
-                $query_array['meta_key'] = 'pub_number';
+                $destaque_query_array['orderby'] = 'meta_value_num';
+                $destaque_query_array['meta_key'] = 'pub_number';
                 break;
             case 'title':
-                $query_array['orderby'] = 'title';
+                $destaque_query_array['orderby'] = 'title';
                 break;
         }
-        $query_array['order'] = 'ASC';
+    } else {
+      $pubs_args['orderby'] = 'meta_value_num';
+      $pubs_args['meta_key'] = 'pub_number';
+    }
+    if ( isset($_POST['sort-order']) ) {
+      $pubs_args['order'] = $_POST['sort-order'];
+    } else {
+      $pubs_args['order'] = 'DESC';
     }
 }
-query_posts($query_array);
+
+query_posts($destaque_query_array);
+
+$pub_ids = array();
 
 //TODO: Como adicionar diversos autores e mostrá-los?
 $autores = false;
 
+//Função para filtrar o tamanho do 'excerpt'
+//  focada na publicação em destaque
 function custom_excerpt_length_530( $length ) {
   return 530;
 }
+
+//Função para filtrar o tamanho do 'excerpt'
+//  focada nas publicações listadas
 function custom_excerpt_length_200( $length ) {
   return 200; 
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length_530', 999 );
 
+//Salvando ID da publicação em destaque
+$destaqueID = get_the_ID();
 ?>
 <div class="conteudo">
   <div class="container mt-sm">
@@ -111,7 +133,6 @@ add_filter( 'excerpt_length', 'custom_excerpt_length_530', 999 );
             </div>
           </div><!-- Fim da Publicação em destaque -->
         </div>
-        <?php add_filter( 'excerpt_length', 'custom_excerpt_length_200', 999 ); ?>
         <div class="col-md-4">
           <div class="panel panel-default" id="info-publicacao">
             <div class="panel-heading">
@@ -165,91 +186,56 @@ add_filter( 'excerpt_length', 'custom_excerpt_length_530', 999 );
     <div class="container mt-md">
       <div id="lista-publicacoes">
         <?php
+          //Limitando tamanho do excerto apresentado
+          add_filter( 'excerpt_length', 'custom_excerpt_length_200', 999 );
+
+          $pubs_args = array(
+            'post_type' => 'publicacao',
+            'posts_per_page' => 8,
+            'post__not_in' => array($destaqueID),
+          );
+          if ( !empty($_POST) ) {
+            if ( isset($_POST['filter-name']) ) {
+              $pubs_args['s'] = $_POST['filter-name'];
+            }
+            if ( isset($_POST['sort-option']) ) {
+              switch ($_POST['sort-option']) {
+                case 'pub_number':
+                  $pubs_args['orderby'] = 'meta_value_num';
+                  $pubs_args['meta_key'] = 'pub_number';
+                  break;
+                case 'title':
+                  $pubs_args['orderby'] = 'title';
+                  break;
+              }
+            } else {
+              $pubs_args['orderby'] = 'meta_value_num';
+              $pubs_args['meta_key'] = 'pub_number';
+            }
+            if ( isset($_POST['sort-order']) ) {
+              $pubs_args['order'] = $_POST['sort-order'];
+            } else {
+              $pubs_args['order'] = 'DESC';
+            }
+          }
+
+          $publicacoes = new WP_Query ($pubs_args);
+
           $counter = 0;
-          while (have_posts()) : the_post();
-            $ids[] = get_the_ID();
-            if ($counter % 4 == 0) { ?> <div class="row"> <?php } ?>
-            <!-- inicio card -->
-            <div class="col-sm-3">
-              <div class="thumbnail">
-                <a href="<?php echo get_post_permalink(); ?>" class="nounderline">
-                  <div class="capa">
-                    <div class="ribbon-wrapper">
-                      <div class="ribbon">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></div>
-                    </div>
-                    <div class="card">
-                      <p><?php the_title_limit(70); ?></p>
-                    </div>
-                  </div>
-                </a>
-                <div class="caption small">
-                  <h6>
-                    <a href="<?php echo get_post_permalink(); ?>">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?>
-                        | <?php the_title(); ?>
-                    </a>
-                  </h6>
-                  <p>
-                    <mark>Data: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?></mark>
-                  </p>
-                  <p><?php the_excerpt(); ?></p>
-                  <?php if ($autores) { ?>
-                    <p>
-                      <small><a href="#">Ver autores</a></small>
-                    </p>
-                  <?php } ?>
-                  <div id="social-bar">
-                    <small>
-                      <a href="#" class="nounderline">
-                        <span class="fa-stack fa-lg">
-                          <i class="fa fa-square-o fa-stack-2x"></i>
-                          <i class="fa fa-facebook fa-stack-1x"></i>
-                        </span>
-                      </a>
-                    </small>
-                    <small>
-                      <a href="#" class="nounderline">
-                        <span class="fa-stack fa-lg">
-                          <i class="fa fa-square-o fa-stack-2x"></i>
-                          <i class="fa fa-twitter fa-stack-1x"></i>
-                        </span>
-                      </a>
-                    </small>
-                    <small>
-                      <a href="#" class="nounderline">
-                        <span class="fa-stack fa-lg">
-                          <i class="fa fa-square-o fa-stack-2x"></i>
-                          <i class="fa fa-linkedin fa-stack-1x"></i>
-                        </span>
-                      </a>
-                    </small>
-                  </div>
-                  </br> <!-- TODO: REMOVER ESTE BR -->
-                  <div class="btn-group mt-sm" role="group">
-                  <?php
-                    $dld_file = get_post_meta(get_the_ID(), 'pub_dld_file', true);
-                    if (!empty($dld_file)) { ?>
-                      <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default">
-                        <span class="fa fa-download"></span> BAIXAR
-                      </a>
-                    <?php } else { ?>
-                      <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default">
-                        <span class="fa fa-download"></span> BAIXAR
-                      </a>
-                  <?php } ?>
-                  </div>
-                  <div class="btn-group mt-sm" role="group">
-                    <a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
-                  </div>
-                </div>
-              </div>
-            </div><!-- fim card -->
-            <?php if (($counter + 1) % 4 == 0) { ?> </div> <?php }
+          while ($publicacoes->have_posts()) : $publicacoes->the_post();
+            if ($counter % 4 == 0) { ?> <div class="row"> <?php }
+            get_template_part('publicacao','card');
+            if (($counter + 1) % 4 == 0) { ?> </div> <?php }
                 $counter++;
           endwhile;
         ?>
       </div>
+      <script>
+        var publicacoesPaginasMaximas = <?php echo $publicacoes->max_num_pages; ?>;
+        var destaqueID = <?php echo $destaqueID; ?>;
+      </script>
       <div class="row text-center">
-        <button type="button" class="btn btn-danger">Mostrar mais publicações</button>
+        <button id="mais-publicacoes" type="button" class="btn btn-danger" onclick="carregar_publicacoes()">Mostrar mais publicações</button>
       </div>
     </div>
   </div>
