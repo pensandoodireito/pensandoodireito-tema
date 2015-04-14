@@ -10,49 +10,135 @@
 </div>
 <!-- /destaque-border-gray -->
 <div id="hello">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 text-center">
-        <h3>Você tem algum tópico que acha valer a pena ser discutido pela sociedade?</h3>
-        <h2 class="roboto mt-md">Proponha um debate!</h2>
-        <div class="mt-md">
-          <button type="button" class="btn btn-default btn-lg mr-xs font-roboto">Explore e vote</button>
-          ou
-          <button type="button" class="btn btn-danger btn-lg ml-xs font-roboto">Proponha um debate!</button>
+  <div class="container text-center">
+    <div class="row pt-sm pb-sm">
+      <div class="col-md-5">
+        <h1 class="h4 font-amatic red"><strong>Proponha também um debate!</strong></h1>
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/propor-debate/debates-megafones.png" class="img-adptive" alt="Proteção de Dados Pessoais">
+      </div>
+      <div class="col-md-7">
+        <div class="mt-lg">
+          <h3 class="">Você tem algum assunto que possa ser discutido pela sociedade?</h3>
+          <div class="row mt-lg">
+            <div class="col-sm-5">
+              <a href="#" class="btn btn-danger btn-lg font-roboto width-full">QUERO PROPOR</a>
+              <p class="mt-sm"><strong>Faça sua ideia de debate ser votada também!</strong></p>
+            </div>
+            <div class="col-sm-2">
+              <p class=" h1 font-roboto"><strong>ou</strong></p>
+            </div>
+            <div class="col-sm-5">
+              <a href="#" class="btn btn-primary btn-lg font-roboto width-full">QUERO VOTAR</a>
+              <p class="mt-sm"><strong>Conheça e vote nas propostas já existentes</strong></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12 text-center mt-lg">
-        <strong>
-        <p>Conheça mais um pouco sobre os tópicos de debate: </p>
-        </strong>
-        <div id="accordion">
-          <div class="panel">
-            <input type="button" class="btn" data-toggle="collapse" data-target="#direitoconsumidor" value="Direito do Consumidor">
-            <input type="button" class="btn" data-toggle="collapse" data-target="#direitotransito" value="Direito de Trânsito">
-            <input type="button" class="btn" data-toggle="collapse" data-target="#politicapenitenciaria" value="Política Penitenciária">
-            <input type="button" class="btn" data-toggle="collapse" data-target="#segurancapublica" value="Segurança Pública">
-            <input type="button" class="btn" data-toggle="collapse" data-target="#sociedadedainfo" value="Sociedade da Informação">
-            <div id="direitoconsumidor" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
-              <h5><strong>Direito do Consumidor</strong></h5>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+  </div>
+</div>
+<div class="container mt-lg mb-lg pb-lg">
+  <div class="row">
+    <div class="col-lg-10 col-md-offset-1">
+      
+      <p class="text-center font-roboto"><strong>Conheça mais um pouco sobre os tópicos de debate: </strong></p>
+      
+      <!--
+      <div id="accordion">
+        <div class="panel">
+          <input type="button" class="btn" data-toggle="collapse" data-target="#direitoconsumidor" value="Direito do Consumidor">
+          <input type="button" class="btn" data-toggle="collapse" data-target="#direitotransito" value="Direito de Trânsito">
+          <input type="button" class="btn" data-toggle="collapse" data-target="#politicapenitenciaria" value="Política Penitenciária">
+          <input type="button" class="btn" data-toggle="collapse" data-target="#segurancapublica" value="Segurança Pública">
+          <input type="button" class="btn" data-toggle="collapse" data-target="#sociedadedainfo" value="Sociedade da Informação">
+          
+          <div id="direitoconsumidor" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
+            <h5><strong>Direito do Consumidor</strong></h5>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div id="direitotransito" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
+            <h5><strong>Direito de Trânsito</strong></h5>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div id="politicapenitenciaria" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
+            <h5><strong>Política Penitenciária</strong></h5>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div id="segurancapublica" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
+            <h5><strong>Segurança Pública</strong></h5>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div id="sociedadedainfo" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
+            <h5><strong>Sociedade da Informação</strong></h5>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+        </div>
+      </div>
+      -->
+      <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="topicos-debate" class="active"><a href="#direitoconsumidor" aria-controls="direitoconsumidor" role="tab" data-toggle="tab">Direito do Consumidor</a></li>
+          <li role="topicos-debate"><a href="#direitotransito" aria-controls="direitotransito" role="tab" data-toggle="tab">Direito de Trânsito</a></li>
+          <li role="topicos-debate"><a href="#politicapenitenciaria" aria-controls="politicapenitenciaria" role="tab" data-toggle="tab">Política Penitenciária</a></li>
+          <li role="topicos-debate"><a href="#segurancapublica" aria-controls="segurancapublica" role="tab" data-toggle="tab">Segurança Pública</a></li>
+          <li role="topicos-debate"><a href="#sociedadedainfo" aria-controls="sociedadedainfo" role="tab" data-toggle="tab">Sociedade da Informação</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content mt-md">
+          <div role="tabpanel" class="tab-pane fade in active" id="direitoconsumidor">
+            <div class="row">
+              <div class="col-sm-2 col-md-offset-1 text-center">
+                <i class="fa fa-shopping-cart fa-5x red mt-sm"></i>
+              </div>
+              <div class="col-sm-6">
+                <h5 class="font-roboto"><strong>Direito do Consumidor</strong></h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+              </div>
             </div>
-            <div id="direitotransito" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
-              <h5><strong>Direito de Trânsito</strong></h5>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="direitotransito">
+            <div class="row">
+              <div class="col-sm-2 col-md-offset-1 text-center">
+                <i class="fa fa-road fa-5x red mt-sm"></i>
+              </div>
+              <div class="col-sm-6">
+                <h5 class="font-roboto"><strong>Direito de Trânsito</strong></h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+              </div>
             </div>
-            <div id="politicapenitenciaria" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
-              <h5><strong>Política Penitenciária</strong></h5>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="politicapenitenciaria">
+            <div class="row">
+              <div class="col-sm-2 col-md-offset-1 text-center">
+                <i class="fa fa-gavel fa-5x red mt-sm"></i>
+              </div>
+              <div class="col-sm-6">
+                <h5 class="font-roboto"><strong>Política Penitenciária</strong></h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+              </div>
             </div>
-            <div id="segurancapublica" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
-              <h5><strong>Segurança Pública</strong></h5>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="segurancapublica">
+            <div class="row">
+              <div class="col-sm-2 col-md-offset-1 text-center">
+                <i class="fa fa-lock fa-5x red mt-sm"></i>
+              </div>
+              <div class="col-sm-6">
+                <h5 class="font-roboto"><strong>Segurança Pública</strong></h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+              </div>
             </div>
-            <div id="sociedadedainfo" class="collapse out text-left col-md-12" data-parent="#accordion" class="collapse">
-              <h5><strong>Sociedade da Informação</strong></h5>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="sociedadedainfo">
+            <div class="row">
+              <div class="col-sm-2 col-md-offset-1 text-center">
+                <i class="fa fa-mobile fa-5x red mt-sm"></i>
+              </div>
+              <div class="col-sm-6">
+                <h5 class="font-roboto"><strong>Sociedade da Informação</strong></h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -139,26 +225,26 @@
               </li>
               <li>
                 <div class="proposal-vote-no">70%</div>
-              <span class="proposal-stats-label">discordam</span></li>
-              <li class="proposal-date">
-                <div class="proposal-stats-date">
-                  <div class="days">29 dias</div>
-                </div>
-                <div class="proposal-stats-label">para encerrar</div>
-              </li>
-            </ul>
-          </div>
-          <button class="btn btn-danger btn-sm btn-block" type="submit" >Ver proposta</button>
-          </figcaption>
-        </figure>
+                <span class="proposal-stats-label">discordam</span></li>
+                <li class="proposal-date">
+                  <div class="proposal-stats-date">
+                    <div class="days">29 dias</div>
+                  </div>
+                  <div class="proposal-stats-label">para encerrar</div>
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-danger btn-sm btn-block" type="submit" >Ver proposta</button>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </div>
+    
+    <div class="row text-center">
+      <button type="button" class="btn btn-danger">Mostrar mais propostas</button>
+    </div>
+    
+    
   </div>
-  
-  <div class="row text-center">
-    <button type="button" class="btn btn-danger">Mostrar mais propostas</button>
-  </div>
-  
-  
-</div>
-<?php get_footer(); ?>
+  <?php get_footer(); ?>
