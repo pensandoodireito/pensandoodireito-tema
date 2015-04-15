@@ -1,7 +1,6 @@
 @import "../theme-variables.less";
 @import "../../bootstrap/variables.less";
-//@import "../bootstrap/mixins.less";
-
+@import "../../bootstrap/mixins.less";
 #destaque-home {
     background-color: #641e1e;
     .description-destaque {
@@ -16,27 +15,40 @@
         }
     }
 }
-#destaque-home-debates, #debates-home {
-    margin-top: 20px;
-    padding: 20px 0px;
+
+#destaque-home-debates {
     background-color: #dedede;
-    .description {
-        padding-top: 10px;
-        //width: 282px;
-        margin-left: auto;
-        margin-right: auto;
+    margin:40px 0;
+    #debates-home {
+        .description {
+            padding-top: 10px;
+        }
+        .debate-box {
+            padding: 0 40px;
+            @media (max-width: @screen-md-min) {
+                padding: 0 20px;
+
+            }
+            @media (max-width: @screen-sm-min) {
+                padding: 0 !important;
+                margin-top: 40px;
+            }
+        }
+    }
+    #debates-home {
+        margin: 20px 0;
+        .clearfix();
+        a, a:hover {
+            color: #333;
+            text-decoration: none
+        }
     }
 }
-#debates-home {
-    a, a:hover {
-        color: #333;
-        text-decoration: none
-    }
-}
+
 .box-publicacao {
     background: url("../images/home/livro-serie-pensando.gif") #dadada bottom right no-repeat;
     min-height: 360px;
     @media (max-width: 360px) {
-            padding-bottom: 160px;
-        }
+        padding-bottom: 160px;
+    }
 }
