@@ -3,22 +3,34 @@
 @import "../../bootstrap/mixins.less";
 #destaque-home {
     background-color: #641e1e;
-    .description-destaque {
+    #carousel-destaques-home {
         color: #fff;
-        //height: 300px;
-        //width: 350px;
-        vertical-align: middle;
-        //display: table-cell;
-        //float: none;
-        a, a:hover {
+        @media (max-width: @screen-md-min) {
+            padding-bottom: 70px;
+        }
+        a {
             color: #fff;
+            text-decoration: none;
+            &:hover {
+                color: #fff;
+            }
+        }
+        .carousel-control.left,
+        .carousel-control.right {
+            background: none !important;
+        }
+        .carousel-inner {
+            height: 366px;
+            @media (max-width: @screen-md-min) {
+                height: auto;
+            }
         }
     }
 }
 
 #destaque-home-debates {
     background-color: #dedede;
-    margin:40px 0;
+    margin: 40px 0;
     #debates-home {
         .description {
             padding-top: 10px;
@@ -27,7 +39,6 @@
             padding: 0 40px;
             @media (max-width: @screen-md-min) {
                 padding: 0 20px;
-
             }
             @media (max-width: @screen-sm-min) {
                 padding: 0 !important;
