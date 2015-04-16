@@ -6,27 +6,18 @@
     padding-top: 70px;
     padding-bottom: 70px;
     background: url("../images/propor-debate/bg-gray.png") #c1c1c1 repeat;
-    h2 {
-        font-size: 40px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        color: #d9534f;
+    #proponha {
+        margin: 0;
+        @media(min-width: @screen-md) {
+            height: 347px;
+            background: url("../images/propor-debate/debates-megafones.png") center bottom no-repeat;
+        }
     }
-    h4 {
-        font-size: 20px;
-    }
-    h3 {
-        color: #555;
-        font-weight: 400;
-        font-size: 30px;
-    }
-    p {
-        color: #555 font-size;
-    }
-    .panel {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
+    #discuss {
+        @media(max-width: @screen-md) {
+            padding-bottom: 347px;
+            background: url("../images/propor-debate/debates-megafones.png") center bottom no-repeat;
+        }
     }
 }
 #bg-red {
