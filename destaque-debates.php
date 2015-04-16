@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6 text-right">
                 <p class="mt-sm">
-                <!--                    <strong class="mt-xs ml-md"><a href="#">Veja todos os debates</a></strong>-->
+                <strong class="mt-xs ml-md"><a href="#">Veja todos os debates</a></strong>
                 </p>
             </div>
         </div>
@@ -19,7 +19,7 @@
             $blog_settings = get_blog_option($site['blog_id'], 'participacao_settings');
             $blog_details = get_blog_details($site['blog_id']);
             ?>
-            <div class="col-sm-4">
+            <div class="col-sm-4 debate-box">
                 <div class="">
                     <div class="text-center">
                         <a href="<?php echo $blog_details->siteurl; ?>"><img src="<?php echo $blog_settings['logo']; ?>" class="img-full" alt="<?php echo $blog_details->blogname; ?>"></a>
@@ -32,7 +32,7 @@
             </div>
             <?php } ?>
             <!-- Debate fixo link direto para o delibera -->
-            <div class="col-sm-4">
+            <div class="col-sm-4 debate-box">
                 <div class="">
                     <div class="text-center">
                         <a href="<?php echo get_post_type_archive_link('pauta'); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/icone-debates.png" class="img-full" alt="Debate"></a>
