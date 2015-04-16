@@ -1,5 +1,5 @@
 .header {
-  box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.3);
     .header-content {
         .clearfix();
         background-color: @color-vermelho-pd;
@@ -55,7 +55,8 @@
             left: -2px;
             color: @color-vermelho-pd;
         }
-        #busca .busca-pd .input-group-btn > .btn-default, #busca .busca-pd .input-group-btn > .btn-default:hover {
+        #busca .busca-pd .input-group-btn > .btn-default,
+        #busca .busca-pd .input-group-btn > .btn-default:hover {
             border-left: none;
             left: -2px;
             border-color: #fff;
@@ -67,6 +68,25 @@
             box-shadow: none;
             -webkit-box-shadow: none;
             border-color: #cccccc;
+        }
+        #menu-top {
+            .dropdown {
+                .dropdown-menu {
+                    li {
+                        a {
+                            color: @color-vermelho-pd;
+                            font-weight: 700;
+                            font-size: 11px;
+                        }
+                        @media(max-width: @screen-md) {
+                            a {
+                                color: #fff;
+                                &:hover{ color:@color-vermelho-pd;}
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
