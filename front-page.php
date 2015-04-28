@@ -69,25 +69,25 @@
                     <div class="pull-right"> 
                         <i class="fa fa-calendar fa-4x fa-inverse"></i> 
                     </div>
-                    <h5 class="font-roboto red"><strong>Nossa agenda legislativa</strong></h5>
-                    <small class="text-muted">de 20 a 24 de abril</small>
+                    <h5 class="font-roboto red"><strong>Acompanhe nossa agenda</strong></h5>
+                    <small class="text-muted">Semana: 20 a 24 de abril</small>
                   </div>
                   <div class="panel-body box-agenda">
-                    <strong>20 de abril</strong><br>
-                    <ul class="list-unstyled">
+                    <p><strong>20 de abril</strong></p>
+                    <ul class="list-unstyled"> 
                         <li class="mb-sm">  
                           <span><i class="fa fa-angle-right"></i> 14h</span> | <span><a href="#"> Nome do evento</a></span><br>
                           <span><i class="fa fa-map-marker text-danger"></i><small> Nome do local</small></span>
                         </li>
                         <li class="mb-sm">  
-                          <span><i class="fa fa-angle-right"></i> 14h</span> | <span>Nome do evento</span><br>
+                          <span><i class="fa fa-angle-right"></i> 14h</span> | <span>Nome do evento não sou link</span><br>
                           <span><i class="fa fa-map-marker text-danger"></i><small> Nome do local</small></span>
                         </li>
                     </ul><hr>
-                    <strong>23 de abril</strong><br>
+                    <p><strong>23 de abril</strong></p>
                     <ul class="list-unstyled">
                         <li class="mb-sm">  
-                          <span><i class="fa fa-angle-right"></i> 14h</span> | <span> Nome do evento</span><br>
+                          <span><i class="fa fa-angle-right"></i> 14h</span> | <span> Nome do evento não sou link</span><br>
                           <span><i class="fa fa-map-marker text-danger"></i><small> Nome do local</small></span>
                         </li>
                         <li class="mb-sm">  
@@ -95,7 +95,7 @@
                           <span><i class="fa fa-map-marker text-danger"></i><small> Nome do local</small></span>
                         </li>
                     </ul><hr>
-                    <strong>24 de abril</strong><br>
+                    <p><strong>24 de abril</strong></p>
                     <ul class="list-unstyled">
                         <li class="mb-sm">  
                           <span><i class="fa fa-angle-right"></i> 14h</span> | <span><a href="#"> Nome do evento</a></span><br>
@@ -105,7 +105,8 @@
                           <span><i class="fa fa-angle-right"></i> 14h</span> | <span><a href="#"> Nome do evento</a></span><br>
                           <span><i class="fa fa-map-marker text-danger"></i><small> Nome do local</small></span>
                         </li>
-                    </ul><hr>      
+                    </ul><hr>  
+                    <small class="text-warning">Acompanhe sempre nossa agenda!</small>    
                   </div><!-- end box-agenda -->
                 </div> 
             </div> <!-- /col-md-4 -->
