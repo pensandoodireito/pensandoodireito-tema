@@ -3,7 +3,7 @@
 $autores = false;
 ?>
 <!-- inicio card -->
-<div class="col-sm-3">
+<div class="col-md-3">
   <div class="thumbnail">
     <a href="<?php echo get_post_permalink(); ?>" class="nounderline">
       <div class="capa">
@@ -27,13 +27,16 @@ $autores = false;
       <p>
         <mark>Data: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?></mark>
       </p>
-      <p><?php the_excerpt(); ?></p>
+      <div class="description-publicacao">
+        <p><?php the_excerpt(); ?></p>
+      </div>
       <?php if ($autores) { ?>
+
         <p>
           <small><a href="#">Ver autores</a></small>
         </p>
       <?php } ?>
-      <div id="social-bar">
+      <div class="social-bar">
         <small>
           <!--a href="#" class="nounderline"-->
             <span class="fa-stack fa-lg">
