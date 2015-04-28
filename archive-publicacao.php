@@ -47,7 +47,7 @@ function custom_excerpt_length_530( $length ) {
 //Função para filtrar o tamanho do 'excerpt'
 //  focada nas publicações listadas
 function custom_excerpt_length_200( $length ) {
-  return 200; 
+  return 200;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length_530', 999 );
 
@@ -94,12 +94,12 @@ $destaqueID = get_the_ID();
                 <div class="row">
                   <div id="social-bar" class="col-md-4">
                     <small>
-                      <!--a href="#" class="nounderline"-->
+                      <a href="#" onClick="event.preventDefault(); window.open('https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_post_permalink()); ?>','Facebook');" class="nounderline">
                         <span class="fa-stack fa-lg">
                           <i class="fa fa-square-o fa-stack-2x"></i>
                           <i class="fa fa-facebook fa-stack-1x"></i>
                         </span>
-                      <!--/a-->
+                      </a>
                     </small>
                     <small>
                       <a href="#" onClick="event.preventDefault(); window.open('https://twitter.com/share?hashtags=pensandoodireito&text=<?php echo the_title(); ?>&url=<?php echo get_post_permalink(); ?>','Tweet');" class="nounderline">
