@@ -58,7 +58,7 @@
   </section>
   <?php get_template_part('destaque', 'debates'); ?>
   <?php get_template_part('mini-tutorial'); ?>
-  <?php get_template_part('noticias'); ?>
+  <?php get_template_part('front', 'noticias'); ?>
   <?php
   $fp_pub_query = new WP_Query(array (
   'post_type' => 'publicacao',
