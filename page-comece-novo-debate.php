@@ -51,10 +51,10 @@
                 <div class="well well-sm">
                   <h5> <i class="fa fa-lightbulb-o"></i> Dicas para fazer seu vídeo:</h5>
                   <ul class="small">
-                    <li>Seu vídeo deve estar hospedado no YouTube e deve ser do tipo público;</li>
-                    <li>Grave em um local silencioso;</li>
-                    <li>Observe o que vai aparecer no fundo da sua filmagem. Na dúvida, uma parede branca é sempre uma boa opção;</li>
-                    <li>Seja crítico! Assista seu vídeo antes de publicá-lo e pense se as outras pessoas gostariam de vê-lo.</li>
+                    <li>Grave em um local silencioso</li>
+                    <li>Observe o que vai aparecer no fundo da sua filmagem. Na dúvida, uma parede branca é sempre uma boa opção</li>
+                    <li>Seja crítico! Assista a seu vídeo antes de publicá-lo e tente imaginar o que outras pessoas achariam dele</li>
+                    <li>Seu vídeo deve estar hospedado no YouTube e ter status público</li>
                   </ul>
                   <div class="input-group">
                     <div class="input-group-addon red">Url do vídeo no YouTube:</div>
@@ -86,8 +86,24 @@
       <div class="col-md-3">
         <div class="well well-sm">
           <h5 class="font-roboto red">Lembre-se</h5>
-          <p class="fontsize-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is ed it to make a type specimen book.</p>
+          <div class="fontsize-sm">
+            <p>
+            Todas as propostas enviadas passam por uma votação. Os visitantes da plataforma dizem se querem ou não participar do debate proposto. </p>
+            <p>Se, depois de XXXXX dias em votação, a proposta obtém maioria simples de “Sim”, se transforma em um debate e pode começar a receber comentários, opiniões e contribuições. </p>
+            <p>Em uma etapa posterior, esse debate pode se tornar ainda uma consulta pública coordenada pelo Ministério da Justiça e, eventualmente, se transformar em projeto de lei.</p>
+          </div>
         </div>
+        <div class="well well-sm">
+          <h5 class="font-roboto red">E mais</h5>
+          <div class="fontsize-sm">
+            <p>Seja claro em sua proposta. Dê detalhes e todos os dados que você tem sobre o assunto. 
+            Seja específico, com sugestões concretas.</p> 
+            <p>Procure pensar nas necessidades da maioria e seja respeitoso. </p>
+            <p>Pense em como motivar as pessoas a se engajar no debate que você está propondo.</p> 
+            <p>Afinal, você terá que conquistar votos!</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

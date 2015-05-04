@@ -2,9 +2,9 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h3 class=" font-roboto red"><strong>Proposta de debate em votação:</strong></h3>
+      <h3 class=" font-roboto red"><strong>Proposta em votação:</strong></h3>
       <h4>"título da proposta"</h4>
-      <p><small>Criada por: Nome do Criador</small></p>
+      <p><small>criador da proposta: Nome do Criador</small></p>
       <p><span class="label label-default">Direito do Consumidor</span></p>
     </div>
   </div>
@@ -20,7 +20,7 @@
       frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="col-md-6 col-lg-3 text-center">
-      <p><strong>Qual a sua opinião sobre abrirmos esta proposta para debate?</strong></p>
+      <p><strong>O que você acha de essa proposta se tornar um debate?</strong></p>
       <button type="button" class="btn btn-lg btn-success btn-block"><i class="fa fa-check-circle fa-2x pull-left"></i>Concordo com a <br>abertura deste debate</button>
       <button type="button" class="btn btn-lg btn-danger btn-block">
       <i class="fa fa-times-circle fa-2x pull-left"></i>Discordo da <br> abertura deste debate</button>
