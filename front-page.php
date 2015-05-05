@@ -46,11 +46,11 @@
         </div>
         <!-- Controles -->
         <a class="left carousel-control" href="#carousel-destaques-home" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
           <span class="sr-only">Anterior</span>
         </a>
         <a class="right carousel-control" href="#carousel-destaques-home" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
           <span class="sr-only">Próximo</span>
         </a>
       </div>
