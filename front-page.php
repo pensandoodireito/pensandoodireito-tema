@@ -69,7 +69,7 @@
                     <div class="pull-right"> 
                         <i class="fa fa-calendar fa-4x fa-inverse"></i> 
                     </div>
-                    <h5 class="font-roboto red"><strong>Acompanhe nossa agenda</strong></h5>
+                    <h5 class="font-roboto red"><strong>Acompanhe nossa agenda </strong></h5>
                     <small class="text-muted">Semana: 20 a 24 de abril</small>
                   </div>
                   <div class="panel-body box-agenda">
