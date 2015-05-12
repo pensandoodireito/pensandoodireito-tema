@@ -314,3 +314,14 @@ function publicacoes_paginacao_infinita(){
 
 add_action('wp_ajax_publicacoes_paginacao_infinita', 'publicacoes_paginacao_infinita');
 add_action('wp_ajax_nopriv_publicacoes_paginacao_infinita', 'publicacoes_paginacao_infinita');
+
+// Função que cria páginas (pages),
+//   em especial focando nos 'endpoints'
+function pd_create_pages() {
+  // Página "o que é"
+  pd_create_page( array('titulo' => 'O que é?', 'nome' => 'o-que-e') );
+}
+
+// Chama a função apenas quando há troca de tema
+//   fundamentalmente quando o tema é ativado (e também desativado)
+add_action('after_switch_theme', 'pd_create_pages');
