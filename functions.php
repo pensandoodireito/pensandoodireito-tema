@@ -315,20 +315,13 @@ function publicacoes_paginacao_infinita(){
 add_action('wp_ajax_publicacoes_paginacao_infinita', 'publicacoes_paginacao_infinita');
 add_action('wp_ajax_nopriv_publicacoes_paginacao_infinita', 'publicacoes_paginacao_infinita');
 
-// Functions to run on plugin activation
-if (isset($_GET['activated']) && is_admin()){
-
-    //create 'cadastro' page
-    //
-    if (empty(get_page_by_name('Cadastro'))) {
-
-        $new_page = array(
-            'post_type' => 'page',
-            'post_title' => 'Cadastro',
-            'post_content' => '[pd_registration_form]',
-            'post_status' => 'publish',
-            'post_author' => 1,
-        );
-        wp_insert_post($new_page);
-    }
+// Função que cria páginas (pages),
+//   em especial focando nos 'endpoints'
+function pd_create_pages() {
+  // Página "o que é"
+  pd_create_page( array('titulo' => 'O que é?', 'nome' => 'o-que-e') );
 }
+
+// Chama a função apenas quando há troca de tema
+//   fundamentalmente quando o tema é ativado (e também desativado)
+add_action('after_switch_theme', 'pd_create_pages');
