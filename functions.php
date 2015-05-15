@@ -224,6 +224,146 @@ function publicacao_post_type() {
 // Iniciarlizar publicação.
 add_action( 'init', 'publicacao_post_type', 0 );
 
+
+// Register Custom Post Type
+function destaque_post_type() {
+
+    $labels = array(
+        'name'                => _x( 'Destaques', 'Post Type General Name', 'pensandoodireito' ),
+        'singular_name'       => _x( 'Destaque', 'Post Type Singular Name', 'pensandoodireito' ),
+        'menu_name'           => __( 'Destaques', 'pensandoodireito' ),
+        'name_admin_bar'      => __( 'Destaques', 'pensandoodireito' ),
+        'parent_item_colon'   => __( 'Destaque pai:', 'pensandoodireito' ),
+        'all_items'           => __( 'Todos destaques', 'pensandoodireito' ),
+        'add_new_item'        => __( 'Adicionar novo destaque', 'pensandoodireito' ),
+        'add_new'             => __( 'Adicionar novo', 'pensandoodireito' ),
+        'new_item'            => __( 'Novo destaque', 'pensandoodireito' ),
+        'edit_item'           => __( 'Editar destaque', 'pensandoodireito' ),
+        'update_item'         => __( 'Atualizar destaque', 'pensandoodireito' ),
+        'view_item'           => __( 'Ver destaque', 'pensandoodireito' ),
+        'search_items'        => __( 'Buscar destaque', 'pensandoodireito' ),
+        'not_found'           => __( 'Não encontrado', 'pensandoodireito' ),
+        'not_found_in_trash'  => __( 'Não encontrado na lixeira', 'pensandoodireito' ),
+    );
+    $args = array(
+        'label'               => __( 'destaque', 'pensandoodireito' ),
+        'description'         => __( 'Descrição do Destaque', 'pensandoodireito' ),
+        'labels'              => $labels,
+        'supports'            => array( 'title' ), //'editor',
+        'hierarchical'        => false,
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_position'       => 5,
+        'show_in_admin_bar'   => true,
+        'show_in_nav_menus'   => true,
+        'can_export'          => true,
+        'has_archive'         => true,
+        'exclude_from_search' => true,
+        'publicly_queryable'  => true,
+        'capability_type'     => 'post',
+        'register_meta_box_cb' => 'add_destaque_metaboxes', //Para adicionar novos campos
+        'rewrite'             => array( 'slug' => 'destaques', 'with_front' => false),
+    );
+
+    // Metaboxes adicionadas seguindo o tutorial: http://wptheming.com/2010/08/custom-metabox-for-post-type/
+    // and also thanks to @sterndata at #wordpress irc channel for the help
+    // http://wpbin.io/dfwy8d
+    function add_destaque_metaboxes() {
+        // Adiciona um campo para upload de vídeo ou imagem do destaque.
+        add_meta_box('wpt_destaque_media','Mídia do Destaque', 'wpt_destaque_media', 'destaque', 'normal', 'high');
+    }
+
+    //Geração do HTML para upload dos arquivos
+    function wpt_destaque_media() {
+
+        global $post;
+
+        echo '<input type="hidden" name="destaquemeta_noncename" id="destaquemeta_noncename" value="' .
+        wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+
+        $destaque_media = get_post_meta($post->ID, 'destaque_media', true);
+
+        // Recupera arquivos caso já tenha sido adicionados
+        $html  = "<p><label>Arquivo de mídia do Destaque</label>";
+        if( $destaque_media ) {
+            $html .= "<br/><a href='" . $destaque_media . "' target='_blank'>Arquivo Atual</a>";
+        }
+        $html .= "<input type='file' name='destaque_media' id='destaque_media' value='' size='25'/></p>";
+        echo $html;
+    }
+
+    // Save the Metabox Data
+    function wpt_save_destaque_meta($post_id, $post) {
+
+        // verify this came from the our screen and with proper authorization,
+        // because save_post can be triggered at other times
+        if ( !isset($_POST['destaquemeta_noncename']) || !wp_verify_nonce( $_POST['destaquemeta_noncename'], plugin_basename(__FILE__) )) {
+            return $post->ID;
+        }
+
+        if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return $post->ID;
+        }
+
+        // Is the user allowed to edit the post or page?
+        if ( !current_user_can( 'edit_post', $post->ID ))
+            return $post->ID;
+
+        // OK, we're authenticated: we need to find and save the data
+        // We'll put it into an array to make it easier to loop though.
+
+        // Make sure the file array isn't empty
+        if(!empty($_FILES['destaque_media']['name'])) {
+
+            // Setup the array of supported file types. In this case, it's just PDF.
+            $supported_types = array('image/jpeg','image/pjpeg','image/png','video/mpeg','application/ogg','video/webm','video/mp4');
+
+            // Get the file type of the upload
+            $arr_destaque_media_type = wp_check_filetype(basename($_FILES['destaque_media']['name']));
+            $uploaded_destaque_media = $arr_destaque_media_type['type'];
+
+            // Check if the type is supported. If not, throw an error.
+            if( !in_array($uploaded_destaque_media, $supported_types) ) {
+                //TOOD: Improve this message
+                wp_die("O arquivo para web não é uma imagem ou vídeo em formatos permitidos.");
+            }
+
+            // Use the WordPress API to upload the file
+            $destaque_media = wp_upload_bits($_FILES['destaque_media']['name'], null, file_get_contents($_FILES['destaque_media']['tmp_name']));
+
+            if(isset($destaque_media['error']) && $destaque_media['error'] != 0) {
+                wp_die('Erro ao salvar arquivo para Web. O erro foi: ' . $destaque_media['error']);
+            } else {
+                $destaque_meta['destaque_media'] = $destaque_media['url'];
+            }
+        }
+
+        // Add values of $events_meta as custom fields
+        foreach ($destaque_meta as $key => $value) { // Cycle through the $events_meta array!
+            if( $post->post_type == 'revision' ) return; // Don't store custom data twice
+            $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
+            if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
+                update_post_meta($post->ID, $key, $value);
+            } else { // If the custom field doesn't have a value
+                add_post_meta($post->ID, $key, $value);
+            }
+            if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
+        }
+
+    }
+    add_action('save_post', 'wpt_save_destaque_meta', 1, 2); // save the custom fields
+
+    add_action('post_edit_form_tag', 'pensandoodireito_update_edit_form');
+
+    register_post_type( 'destaque', $args );
+
+}
+
+// Hook into the 'init' action
+add_action( 'init', 'destaque_post_type', 0 );
+
+
 /*add_action( 'widgets_init', 'pensandoodireito_widgets_init' );
 function pensandoodireito_widgets_init()
 {

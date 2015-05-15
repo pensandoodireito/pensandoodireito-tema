@@ -11,38 +11,25 @@
         </ol>
         <!-- Divs do carrossel -->
         <div class="carousel-inner" role="listbox">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-12">
-                <a href="<?php echo get_post_type_archive_link('pauta'); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/icone-debates.png" class="img-full" alt="Debate"></a>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="row">
-              <div class="col-md-8">
-                <div class="embed-responsive embed-responsive-16by9">
-                  <iframe width="100%" height="100%" src="//www.youtube.com/embed/-w-58hQ9dLk?controls=0" frameborder="0" allowfullscreen=""></iframe>
-                </div>
-              </div>
-              <div class="col-md-4 mt-lg"><p class="h1 font-roboto mt-lg">
-                <a href="">Lorem ipsum dolor</a>
-              </p></div>
-            </div>
-          </div>
-          <div class="item active">
-            <div class="row">
-              <div class="col-md-4 mt-lg">
-                <p class="h1 font-roboto mt-lg">
-                  <a href="">Lorem ipsum dolor</a>
-                </p>
-              </div>
-              <div class="col-md-8">
-                <a href="<?php echo get_post_type_archive_link('pauta'); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/icone-debates.png" class="img-full" alt="Debate"></a>
-              </div>
-            </div>
-          </div>
+        <?php
+            $args = array(
+               'post__in' => get_option('sticky_posts')
+            );
+            $destaques = new WP_Query($args);
 
+            while ($destaques>have_posts()) {
+                $destaques->the_post();
+                ?>
+                <div class="item">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <?php echo the_excerpt(); ?>
+                    </div>
+                  </div>
+                </div>
+            <?php
+            }
+        ?>
         </div>
         <!-- Controles -->
         <a class="left carousel-control" href="#carousel-destaques-home" role="button" data-slide="prev">
