@@ -274,8 +274,53 @@ function destaque_post_type() {
         add_meta_box('wpt_destaque_media','Mídia do Destaque', 'wpt_destaque_media', 'destaque', 'normal', 'high');
     }
 
-    //Geração do HTML para upload dos arquivos
     function wpt_destaque_media() {
+        global $post;
+
+        $destaque_media = get_post_meta($post->ID, 'destaque_media', true);
+
+        $html = '<input type="hidden" name="destaquemeta_noncename" id="destaquemeta_noncename" value="' .
+        wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+
+        wp_enqueue_media();
+        wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js' , array(), false, true );
+
+        $html .= '<label for="destaque_media">';
+            if( $destaque_media ) {
+                $img_formats_patterns = ['#\.jpg$#', '#\.png$#', '#\.jpeg#'];
+                $video_formats_patterns = ['#\.mpeg$#', '#\.mpg$#', '#\.mp4$#', '#\.ogg$#', '#\.webm$#'];
+                $youtube_video_patterns = ['#^https?://(www\.)?youtube.com/watch\?v=.*#','#^https?://(www\.)?youtu\.be/.*#'];
+
+                foreach ($img_formats_patterns as $pattern) { // Cycle through the $events_meta array!
+                  if ( preg_match( $pattern, $destaque_media ) ) {
+                      $html .= '<img style="width: 200px;" src="' . $destaque_media . '"/>';
+                  }
+                }
+
+                foreach ($video_formats_patterns as $pattern) { // Cycle through the $events_meta array!
+                  if ( preg_match( $pattern, $destaque_media ) ) {
+                    $html .= '<video style="width: 200px;" src="' . $destaque_media . '" controls>Seu navegador não suporta o elemento <code>video</code>.</code></video>';
+                  }
+                }
+
+                foreach ($youtube_video_patterns as $pattern) { // Cycle through the $events_meta array!
+                  if ( preg_match( $pattern, $destaque_media ) ) {
+                    $html .= '<iframe wmode="Opaque"  style="width: 200px;" allowfullscreen src="' . $destaque_media . '" frameborder="0"></iframe>';
+                  }
+                }
+
+                $html .= "<br/><a href='" . $destaque_media . "' target='_blank'>Arquivo Atual</a>";
+                $html .= '<input id="destaque_media" type="text" size="36" name="destaque_media" value="' . $destaque_media . '" />';
+            } else {
+                $html .= '<input id="destaque_media" type="text" size="36" name="destaque_media" value="http://" />';
+            }
+            $html .= '<input id="upload_image_button" class="button" type="button" value="Selecione a Imagem ou Vídeo" />';
+        $html .= '</label>';
+        echo $html;
+    }
+
+    //Geração do HTML para upload dos arquivos
+    function wpt_destaque_media2() {
 
         global $post;
 
@@ -293,50 +338,32 @@ function destaque_post_type() {
         echo $html;
     }
 
+    add_action('save_post', 'wpt_save_destaque_meta', 1, 2); // save the custom fields
     // Save the Metabox Data
     function wpt_save_destaque_meta($post_id, $post) {
 
         // verify this came from the our screen and with proper authorization,
         // because save_post can be triggered at other times
         if ( !isset($_POST['destaquemeta_noncename']) || !wp_verify_nonce( $_POST['destaquemeta_noncename'], plugin_basename(__FILE__) )) {
+            wp_die('123');
             return $post->ID;
         }
 
         if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            wp_die('456');
             return $post->ID;
         }
 
         // Is the user allowed to edit the post or page?
-        if ( !current_user_can( 'edit_post', $post->ID ))
+        if ( !current_user_can( 'edit_post', $post->ID )) {
+            wp_die('789');
             return $post->ID;
+        }
 
-        // OK, we're authenticated: we need to find and save the data
-        // We'll put it into an array to make it easier to loop though.
+        $destaque_meta = get_post_meta($post->ID);
 
-        // Make sure the file array isn't empty
-        if(!empty($_FILES['destaque_media']['name'])) {
-
-            // Setup the array of supported file types. In this case, it's just PDF.
-            $supported_types = array('image/jpeg','image/pjpeg','image/png','video/mpeg','application/ogg','video/webm','video/mp4');
-
-            // Get the file type of the upload
-            $arr_destaque_media_type = wp_check_filetype(basename($_FILES['destaque_media']['name']));
-            $uploaded_destaque_media = $arr_destaque_media_type['type'];
-
-            // Check if the type is supported. If not, throw an error.
-            if( !in_array($uploaded_destaque_media, $supported_types) ) {
-                //TOOD: Improve this message
-                wp_die("O arquivo para web não é uma imagem ou vídeo em formatos permitidos.");
-            }
-
-            // Use the WordPress API to upload the file
-            $destaque_media = wp_upload_bits($_FILES['destaque_media']['name'], null, file_get_contents($_FILES['destaque_media']['tmp_name']));
-
-            if(isset($destaque_media['error']) && $destaque_media['error'] != 0) {
-                wp_die('Erro ao salvar arquivo para Web. O erro foi: ' . $destaque_media['error']);
-            } else {
-                $destaque_meta['destaque_media'] = $destaque_media['url'];
-            }
+        if ( isset( $_REQUEST['destaque_media']  )  ) {
+            $destaque_meta['destaque_media'] = $_REQUEST['destaque_media'];
         }
 
         // Add values of $events_meta as custom fields
@@ -352,14 +379,12 @@ function destaque_post_type() {
         }
 
     }
-    add_action('save_post', 'wpt_save_destaque_meta', 1, 2); // save the custom fields
 
     add_action('post_edit_form_tag', 'pensandoodireito_update_edit_form');
 
     register_post_type( 'destaque', $args );
 
 }
-
 // Hook into the 'init' action
 add_action( 'init', 'destaque_post_type', 0 );
 
