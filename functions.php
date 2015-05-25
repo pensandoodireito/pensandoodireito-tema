@@ -224,7 +224,6 @@ function publicacao_post_type() {
 // Iniciarlizar publicação.
 add_action( 'init', 'publicacao_post_type', 0 );
 
-
 // Register Custom Post Type
 function destaque_post_type() {
 
@@ -271,71 +270,155 @@ function destaque_post_type() {
     // http://wpbin.io/dfwy8d
     function add_destaque_metaboxes() {
         // Adiciona um campo para upload de vídeo ou imagem do destaque.
-        add_meta_box('wpt_destaque_media','Mídia do Destaque', 'wpt_destaque_media', 'destaque', 'normal', 'high');
+        add_meta_box('wpt_destaque_ativo', 'Destaque ativo', 'wpt_destaque_ativo', 'destaque', 'side', 'high');
+        //add_meta_box('wpt_destaque_preview', 'Previsão do destaque', 'wpt_destaque_preview', 'destaque', 'normal', 'high');
+        add_meta_box('wpt_destaque_modelo', 'Modelo do destaque', 'wpt_destaque_modelo', 'destaque', 'normal', 'high');
+        add_meta_box('wpt_destaque_midia', 'Mídia do Destaque', 'wpt_destaque_midia', 'destaque', 'normal', 'high');
+        add_meta_box('wpt_destaque_texto', 'Texto do Destaque', 'wpt_destaque_texto', 'destaque', 'normal', 'high');
     }
 
-    function wpt_destaque_media() {
-        global $post;
-
-        $destaque_media = get_post_meta($post->ID, 'destaque_media', true);
-
-        $html = '<input type="hidden" name="destaquemeta_noncename" id="destaquemeta_noncename" value="' .
-        wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
-
-        wp_enqueue_media();
+    function wpt_destaque_ativo($post) {
+        echo '<input type="hidden" name="destaquemeta_noncename" id="destaquemeta_noncename" value="' . wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
         wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js' , array(), false, true );
+        wp_enqueue_media();
 
-        $html .= '<label for="destaque_media">';
-            if( $destaque_media ) {
-                $img_formats_patterns = ['#\.jpg$#', '#\.png$#', '#\.jpeg#'];
-                $video_formats_patterns = ['#\.mpeg$#', '#\.mpg$#', '#\.mp4$#', '#\.ogg$#', '#\.webm$#'];
-                $youtube_video_patterns = ['#^https?://(www\.)?youtube.com/watch\?v=.*#','#^https?://(www\.)?youtu\.be/.*#'];
+        $destaque_ativo = get_post_meta($post->ID, 'destaque_ativo', true);
+        echo '<input type="radio" name="destaque_ativo" id="destaque_ativo" ';
+        if ($destaque_ativo != 0) {
+            echo 'checked';
+        }
+        echo ' value="1"/> Mostrar<br/>';
+        echo '<input type="radio" name="destaque_ativo" id="destaque_ativo" ';
+        if ($destaque_ativo == 0) {
+            echo 'checked';
+        }
+        echo ' value="0"/> Não mostrar';
 
-                foreach ($img_formats_patterns as $pattern) { // Cycle through the $events_meta array!
-                  if ( preg_match( $pattern, $destaque_media ) ) {
-                      $html .= '<img style="width: 200px;" src="' . $destaque_media . '"/>';
-                  }
-                }
-
-                foreach ($video_formats_patterns as $pattern) { // Cycle through the $events_meta array!
-                  if ( preg_match( $pattern, $destaque_media ) ) {
-                    $html .= '<video style="width: 200px;" src="' . $destaque_media . '" controls>Seu navegador não suporta o elemento <code>video</code>.</code></video>';
-                  }
-                }
-
-                foreach ($youtube_video_patterns as $pattern) { // Cycle through the $events_meta array!
-                  if ( preg_match( $pattern, $destaque_media ) ) {
-                    $html .= '<iframe wmode="Opaque"  style="width: 200px;" allowfullscreen src="' . $destaque_media . '" frameborder="0"></iframe>';
-                  }
-                }
-
-                $html .= "<br/><a href='" . $destaque_media . "' target='_blank'>Arquivo Atual</a>";
-                $html .= '<input id="destaque_media" type="text" size="36" name="destaque_media" value="' . $destaque_media . '" />';
-            } else {
-                $html .= '<input id="destaque_media" type="text" size="36" name="destaque_media" value="http://" />';
-            }
-            $html .= '<input id="upload_image_button" class="button" type="button" value="Selecione a Imagem ou Vídeo" />';
-        $html .= '</label>';
-        echo $html;
     }
 
-    //Geração do HTML para upload dos arquivos
-    function wpt_destaque_media2() {
+    // Gera, na área de administração, o preview de como ficará o destaque
+    function wpt_destaque_preview($post) {
 
-        global $post;
+        $midia_destaque = get_post_meta($post->ID, 'midia_destaque', true);
+        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
 
-        echo '<input type="hidden" name="destaquemeta_noncename" id="destaquemeta_noncename" value="' .
-        wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+        $preview_html .= '<label for="midia_destaque">';
 
-        $destaque_media = get_post_meta($post->ID, 'destaque_media', true);
-
-        // Recupera arquivos caso já tenha sido adicionados
-        $html  = "<p><label>Arquivo de mídia do Destaque</label>";
-        if( $destaque_media ) {
-            $html .= "<br/><a href='" . $destaque_media . "' target='_blank'>Arquivo Atual</a>";
+        if ($modelo_destaque != 'img_texto' && $modelo_destaque != 'img_full') {
+            $tipo_midia_img = false;
         }
-        $html .= "<input type='file' name='destaque_media' id='destaque_media' value='' size='25'/></p>";
-        echo $html;
+
+        if( $midia_destaque && $midia_destaque != '' ) {
+
+            if ($modelo_destaque == 'img_full') {
+                $preview_html .= '<img style="width: 1024px; height: 390px;" src="' . $midia_destaque . '"/>';
+            } else if ($modelo_destaque == 'img_texto'){
+                $preview_html .= '<img style="width: 640px; height: 390px;" src="' . $midia_destaque . '"/>';
+            } else if ($modelo_destaque == 'video_full') {
+                echo do_shortcode('[youtube id="' . getYoutubeIdFromUrl($midia_destaque) . '"]');
+            }
+        }
+
+        echo $preview_html;
+    }
+
+    function wpt_destaque_modelo($post) {
+
+        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
+
+        //Seletor de modelo de Destaque
+        echo '<label for="modelo_destaque">Selecione o modelo de destaque que você deseja</label><br/>';
+        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
+        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_img_texto.png" alt="Imagem com texto à direita" title="Imagem com texto à direita"/><br/>';
+        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="img_texto"';
+            if ($modelo_destaque == 'img_texto' || $modelo_destaque == ''){ echo ' checked'; }
+            echo '/>Imagem com texto à direita<br/>(640px x 390px)';
+        echo '</div>';
+        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
+        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_video_texto.png" alt="Vídeo com texto à direita" title="Vídeo com texto à direita"/><br/>';
+        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="video_texto"';
+            if ($modelo_destaque == 'video_texto'){ echo ' checked'; }
+            echo '/>Vídeo com texto à direita<br/>(640px x 390px)';
+        echo '</div>';
+        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
+        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_img_full.png" alt="Apenas imagem" title="Apenas imagem"/><br/>';
+        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="img_full"';
+            if ($modelo_destaque == 'img_full'){ echo ' checked'; }
+            echo '/>Apenas imagem Full Width<br/>(1024px x 390px)';
+        echo '</div>';
+        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
+        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_video_full.png" alt="Apenas vídeo" title="Apenas vídeo"/><br/>';
+        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="video_full"';
+            if ($modelo_destaque == 'video_full'){ echo ' checked'; }
+            echo '/>Apenas vídeo Full Width<br/>(1024px x 390px)';
+        echo '</div>';
+    }
+
+    function wpt_destaque_midia($post) {
+
+        $midia_destaque = get_post_meta($post->ID, 'midia_destaque', true);
+        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
+
+        $midia_html = '';
+
+        $tipo_midia_img = True;
+        $destaque_com_texto = True;
+
+        if ( $modelo_destaque == 'video_texto' || $modelo_destaque == 'video_full' ) {
+            $tipo_midia_img = False;
+        }
+        if ( $modelo_destaque == 'video_full' || $modelo_destaque == 'img_full' ) {
+            $destaque_com_texto = False;
+        }
+
+        $img = 'block';
+        $video = 'none';
+        if ( !$tipo_midia_img ) {
+            $img = 'none';
+            $video = 'block';
+        }
+
+        $img_formats_patterns = ['#\.jpg$#', '#\.png$#', '#\.jpeg#'];
+
+        $midia_html .= '<input id="upload_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem" style="display:' . $img . ';"/>';
+        $midia_html .= '<p class="midia_video" style="display:' . $video . ';">Coloque a url do vídeo no youtube na caixa abaixo.</p>';
+        $midia_html .= '<input id="midia_destaque" class="midia_video" type="text" size="80" name="midia_destaque" value="' . $midia_destaque . '" style="display:' . $video . ';" />';
+        $midia_html .= '<br/>';
+        $midia_html .= '<img style="width: 300px;" class="midia_imagem" style="display:' . $img  . '" id="img_preview" src="';
+        if ($tipo_midia_img) {
+            foreach ($img_formats_patterns as $pattern) { // Cycle through the $events_meta array!
+              if ( preg_match( $pattern, $midia_destaque ) ) {
+                   $midia_html .= $midia_destaque;
+              }
+            }
+        }
+        $midia_html .= '"/>';
+
+        if( $midia_destaque && $midia_destaque != '' ) {
+            if (!$tipo_midia_img && getYoutubeIdFromUrl($midia_destaque) ) {
+                echo do_shortcode('[youtube id="' . getYoutubeIdFromUrl($midia_destaque) . '"]');
+            }
+        }
+        $midia_html .= '</label>';
+        echo $midia_html;
+    }
+
+
+    function wpt_destaque_texto($post) {
+
+        $destaque_texto = get_post_meta($post->ID, 'destaque_texto', true);
+        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
+
+        $texto = 'block';
+        if ( $modelo_destaque == 'video_full' || $modelo_destaque == 'img_full' ) {
+            $texto = 'none';
+        }
+
+        echo '<label class="destaque_texto" for="destaque_texto" style="display: ' . $texto . '">Digite o texto a ser utilizado na chamada.<br/>';
+        echo '<textarea name="destaque_texto" id="destaque_texto" rows="3" cols="80" size="100px" maxlength="230">';
+        echo $destaque_texto;
+        echo '</textarea></label>';
+
     }
 
     add_action('save_post', 'wpt_save_destaque_meta', 1, 2); // save the custom fields
@@ -345,25 +428,34 @@ function destaque_post_type() {
         // verify this came from the our screen and with proper authorization,
         // because save_post can be triggered at other times
         if ( !isset($_POST['destaquemeta_noncename']) || !wp_verify_nonce( $_POST['destaquemeta_noncename'], plugin_basename(__FILE__) )) {
-            wp_die('123');
             return $post->ID;
         }
 
         if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            wp_die('456');
             return $post->ID;
         }
 
         // Is the user allowed to edit the post or page?
         if ( !current_user_can( 'edit_post', $post->ID )) {
-            wp_die('789');
             return $post->ID;
         }
 
         $destaque_meta = get_post_meta($post->ID);
 
-        if ( isset( $_REQUEST['destaque_media']  )  ) {
-            $destaque_meta['destaque_media'] = $_REQUEST['destaque_media'];
+        if ( isset( $_REQUEST['modelo_destaque'] ) ) {
+            $destaque_meta['modelo_destaque'] = $_REQUEST['modelo_destaque'];
+        }
+
+        if ( isset( $_REQUEST['midia_destaque']  ) && $_REQUEST['midia_destaque'] != '' ) {
+            $destaque_meta['midia_destaque'] = $_REQUEST['midia_destaque'];
+        }
+
+        if ( isset( $_REQUEST['destaque_ativo'] ) ) {
+            $destaque_meta['destaque_ativo'] = $_REQUEST['destaque_ativo'];
+        }
+
+        if ( isset( $_REQUEST['destaque_texto'] ) && $_REQUEST['destaque_texto'] != '' ) {
+            $destaque_meta['destaque_texto'] = $_REQUEST['destaque_texto'];
         }
 
         // Add values of $events_meta as custom fields
@@ -387,7 +479,6 @@ function destaque_post_type() {
 }
 // Hook into the 'init' action
 add_action( 'init', 'destaque_post_type', 0 );
-
 
 /*add_action( 'widgets_init', 'pensandoodireito_widgets_init' );
 function pensandoodireito_widgets_init()

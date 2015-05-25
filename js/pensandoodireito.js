@@ -14,9 +14,7 @@ jQuery(document).ready(function() {
 
 jQuery(document).ready(function($){
 
-
     var custom_uploader;
-
 
     $('#upload_image_button').click(function(e) {
 
@@ -30,9 +28,9 @@ jQuery(document).ready(function($){
 
         //Extend the wp.media object
         custom_uploader = wp.media.frames.file_frame = wp.media({
-            title: 'Choose Image',
+            title: 'Escolha a imagem',
             button: {
-                text: 'Choose Image'
+                text: 'Escolha a imagem'
             },
             multiple: false
         });
@@ -40,13 +38,30 @@ jQuery(document).ready(function($){
         //When a file is selected, grab the URL and set it as the text field's value
         custom_uploader.on('select', function() {
             attachment = custom_uploader.state().get('selection').first().toJSON();
-            $('#destaque_media').val(attachment.url);
+            $('#midia_destaque').val(attachment.url);
+            $('#img_preview').attr('src', attachment.url);
         });
 
         //Open the uploader dialog
         custom_uploader.open();
 
     });
-
-
 });
+
+function destaque_controla_midia(valor) {
+    jQuery('#midia_destaque').val('');
+    if (valor == 'img_texto' || valor == 'img_full') {
+        jQuery('.midia_video').fadeOut('300',function(){
+            jQuery('.midia_imagem').fadeIn('300');
+        });
+    } else {
+        jQuery('.midia_imagem').fadeOut('300',function(){
+            jQuery('.midia_video').fadeIn('300');
+        });
+    }
+    if (valor == 'img_texto' || valor == 'video_texto') {
+        jQuery('.destaque_texto').fadeIn('300');
+    } else {
+        jQuery('.destaque_texto').fadeOut('300');
+    }
+}
