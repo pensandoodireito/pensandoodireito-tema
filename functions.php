@@ -272,6 +272,7 @@ function destaque_post_type() {
         // Adiciona um campo para upload de vídeo ou imagem do destaque.
         add_meta_box('wpt_destaque_ativo', 'Destaque ativo', 'wpt_destaque_ativo', 'destaque', 'side', 'high');
         //add_meta_box('wpt_destaque_preview', 'Previsão do destaque', 'wpt_destaque_preview', 'destaque', 'normal', 'high');
+        add_meta_box('wpt_destaque_link', 'Link do destaque', 'wpt_destaque_link', 'destaque', 'normal', 'high');
         add_meta_box('wpt_destaque_modelo', 'Modelo do destaque', 'wpt_destaque_modelo', 'destaque', 'normal', 'high');
         add_meta_box('wpt_destaque_midia', 'Mídia do Destaque', 'wpt_destaque_midia', 'destaque', 'normal', 'high');
         add_meta_box('wpt_destaque_texto', 'Texto do Destaque', 'wpt_destaque_texto', 'destaque', 'normal', 'high');
@@ -293,6 +294,18 @@ function destaque_post_type() {
             echo 'checked';
         }
         echo ' value="0"/> Não mostrar';
+
+    }
+
+    function wpt_destaque_link($post) {
+        $link = get_post_meta($post->ID, 'destaque_link', true);
+
+        $link_html = '<label for="destaque_link">';
+        $link_html .= 'Digite abaixo o link para o qual o destaque irá direcionar<br/>';
+        $link_html .= 'Link: <input type="text" name="destaque_link" id="destaque_link" size="80" value="' . $link . '"/>';
+        $link_html .= '</label>';
+
+        echo $link_html;
 
     }
 
@@ -458,6 +471,10 @@ function destaque_post_type() {
             $destaque_meta['destaque_texto'] = $_REQUEST['destaque_texto'];
         }
 
+        if ( isset( $_REQUEST['destaque_link'] ) && $_REQUEST['destaque_link'] != '' ) {
+            $destaque_meta['destaque_link'] = $_REQUEST['destaque_link'];
+        }
+
         // Add values of $events_meta as custom fields
         foreach ($destaque_meta as $key => $value) { // Cycle through the $events_meta array!
             if( $post->post_type == 'revision' ) return; // Don't store custom data twice
@@ -471,8 +488,64 @@ function destaque_post_type() {
         }
 
     }
-
     add_action('post_edit_form_tag', 'pensandoodireito_update_edit_form');
+
+    // Add to admin_init function
+    add_filter('manage_edit-destaque_columns', 'add_new_destaque_columns');
+    function add_new_destaque_columns($destaque_columns) {
+        $new_columns['cb'] = '<input type="checkbox" />';
+        $new_columns['title'] = _x('Nome do Destaque', 'column name');
+        $new_columns['modelo_destaque'] = 'Modelo de Destaque';
+        $new_columns['destaque_ativo'] = 'Ativo?';
+        $new_columns['date'] = _x('Date', 'column name');
+
+        return $new_columns;
+    }
+
+
+    add_action( 'manage_destaque_posts_custom_column', 'my_manage_destaque_columns', 10, 2 );
+
+    function my_manage_destaque_columns( $column, $post_id ) {
+        global $post;
+
+        switch( $column ) {
+
+            case 'modelo_destaque' :
+
+                /* Get the post meta. */
+                $modelo = get_post_meta( $post_id, 'modelo_destaque', true );
+
+                if ( empty( $modelo ) )
+                    echo 'Desconhecido';
+                else if ( $modelo == 'img_texto' )
+                    printf('Imagem e Texto');
+                else if ( $modelo == 'video_texto' )
+                    printf('Vídeo e Texto');
+                else if ( $modelo == 'img_full' )
+                    printf('Apenas Imagem');
+                else
+                    printf('Apenas Vídeo');
+
+                break;
+
+            case 'destaque_ativo' :
+
+                $ativo = get_post_meta( $post_id, 'destaque_ativo', true );
+
+                if ( empty( $ativo ) || $ativo == '' || $ativo == 0 || $ativo == false || $ativo == "0") {
+                    echo 'Desativado';
+                } else {
+                    echo 'Ativo';
+                }
+
+                break;
+
+            /* Just break out of the switch statement for everything else. */
+            default :
+                break;
+        }
+    }
+
 
     register_post_type( 'destaque', $args );
 
