@@ -224,6 +224,230 @@ function publicacao_post_type() {
 // Iniciarlizar publicação.
 add_action( 'init', 'publicacao_post_type', 0 );
 
+/**
+ * Register Arquivo Debate Custom Post Type
+ **/
+function arq_debate_post_type() {
+
+    $labels = array(
+        'name'                => _x( 'Debates', 'Post Type General Name', 'pensandoodireito' ),
+        'singular_name'       => _x( 'Debate', 'Post Type Singular Name', 'pensandoodireito' ),
+        'menu_name'           => __( 'Debates', 'pensandoodireito' ),
+        'name_admin_bar'      => __( 'Debates', 'pensandoodireito' ),
+        'parent_item_colon'   => __( 'Debate pai:', 'pensandoodireito' ),
+        'all_items'           => __( 'Todos debates', 'pensandoodireito' ),
+        'add_new_item'        => __( 'Adicionar novo debate', 'pensandoodireito' ),
+        'add_new'             => __( 'Adicionar novo', 'pensandoodireito' ),
+        'new_item'            => __( 'Novo debate', 'pensandoodireito' ),
+        'edit_item'           => __( 'Editar debate', 'pensandoodireito' ),
+        'update_item'         => __( 'Atualizar debate', 'pensandoodireito' ),
+        'view_item'           => __( 'Ver debate', 'pensandoodireito' ),
+        'search_items'        => __( 'Buscar debate', 'pensandoodireito' ),
+        'not_found'           => __( 'Não encontrado', 'pensandoodireito' ),
+        'not_found_in_trash'  => __( 'Não encontrado na lixeira', 'pensandoodireito' ),
+    );
+    $args = array(
+        'label'               => __( 'debate', 'pensandoodireito' ),
+        'description'         => __( 'Descrição do Debate', 'pensandoodireito' ),
+        'labels'              => $labels,
+        'supports'            => array( 'title', 'editor', 'excerpt' ),
+        'hierarchical'        => false,
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_position'       => 5,
+        'show_in_admin_bar'   => true,
+        'show_in_nav_menus'   => true,
+        'can_export'          => true,
+        'has_archive'         => true,
+        'exclude_from_search' => true,
+        'publicly_queryable'  => true,
+        'capability_type'     => 'post',
+        'register_meta_box_cb' => 'add_debate_metaboxes', //Para adicionar novos campos
+        'rewrite'             => array( 'slug' => 'debate', 'with_front' => false),
+    );
+
+    // Metaboxes adicionadas seguindo o tutorial: http://wptheming.com/2010/08/custom-metabox-for-post-type/
+    // and also thanks to @sterndata at #wordpress irc channel for the help
+    // http://wpbin.io/dfwy8d
+    function add_debate_metaboxes() {
+        add_meta_box('pd_debate_status', 'Debate aberto', 'pd_debate_status', 'debate', 'side', 'high');
+        add_meta_box('pd_debate_imagem', 'Imagem do debate', 'pd_debate_imagem', 'debate', 'side', 'default');
+        add_meta_box('pd_debate_detalhes', 'Detalhes do debate', 'pd_debate_detalhes', 'debate', 'normal', 'default');
+    }
+
+    function pd_debate_status($post) {
+        echo '<input type="hidden" name="debatemeta_noncename" id="debatemeta_noncename" value="' . wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+        wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js' , array(), false, true );
+        wp_enqueue_media();
+
+        $debate_aberto = get_post_meta($post->ID, 'debate_aberto', true);
+        echo '<input type="radio" name="debate_aberto" id="debate_aberto" ';
+        if ($destaque_ativo == "aberto") {
+            echo 'checked';
+        }
+        echo ' value="aberto"/> Aberto<br/>';
+        echo '<input type="radio" name="debate_aberto" id="debate_encerrado" ';
+        if ($destaque_ativo != "aberto") {
+            echo 'checked';
+        }
+        echo ' value="encerrado"/> Encerrado';
+    }
+
+    function pd_debate_imagem($post) {
+
+        $imagem = get_post_meta($post->ID, 'imagem', true);
+
+        $midia_html = '<label for="imagem">';
+
+        $midia_html .= '<input id="upload_debate_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem"/>';
+        $midia_html .= '<input id="imagem" type="text" size="25" name="imagem" value="' . $imagem . '"/>';
+        $midia_html .= '<br/>';
+        $midia_html .= '<div id="img_preview_frame">';
+        if ( !empty($imagem) && $imagem != "" ) {
+            $midia_html .= '<img style="width: 100%;" class="img_preview" id="img_preview" src="' . $imagem . '"/>';
+        }
+        $midia_html .= '</div>';
+
+        $midia_html .= '</label>';
+        echo $midia_html;
+    }
+
+    function pd_debate_detalhes($post) {
+        $link = get_post_meta($post->ID, 'debate_link', true);
+        $periodo_de = get_post_meta($post->ID, 'debate_periodo_de', true); //Como adicionar o widget?
+        $periodo_para = get_post_meta($post->ID, 'debate_periodo_para', true); //Como adicionar o widget?
+        $assunto = get_post_meta($post->ID, 'debate_assunto', true);
+        $categoria = get_post_meta($post->ID, 'debate_categoria', true);
+        $fases = get_post_meta($post->ID, 'debate_categoria', true);
+        $resultados = get_post_meta($post->ID, 'debate_resultado', true);
+
+        $debate_html = '<label for="debate_detalhes">';
+        $debate_html .= '<strong>Link:</strong><br/><input type="url" name="debate_link" id="debate_link" size="80" value="' . $link . '"/><br/>';
+        $debate_html .= '<strong>Perído:</strong><br/>';
+        $debate_html .= 'De: <input type="text" name="debate_periodo_de" value="' . $periodo_de . '" class="datePick" required> ';
+        $debate_html .= 'Até: <input type="text" name="debate_periodo_para" value="' . $periodo_para . '" class="datePick" required><br/>';
+        $debate_html .= '<strong>Assunto Principal:</strong><br/><input type="text" name="debate_assunto" id="debate_assunto" size="80" value="' . $assunto . '"/><br/>';
+        $debate_html .= '<strong>Categoria:</strong><br/><input type="text" name="debate_categoria" id="debate_categoria" size="40" value="' . $categoria . '"/><br/>';
+        $debate_html .= '<strong>Fases:</strong><br/><input type="text" name="debate_fases" id="debate_fases" size="40" value="' . $fases . '"/><br/>';
+        $debate_html .= '<strong>Resultados:</strong><br/><input type="text" name="debate_resultadoso" id="debate_resultados" size="40" value="' . $resultados . '"/><br/>';
+        $debate_html .= '</label>';
+
+        echo $debate_html;
+    }
+
+    add_action('save_post', 'pd_save_debate_meta', 1, 2); // save the custom fields
+    // Save the Metabox Data
+    function pd_save_debate_meta($post_id, $post) {
+
+        // verify this came from the our screen and with proper authorization,
+        // because save_post can be triggered at other times
+        if ( !isset($_POST['debatemeta_noncename']) || !wp_verify_nonce( $_POST['debatemeta_noncename'], plugin_basename(__FILE__) )) {
+            return $post->ID;
+        }
+
+        if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return $post->ID;
+        }
+
+        // Is the user allowed to edit the post or page?
+        if ( !current_user_can( 'edit_post', $post->ID )) {
+            return $post->ID;
+        }
+
+        $debate_meta = get_post_meta($post->ID);
+
+        if ( isset( $_REQUEST['debate_aberto'] ) ) {
+            $debate_meta['debate_aberto'] = $_REQUEST['debate_aberto'];
+        }
+
+        if ( isset( $_REQUEST['imagem']  ) && $_REQUEST['imagem'] != '' ) {
+            $debate_meta['imagem'] = $_REQUEST['imagem'];
+        }
+
+        if ( isset( $_REQUEST['debate_link'] ) ) {
+            $debate_meta['debate_link'] = $_REQUEST['debate_link'];
+        }
+
+        if ( isset( $_REQUEST['debate_periodo_de'] ) ) {
+            $debate_meta['debate_periodo_de'] = $_REQUEST['debate_periodo_de'];
+        }
+
+        if ( isset( $_REQUEST['debate_periodo_para'] ) ) {
+            $debate_meta['debate_periodo_para'] = $_REQUEST['debate_periodo_para'];
+        }
+
+        if ( isset( $_REQUEST['debate_assunto'] ) ) {
+            $debate_meta['debate_assunto'] = $_REQUEST['debate_assunto'];
+        }
+
+        if ( isset( $_REQUEST['debate_categoria'] ) ) {
+            $debate_meta['debate_categoria'] = $_REQUEST['debate_categoria'];
+        }
+
+        if ( isset( $_REQUEST['debate_fases'] ) ) {
+            $debate_meta['debate_fases'] = $_REQUEST['debate_fases'];
+        }
+
+        if ( isset( $_REQUEST['debate_resultados'] ) ) {
+            $debate_meta['debate_resultados'] = $_REQUEST['debate_resultados'];
+        }
+
+        // Add values of $events_meta as custom fields
+        foreach ($debate_meta as $key => $value) { // Cycle through the $events_meta array!
+            if( $post->post_type == 'revision' ) return; // Don't store custom data twice
+            $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
+            if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
+                update_post_meta($post->ID, $key, $value);
+            } else { // If the custom field doesn't have a value
+                add_post_meta($post->ID, $key, $value);
+            }
+            if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
+        }
+
+    }
+
+    add_action('post_edit_form_tag', 'pensandoodireito_update_edit_form');
+
+    // Add to admin_init function
+    add_filter('manage_edit-debate_columns', 'add_new_debate_columns');
+    function add_new_debate_columns($debate_columns) {
+        $new_columns['cb'] = '<input type="checkbox" />';
+        $new_columns['title'] = _x('Debate', 'column name');
+        $new_columns['debate_aberto'] = 'Situação';
+
+        return $new_columns;
+    }
+
+    add_action( 'manage_debate_posts_custom_column', 'my_manage_debate_columns', 10, 2 );
+    function my_manage_debate_columns( $column, $post_id ) {
+        global $post;
+
+        switch( $column ) {
+
+            case 'debate_aberto' :
+
+                /* Get the post meta. */
+                $situacao = get_post_meta( $post_id, 'debate_aberto', true );
+
+                if ( $situacao == 'aberto' )
+                    echo 'Aberto';
+                else
+                    echo 'Encerrado';
+
+                break;
+
+            /* Just break out of the switch statement for everything else. */
+            default :
+                break;
+        }
+    }
+
+    register_post_type( 'debate', $args );
+}
+// Hook into the 'init' action
+add_action( 'init', 'arq_debate_post_type', 0 );
+
 /*add_action( 'widgets_init', 'pensandoodireito_widgets_init' );
 function pensandoodireito_widgets_init()
 {
