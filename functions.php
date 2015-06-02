@@ -224,31 +224,33 @@ function publicacao_post_type() {
 // Iniciarlizar publicação.
 add_action( 'init', 'publicacao_post_type', 0 );
 
-// Register Custom Post Type
-function destaque_post_type() {
+/**
+ * Register Arquivo Debate Custom Post Type
+ **/
+function arq_debate_post_type() {
 
     $labels = array(
-        'name'                => _x( 'Destaques', 'Post Type General Name', 'pensandoodireito' ),
-        'singular_name'       => _x( 'Destaque', 'Post Type Singular Name', 'pensandoodireito' ),
-        'menu_name'           => __( 'Destaques', 'pensandoodireito' ),
-        'name_admin_bar'      => __( 'Destaques', 'pensandoodireito' ),
-        'parent_item_colon'   => __( 'Destaque pai:', 'pensandoodireito' ),
-        'all_items'           => __( 'Todos destaques', 'pensandoodireito' ),
-        'add_new_item'        => __( 'Adicionar novo destaque', 'pensandoodireito' ),
+        'name'                => _x( 'Debates', 'Post Type General Name', 'pensandoodireito' ),
+        'singular_name'       => _x( 'Debate', 'Post Type Singular Name', 'pensandoodireito' ),
+        'menu_name'           => __( 'Debates', 'pensandoodireito' ),
+        'name_admin_bar'      => __( 'Debates', 'pensandoodireito' ),
+        'parent_item_colon'   => __( 'Debate pai:', 'pensandoodireito' ),
+        'all_items'           => __( 'Todos debates', 'pensandoodireito' ),
+        'add_new_item'        => __( 'Adicionar novo debate', 'pensandoodireito' ),
         'add_new'             => __( 'Adicionar novo', 'pensandoodireito' ),
-        'new_item'            => __( 'Novo destaque', 'pensandoodireito' ),
-        'edit_item'           => __( 'Editar destaque', 'pensandoodireito' ),
-        'update_item'         => __( 'Atualizar destaque', 'pensandoodireito' ),
-        'view_item'           => __( 'Ver destaque', 'pensandoodireito' ),
-        'search_items'        => __( 'Buscar destaque', 'pensandoodireito' ),
+        'new_item'            => __( 'Novo debate', 'pensandoodireito' ),
+        'edit_item'           => __( 'Editar debate', 'pensandoodireito' ),
+        'update_item'         => __( 'Atualizar debate', 'pensandoodireito' ),
+        'view_item'           => __( 'Ver debate', 'pensandoodireito' ),
+        'search_items'        => __( 'Buscar debate', 'pensandoodireito' ),
         'not_found'           => __( 'Não encontrado', 'pensandoodireito' ),
         'not_found_in_trash'  => __( 'Não encontrado na lixeira', 'pensandoodireito' ),
     );
     $args = array(
-        'label'               => __( 'destaque', 'pensandoodireito' ),
-        'description'         => __( 'Descrição do Destaque', 'pensandoodireito' ),
+        'label'               => __( 'debate', 'pensandoodireito' ),
+        'description'         => __( 'Descrição do Debate', 'pensandoodireito' ),
         'labels'              => $labels,
-        'supports'            => array( 'title' ), //'editor',
+        'supports'            => array( 'title', 'editor', 'excerpt' ),
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -261,186 +263,87 @@ function destaque_post_type() {
         'exclude_from_search' => true,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
-        'register_meta_box_cb' => 'add_destaque_metaboxes', //Para adicionar novos campos
-        'rewrite'             => array( 'slug' => 'destaques', 'with_front' => false),
+        'register_meta_box_cb' => 'add_debate_metaboxes', //Para adicionar novos campos
+        'rewrite'             => array( 'slug' => 'debate', 'with_front' => false),
     );
 
     // Metaboxes adicionadas seguindo o tutorial: http://wptheming.com/2010/08/custom-metabox-for-post-type/
     // and also thanks to @sterndata at #wordpress irc channel for the help
     // http://wpbin.io/dfwy8d
-    function add_destaque_metaboxes() {
-        // Adiciona um campo para upload de vídeo ou imagem do destaque.
-        add_meta_box('wpt_destaque_ativo', 'Destaque ativo', 'wpt_destaque_ativo', 'destaque', 'side', 'high');
-        //add_meta_box('wpt_destaque_preview', 'Previsão do destaque', 'wpt_destaque_preview', 'destaque', 'normal', 'high');
-        add_meta_box('wpt_destaque_link', 'Link do destaque', 'wpt_destaque_link', 'destaque', 'normal', 'high');
-        add_meta_box('wpt_destaque_modelo', 'Modelo do destaque', 'wpt_destaque_modelo', 'destaque', 'normal', 'high');
-        add_meta_box('wpt_destaque_midia', 'Mídia do Destaque', 'wpt_destaque_midia', 'destaque', 'normal', 'high');
-        add_meta_box('wpt_destaque_texto', 'Texto do Destaque', 'wpt_destaque_texto', 'destaque', 'normal', 'high');
+    function add_debate_metaboxes() {
+        add_meta_box('pd_debate_status', 'Debate aberto', 'pd_debate_status', 'debate', 'side', 'high');
+        add_meta_box('pd_debate_imagem', 'Imagem do debate', 'pd_debate_imagem', 'debate', 'side', 'default');
+        add_meta_box('pd_debate_detalhes', 'Detalhes do debate', 'pd_debate_detalhes', 'debate', 'normal', 'default');
     }
 
-    function wpt_destaque_ativo($post) {
-        echo '<input type="hidden" name="destaquemeta_noncename" id="destaquemeta_noncename" value="' . wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+    function pd_debate_status($post) {
+        $destaque_ativo = "";
+        echo '<input type="hidden" name="debatemeta_noncename" id="debatemeta_noncename" value="' . wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
         wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js' , array(), false, true );
         wp_enqueue_media();
 
-        $destaque_ativo = get_post_meta($post->ID, 'destaque_ativo', true);
-        echo '<input type="radio" name="destaque_ativo" id="destaque_ativo" ';
-        if ($destaque_ativo != 0) {
+        $debate_aberto = get_post_meta($post->ID, 'debate_aberto', true);
+        echo '<input type="radio" name="debate_aberto" id="debate_aberto" ';
+        if ($destaque_ativo == "aberto") {
             echo 'checked';
         }
-        echo ' value="1"/> Mostrar<br/>';
-        echo '<input type="radio" name="destaque_ativo" id="destaque_ativo" ';
-        if ($destaque_ativo == 0) {
+        echo ' value="aberto"/> Aberto<br/>';
+        echo '<input type="radio" name="debate_aberto" id="debate_encerrado" ';
+        if ($destaque_ativo != "aberto") {
             echo 'checked';
         }
-        echo ' value="0"/> Não mostrar';
-
+        echo ' value="encerrado"/> Encerrado';
     }
 
-    function wpt_destaque_link($post) {
-        $link = get_post_meta($post->ID, 'destaque_link', true);
+    function pd_debate_imagem($post) {
 
-        $link_html = '<label for="destaque_link">';
-        $link_html .= 'Digite abaixo o link para o qual o destaque irá direcionar<br/>';
-        $link_html .= 'Link: <input type="text" name="destaque_link" id="destaque_link" size="80" value="' . $link . '"/>';
-        $link_html .= '</label>';
+        $imagem = get_post_meta($post->ID, 'imagem', true);
 
-        echo $link_html;
+        $midia_html = '<label for="imagem">';
 
-    }
-
-    // Gera, na área de administração, o preview de como ficará o destaque
-    function wpt_destaque_preview($post) {
-
-        $midia_destaque = get_post_meta($post->ID, 'midia_destaque', true);
-        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
-
-        $preview_html .= '<label for="midia_destaque">';
-
-        if ($modelo_destaque != 'img_texto' && $modelo_destaque != 'img_full') {
-            $tipo_midia_img = false;
-        }
-
-        if( $midia_destaque && $midia_destaque != '' ) {
-
-            if ($modelo_destaque == 'img_full') {
-                $preview_html .= '<img style="width: 1024px; height: 390px;" src="' . $midia_destaque . '"/>';
-            } else if ($modelo_destaque == 'img_texto'){
-                $preview_html .= '<img style="width: 640px; height: 390px;" src="' . $midia_destaque . '"/>';
-            } else if ($modelo_destaque == 'video_full') {
-                echo do_shortcode('[youtube id="' . getYoutubeIdFromUrl($midia_destaque) . '"]');
-            }
-        }
-
-        echo $preview_html;
-    }
-
-    function wpt_destaque_modelo($post) {
-
-        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
-
-        //Seletor de modelo de Destaque
-        echo '<label for="modelo_destaque">Selecione o modelo de destaque que você deseja</label><br/>';
-        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
-        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_img_texto.png" alt="Imagem com texto à direita" title="Imagem com texto à direita"/><br/>';
-        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="img_texto"';
-            if ($modelo_destaque == 'img_texto' || $modelo_destaque == ''){ echo ' checked'; }
-            echo '/>Imagem com texto à direita<br/>(640px x 390px)';
-        echo '</div>';
-        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
-        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_video_texto.png" alt="Vídeo com texto à direita" title="Vídeo com texto à direita"/><br/>';
-        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="video_texto"';
-            if ($modelo_destaque == 'video_texto'){ echo ' checked'; }
-            echo '/>Vídeo com texto à direita<br/>(640px x 390px)';
-        echo '</div>';
-        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
-        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_img_full.png" alt="Apenas imagem" title="Apenas imagem"/><br/>';
-        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="img_full"';
-            if ($modelo_destaque == 'img_full'){ echo ' checked'; }
-            echo '/>Apenas imagem Full Width<br/>(1024px x 390px)';
-        echo '</div>';
-        echo '<div style="width: 23%; min-width: 185px; padding: 5px; display: inline-block; text-align: center;">';
-        echo '<img src="' . get_stylesheet_directory_uri() . '/images/destaque_video_full.png" alt="Apenas vídeo" title="Apenas vídeo"/><br/>';
-        echo '<input type="radio" name="modelo_destaque" id="modelo_destaque" onchange="destaque_controla_midia(this.value)" value="video_full"';
-            if ($modelo_destaque == 'video_full'){ echo ' checked'; }
-            echo '/>Apenas vídeo Full Width<br/>(1024px x 390px)';
-        echo '</div>';
-    }
-
-    function wpt_destaque_midia($post) {
-
-        $midia_destaque = get_post_meta($post->ID, 'midia_destaque', true);
-        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
-
-        $midia_html = '';
-
-        $tipo_midia_img = True;
-        $destaque_com_texto = True;
-
-        if ( $modelo_destaque == 'video_texto' || $modelo_destaque == 'video_full' ) {
-            $tipo_midia_img = False;
-        }
-        if ( $modelo_destaque == 'video_full' || $modelo_destaque == 'img_full' ) {
-            $destaque_com_texto = False;
-        }
-
-        $img = 'block';
-        $video = 'none';
-        if ( !$tipo_midia_img ) {
-            $img = 'none';
-            $video = 'block';
-        }
-
-        $img_formats_patterns = ['#\.jpg$#', '#\.png$#', '#\.jpeg#'];
-
-        $midia_html .= '<input id="upload_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem" style="display:' . $img . ';"/>';
-        $midia_html .= '<p class="midia_video" style="display:' . $video . ';">Coloque a url do vídeo no youtube na caixa abaixo.</p>';
-        $midia_html .= '<input id="midia_destaque" class="midia_video" type="text" size="80" name="midia_destaque" value="' . $midia_destaque . '" style="display:' . $video . ';" />';
+        $midia_html .= '<input id="upload_debate_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem"/>';
+        $midia_html .= '<input id="imagem" type="text" size="25" name="imagem" value="' . $imagem . '"/>';
         $midia_html .= '<br/>';
-        $midia_html .= '<img style="width: 300px;" class="midia_imagem" style="display:' . $img  . '" id="img_preview" src="';
-        if ($tipo_midia_img) {
-            foreach ($img_formats_patterns as $pattern) { // Cycle through the $events_meta array!
-              if ( preg_match( $pattern, $midia_destaque ) ) {
-                   $midia_html .= $midia_destaque;
-              }
-            }
+        $midia_html .= '<div id="img_preview_frame">';
+        if ( !empty($imagem) && $imagem != "" ) {
+            $midia_html .= '<img style="width: 100%;" class="img_preview" id="img_preview" src="' . $imagem . '"/>';
         }
-        $midia_html .= '"/>';
+        $midia_html .= '</div>';
 
-        if( $midia_destaque && $midia_destaque != '' ) {
-            if (!$tipo_midia_img && getYoutubeIdFromUrl($midia_destaque) ) {
-                echo do_shortcode('[youtube id="' . getYoutubeIdFromUrl($midia_destaque) . '"]');
-            }
-        }
         $midia_html .= '</label>';
         echo $midia_html;
     }
 
+    function pd_debate_detalhes($post) {
+        $link = get_post_meta($post->ID, 'debate_link', true);
+        $periodo_de = get_post_meta($post->ID, 'debate_periodo_de', true); //Como adicionar o widget?
+        $periodo_para = get_post_meta($post->ID, 'debate_periodo_para', true); //Como adicionar o widget?
+        $assunto = get_post_meta($post->ID, 'debate_assunto', true);
+        $categoria = get_post_meta($post->ID, 'debate_categoria', true);
+        $fases = get_post_meta($post->ID, 'debate_categoria', true);
+        $resultados = get_post_meta($post->ID, 'debate_resultado', true);
 
-    function wpt_destaque_texto($post) {
+        $debate_html = '<label for="debate_detalhes">';
+        $debate_html .= '<strong>Link:</strong><br/><input type="url" name="debate_link" id="debate_link" size="80" value="' . $link . '"/><br/>';
+        $debate_html .= '<strong>Perído:</strong><br/>';
+        $debate_html .= 'De: <input type="text" name="debate_periodo_de" value="' . $periodo_de . '" class="datePick" required> ';
+        $debate_html .= 'Até: <input type="text" name="debate_periodo_para" value="' . $periodo_para . '" class="datePick" required><br/>';
+        $debate_html .= '<strong>Assunto Principal:</strong><br/><input type="text" name="debate_assunto" id="debate_assunto" size="80" value="' . $assunto . '"/><br/>';
+        $debate_html .= '<strong>Categoria:</strong><br/><input type="text" name="debate_categoria" id="debate_categoria" size="40" value="' . $categoria . '"/><br/>';
+        $debate_html .= '<strong>Fases:</strong><br/><input type="text" name="debate_fases" id="debate_fases" size="40" value="' . $fases . '"/><br/>';
+        $debate_html .= '<strong>Resultados:</strong><br/><input type="text" name="debate_resultadoso" id="debate_resultados" size="40" value="' . $resultados . '"/><br/>';
+        $debate_html .= '</label>';
 
-        $destaque_texto = get_post_meta($post->ID, 'destaque_texto', true);
-        $modelo_destaque = get_post_meta($post->ID, 'modelo_destaque', true);
-
-        $texto = 'block';
-        if ( $modelo_destaque == 'video_full' || $modelo_destaque == 'img_full' ) {
-            $texto = 'none';
-        }
-
-        echo '<label class="destaque_texto" for="destaque_texto" style="display: ' . $texto . '">Digite o texto a ser utilizado na chamada.<br/>';
-        echo '<textarea name="destaque_texto" id="destaque_texto" rows="3" cols="80" size="100px" maxlength="230">';
-        echo $destaque_texto;
-        echo '</textarea></label>';
-
+        echo $debate_html;
     }
 
-    add_action('save_post', 'wpt_save_destaque_meta', 1, 2); // save the custom fields
+    add_action('save_post', 'pd_save_debate_meta', 1, 2); // save the custom fields
     // Save the Metabox Data
-    function wpt_save_destaque_meta($post_id, $post) {
+    function pd_save_debate_meta($post_id, $post) {
 
         // verify this came from the our screen and with proper authorization,
         // because save_post can be triggered at other times
-        if ( !isset($_POST['destaquemeta_noncename']) || !wp_verify_nonce( $_POST['destaquemeta_noncename'], plugin_basename(__FILE__) )) {
+        if ( !isset($_POST['debatemeta_noncename']) || !wp_verify_nonce( $_POST['debatemeta_noncename'], plugin_basename(__FILE__) )) {
             return $post->ID;
         }
 
@@ -453,30 +356,46 @@ function destaque_post_type() {
             return $post->ID;
         }
 
-        $destaque_meta = get_post_meta($post->ID);
+        $debate_meta = get_post_meta($post->ID);
 
-        if ( isset( $_REQUEST['modelo_destaque'] ) ) {
-            $destaque_meta['modelo_destaque'] = $_REQUEST['modelo_destaque'];
+        if ( isset( $_REQUEST['debate_aberto'] ) ) {
+            $debate_meta['debate_aberto'] = $_REQUEST['debate_aberto'];
         }
 
-        if ( isset( $_REQUEST['midia_destaque']  ) && $_REQUEST['midia_destaque'] != '' ) {
-            $destaque_meta['midia_destaque'] = $_REQUEST['midia_destaque'];
+        if ( isset( $_REQUEST['imagem']  ) && $_REQUEST['imagem'] != '' ) {
+            $debate_meta['imagem'] = $_REQUEST['imagem'];
         }
 
-        if ( isset( $_REQUEST['destaque_ativo'] ) ) {
-            $destaque_meta['destaque_ativo'] = $_REQUEST['destaque_ativo'];
+        if ( isset( $_REQUEST['debate_link'] ) ) {
+            $debate_meta['debate_link'] = $_REQUEST['debate_link'];
         }
 
-        if ( isset( $_REQUEST['destaque_texto'] ) && $_REQUEST['destaque_texto'] != '' ) {
-            $destaque_meta['destaque_texto'] = $_REQUEST['destaque_texto'];
+        if ( isset( $_REQUEST['debate_periodo_de'] ) ) {
+            $debate_meta['debate_periodo_de'] = $_REQUEST['debate_periodo_de'];
         }
 
-        if ( isset( $_REQUEST['destaque_link'] ) && $_REQUEST['destaque_link'] != '' ) {
-            $destaque_meta['destaque_link'] = $_REQUEST['destaque_link'];
+        if ( isset( $_REQUEST['debate_periodo_para'] ) ) {
+            $debate_meta['debate_periodo_para'] = $_REQUEST['debate_periodo_para'];
+        }
+
+        if ( isset( $_REQUEST['debate_assunto'] ) ) {
+            $debate_meta['debate_assunto'] = $_REQUEST['debate_assunto'];
+        }
+
+        if ( isset( $_REQUEST['debate_categoria'] ) ) {
+            $debate_meta['debate_categoria'] = $_REQUEST['debate_categoria'];
+        }
+
+        if ( isset( $_REQUEST['debate_fases'] ) ) {
+            $debate_meta['debate_fases'] = $_REQUEST['debate_fases'];
+        }
+
+        if ( isset( $_REQUEST['debate_resultados'] ) ) {
+            $debate_meta['debate_resultados'] = $_REQUEST['debate_resultados'];
         }
 
         // Add values of $events_meta as custom fields
-        foreach ($destaque_meta as $key => $value) { // Cycle through the $events_meta array!
+        foreach ($debate_meta as $key => $value) { // Cycle through the $events_meta array!
             if( $post->post_type == 'revision' ) return; // Don't store custom data twice
             $value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
             if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
@@ -488,55 +407,34 @@ function destaque_post_type() {
         }
 
     }
+
     add_action('post_edit_form_tag', 'pensandoodireito_update_edit_form');
 
     // Add to admin_init function
-    add_filter('manage_edit-destaque_columns', 'add_new_destaque_columns');
-    function add_new_destaque_columns($destaque_columns) {
+    add_filter('manage_edit-debate_columns', 'add_new_debate_columns');
+    function add_new_debate_columns($debate_columns) {
         $new_columns['cb'] = '<input type="checkbox" />';
-        $new_columns['title'] = _x('Nome do Destaque', 'column name');
-        $new_columns['modelo_destaque'] = 'Modelo de Destaque';
-        $new_columns['destaque_ativo'] = 'Ativo?';
-        $new_columns['date'] = _x('Date', 'column name');
+        $new_columns['title'] = _x('Debate', 'column name');
+        $new_columns['debate_aberto'] = 'Situação';
 
         return $new_columns;
     }
 
-
-    add_action( 'manage_destaque_posts_custom_column', 'my_manage_destaque_columns', 10, 2 );
-
-    function my_manage_destaque_columns( $column, $post_id ) {
+    add_action( 'manage_debate_posts_custom_column', 'my_manage_debate_columns', 10, 2 );
+    function my_manage_debate_columns( $column, $post_id ) {
         global $post;
 
         switch( $column ) {
 
-            case 'modelo_destaque' :
+            case 'debate_aberto' :
 
                 /* Get the post meta. */
-                $modelo = get_post_meta( $post_id, 'modelo_destaque', true );
+                $situacao = get_post_meta( $post_id, 'debate_aberto', true );
 
-                if ( empty( $modelo ) )
-                    echo 'Desconhecido';
-                else if ( $modelo == 'img_texto' )
-                    printf('Imagem e Texto');
-                else if ( $modelo == 'video_texto' )
-                    printf('Vídeo e Texto');
-                else if ( $modelo == 'img_full' )
-                    printf('Apenas Imagem');
+                if ( $situacao == 'aberto' )
+                    echo 'Aberto';
                 else
-                    printf('Apenas Vídeo');
-
-                break;
-
-            case 'destaque_ativo' :
-
-                $ativo = get_post_meta( $post_id, 'destaque_ativo', true );
-
-                if ( empty( $ativo ) || $ativo == '' || $ativo == 0 || $ativo == false || $ativo == "0") {
-                    echo 'Desativado';
-                } else {
-                    echo 'Ativo';
-                }
+                    echo 'Encerrado';
 
                 break;
 
@@ -546,12 +444,10 @@ function destaque_post_type() {
         }
     }
 
-
-    register_post_type( 'destaque', $args );
-
+    register_post_type( 'debate', $args );
 }
 // Hook into the 'init' action
-add_action( 'init', 'destaque_post_type', 0 );
+add_action( 'init', 'arq_debate_post_type', 0 );
 
 /*add_action( 'widgets_init', 'pensandoodireito_widgets_init' );
 function pensandoodireito_widgets_init()
