@@ -15,30 +15,7 @@
     </div>
     <div class="row">
       <div id="social-bar" class="col-md-4">
-        <small>
-          <a href="#" onClick="event.preventDefault(); window.open('https://www.facebook.com/sharer/sharer.php?u=<?php echo get_post_permalink(); ?>','Facebook');" class="nounderline">
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-square-o fa-stack-2x"></i>
-              <i class="fa fa-facebook fa-stack-1x"></i>
-            </span>
-          </a>
-        </small>
-        <small>
-          <a href="#" onClick="event.preventDefault(); window.open('https://twitter.com/share?hashtags=pensandoodireito&text=<?php echo the_title(); ?>&url=<?php echo get_post_permalink(); ?>','Tweet');" class="nounderline">
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-square-o fa-stack-2x"></i>
-              <i class="fa fa-twitter fa-stack-1x"></i>
-            </span>
-          </a>
-        </small>
-        <small>
-          <a href="#" onClick="event.preventDefault(); window.open('https://www.linkedin.com/shareArticle?mini=true&title=<?php echo urlencode(get_the_title()); ?>&url=<?php echo urlencode(get_post_permalink()); ?>&summary=<?php echo urlencode(get_the_excerpt()); ?>&source=http://participacao.mj.gov.br');" class="nounderline">
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-square-o fa-stack-2x"></i>
-              <i class="fa fa-linkedin fa-stack-1x"></i>
-            </span>
-          </a>
-        </small>
+        <?php get_template_part('part', 'social'); ?>
       </div>
       <div class="col-md-8 text-right">
         <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" target="_blank" class="btn btn-default"><span class="fa fa-download"></span> BAIXAR</a>
