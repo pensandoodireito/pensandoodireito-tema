@@ -250,7 +250,7 @@ function arq_debate_post_type() {
         'label'               => __( 'debate', 'pensandoodireito' ),
         'description'         => __( 'Descrição do Debate', 'pensandoodireito' ),
         'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt' ),
+        'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -272,7 +272,6 @@ function arq_debate_post_type() {
     // http://wpbin.io/dfwy8d
     function add_debate_metaboxes() {
         add_meta_box('pd_debate_status', 'Debate aberto', 'pd_debate_status', 'debate', 'side', 'high');
-        add_meta_box('pd_debate_imagem', 'Imagem do debate', 'pd_debate_imagem', 'debate', 'side', 'default');
         add_meta_box('pd_debate_detalhes', 'Detalhes do debate', 'pd_debate_detalhes', 'debate', 'normal', 'default');
     }
 
@@ -293,25 +292,6 @@ function arq_debate_post_type() {
             echo 'checked';
         }
         echo ' value="encerrado"/> Encerrado';
-    }
-
-    function pd_debate_imagem($post) {
-
-        $imagem = get_post_meta($post->ID, 'imagem', true);
-
-        $midia_html = '<label for="imagem">';
-
-        $midia_html .= '<input id="upload_debate_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem"/>';
-        $midia_html .= '<input id="imagem" type="text" size="25" name="imagem" value="' . $imagem . '"/>';
-        $midia_html .= '<br/>';
-        $midia_html .= '<div id="img_preview_frame">';
-        if ( !empty($imagem) && $imagem != "" ) {
-            $midia_html .= '<img style="width: 100%;" class="img_preview" id="img_preview" src="' . $imagem . '"/>';
-        }
-        $midia_html .= '</div>';
-
-        $midia_html .= '</label>';
-        echo $midia_html;
     }
 
     function pd_debate_detalhes($post) {
@@ -360,10 +340,6 @@ function arq_debate_post_type() {
 
         if ( isset( $_REQUEST['debate_aberto'] ) ) {
             $debate_meta['debate_aberto'] = $_REQUEST['debate_aberto'];
-        }
-
-        if ( isset( $_REQUEST['imagem']  ) && $_REQUEST['imagem'] != '' ) {
-            $debate_meta['imagem'] = $_REQUEST['imagem'];
         }
 
         if ( isset( $_REQUEST['debate_link'] ) ) {
