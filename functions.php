@@ -264,7 +264,7 @@ function arq_debate_post_type() {
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
         'register_meta_box_cb' => 'add_debate_metaboxes', //Para adicionar novos campos
-        'rewrite'             => array( 'slug' => 'debate', 'with_front' => false),
+        'rewrite'             => array( 'slug' => 'debates', 'with_front' => false),
     );
 
     // Metaboxes adicionadas seguindo o tutorial: http://wptheming.com/2010/08/custom-metabox-for-post-type/
