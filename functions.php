@@ -619,7 +619,7 @@ function destaque_post_type() {
 
         $img_formats_patterns = ['#\.jpg$#', '#\.png$#', '#\.jpeg#'];
 
-        $midia_html .= '<input id="upload_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem" style="display:' . $img . ';"/>';
+        $midia_html .= '<input id="upload_debate_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem" style="display:' . $img . ';"/>';
         $midia_html .= '<p class="midia_video" style="display:' . $video . ';">Coloque a url do vídeo no youtube na caixa abaixo.</p>';
         $midia_html .= '<input id="midia_destaque" class="midia_video" type="text" size="80" name="midia_destaque" value="' . $midia_destaque . '" style="display:' . $video . ';" />';
         $midia_html .= '<br/>';
