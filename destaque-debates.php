@@ -26,7 +26,7 @@
             <div class="col-sm-4 debate-box">
                 <div class="">
                     <div class="text-center">
-                        <a href="<?php echo $debate_link ?>"><?php the_post_thumbnail('medium', array( 'class' => 'img-full' )) ?></a>
+                        <a href="<?php echo $debate_link ?>"><?php the_post_thumbnail(array(300,182), array( 'class' => 'img-full', 'alt'   => get_the_title() )) ?></a>
                     </div>
                     <div class="description">
                         <strong class="red"><a href="<?php echo $debate_link; ?>"><?php the_title(); ?></a></strong><?php echo $status; ?><span></span>
