@@ -1,5 +1,5 @@
 function carregar_publicacoes() {
-    var loader = '<div class="col-sm-6 col-xs-12" id="loader-gif">Carregando mais notícias... <img src="' + publicacoes.ajaxgif + '"/></div>';
+    var loader = '<div class="col-sm-6 col-xs-12" id="loader-gif">Carregando mais publicações... <img src="' + publicacoes.ajaxgif + '"/></div>';
     jQuery("#lista-publicacoes").append(loader);
     jQuery.ajax({
         url: publicacoes.ajaxurl,
