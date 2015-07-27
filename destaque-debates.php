@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h3 class="font-roboto red">Debates</h3>
+                <h2 class="font-roboto red">Debates</h2>
             </div>
             <div class="col-md-6 text-right">
                 <p class="mt-sm">

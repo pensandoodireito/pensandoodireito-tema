@@ -122,18 +122,18 @@
   if ($fp_pub_query->have_posts()) {
   $fp_pub_query->the_post();?>
   <div class="container">
-    <div class="row mt-md" id="publicacoes">
+    <div class="row mt-lg" id="publicacoes">
       <div class="col-md-8" id="publicacao-destaque">
-        <h3 class="font-roboto red">Publicações da Série Pensando o Direito</h3>
-        <div class="panel-body">
-          <div class="col-xs-6 col-md-4">
+        <h2 class="font-roboto red">Publicações da Série Pensando o Direito</h2>
+        <div class="row mt-md">
+          <div class="col-xs-12 col-sm-4 text-center">
             <a href="<?php echo get_post_permalink(); ?>" class="nounderline">
               <div class="destaque text-center">
                 <p><?php the_title(); ?></p>
               </div>
             </a>
           </div>
-          <div class="description col-md-8">
+          <div class="description col-xs-12 col-sm-8">
             <a href="<?php echo get_post_permalink(); ?>" class="nounderline">
               <h4 class="font-roboto red">Volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></h4>
             </a>
