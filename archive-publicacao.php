@@ -5,6 +5,14 @@ get_header();
 $destaque_query_array = array(
     'post_type' => 'publicacao',
     'posts_per_page' => 1,
+    'order' => 'DESC',
+    'orderby' => 'meta_value_num',
+    'meta_query' => array(
+        array(
+            'key'   => 'pub_number',
+            'type' => 'NUMERIC'
+        )
+    )
 );
 if ( !empty($_POST) ) {
     if ( isset($_POST['filter-name']) ) {
@@ -193,6 +201,9 @@ $destaqueID = get_the_ID();
             'post_type' => 'publicacao',
             'posts_per_page' => 8,
             'post__not_in' => array($destaqueID),
+            'order' => 'DESC',
+            'orderby' => 'meta_value_num',
+            'meta_key' => 'pub_number'
           );
           if ( !empty($_POST) ) {
             if ( isset($_POST['filter-name']) ) {
