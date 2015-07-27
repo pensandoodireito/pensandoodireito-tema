@@ -13,7 +13,7 @@
         <div class="row" id="debates-home">
             <?php
 
-            $debates = new WP_Query( array('post_type' => 'debate') );
+            $debates = new WP_Query( array('post_type' => 'debate', 'posts_per_page' => 3 ) );
 
             while ( $debates->have_posts() ) {
                 $debates->the_post();
@@ -26,10 +26,10 @@
             <div class="col-sm-4 debate-box">
                 <div class="">
                     <div class="text-center">
-                        <a href="<?php echo $debate_link ?>"><?php the_post_thumbnail(array(300,182), array( 'class' => 'img-full', 'alt'   => get_the_title() )) ?></a>
+                        <a href="<?php echo $debate_link ?>"><?php the_post_thumbnail('thumb-debate-capa', array( 'class' => 'img-full', 'alt'   => get_the_title() )) ?></a>
                     </div>
                     <div class="description">
-                        <strong class="red"><a href="<?php echo $debate_link; ?>"><?php the_title(); ?></a></strong><?php echo $status; ?><span></span>
+                        <strong class="red"><a href="<?php echo $debate_link; ?>"><?php the_title(); ?></a></strong> <span class="label label-info small"><?php echo $status; ?></span>
                         <p><small><?php the_excerpt(); ?></small></p>
                     </div>
                 </div>
