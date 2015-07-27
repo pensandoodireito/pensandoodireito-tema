@@ -150,7 +150,7 @@ $destaqueID = get_the_ID();
       </div>
     </div>
     <div class="container mt-sm">
-      <form id="sort-filter-form" action="/publicacao" method="post">
+      <form id="sort-filter-form" action="<?php echo get_post_type_archive_link('publicacao'); ?>" method="post">
         <div class="row">
           <div class="col-sm-10">
             <div class="input-group">
