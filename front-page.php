@@ -108,7 +108,17 @@
   <?php
   $fp_pub_query = new WP_Query(array (
   'post_type' => 'publicacao',
-  'posts_per_page' => 1));
+  'posts_per_page' => 1,
+  'order' => 'DESC',
+  'orderby' => 'meta_value_num',
+      'meta_query' => array(
+          array(
+              'key'   => 'pub_number',
+              'type' => 'NUMERIC'
+          )
+      )
+  ));
+
   if ($fp_pub_query->have_posts()) {
   $fp_pub_query->the_post();?>
   <div class="container">
