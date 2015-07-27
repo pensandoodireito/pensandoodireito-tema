@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <p class="text-right mt-xs">
-                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> Debate encerrado dia 8 de julho de 2015</span>
+                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> Debate encerrado dia 30 de abril de 2015</span>
                                         </p>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <p class="text-right mt-xs">
-                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> Debate encerrado dia 8 de julho de 2015</span>
+                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> Debate encerrado dia 5 de julho de 2015</span>
                                         </p>
                                     </div>
                                 </div>
@@ -129,64 +129,42 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+
+                        <?php
+                        query_posts(array( 'post_type' => 'debate' ));
+
+                        while(have_posts()): the_post();
+
+                            $link = get_post_meta(get_the_ID(), 'debate_link', true);
+                            $inicio = get_post_meta(get_the_ID(), 'debate_periodo_de', true);
+                            $fim = get_post_meta(get_the_ID(), 'debate_periodo_para', true);
+                            $resultados = get_post_meta(get_the_ID(), 'debate_resultados', true);
+                        ?>
+
                         <section class="mt-md divider-bottom pb-md">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <a href="<?php echo site_url("https://participacao.mj.gov.br/pensandoodireito/siouv/"); ?>" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/outros/consultasiovu-230x175.jpg" class="img-adptive" alt="Sistema Público de Ouvidorias"></a>
+                                    <a href="<?php echo $link; ?>" target="_blank"><?php the_post_thumbnail(array(230,175), array('class' => 'img-adptive')); ?></a>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h4><strong class="red"><a href="<?php echo site_url("https://participacao.mj.gov.br/pensandoodireito/siouv/"); ?>" target="_blank">Sistema Público de Ouvidorias</a></strong></h4>
-                                    <p>Reconhecendo a importância das ouvidorias públicas, que têm se destacado como instrumentos de defesa dos direitos fundamentais dos cidadãos</p>
+                                    <h4><strong class="red"><a href="<?php echo $link; ?>" target="_blank"><?php the_title(); ?></a></strong></h4>
+                                    <p><?php the_excerpt(); ?></p>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="well well-sm">
-                                        <p>Iniciado em: 00/00/0000</p>
-                                        <p>Finalizado: 00/00/0000</p>
-                                        <p class="divider-top"><i class="fa fa-users"></i> 0000 participaram</p>
-                                        <p><i class="fa fa-comments"></i> comentários</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="mt-md divider-bottom pb-md">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <a href="<?php echo site_url("https://participacao.mj.gov.br/pensandoodireito/codcom/"); ?>" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/outros/codcom-230x175.png" class="img-adptive" alt="Código Comercial"></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h4><strong class="red"><a href="<?php echo site_url("https://participacao.mj.gov.br/pensandoodireito/siouv/"); ?>" target="_blank">Código Comercial</a></strong></h4>
-                                    <p>A proposta do projeto é caracterizar o Direito Empresarial e fortalecê-lo enquanto ciência autônoma, consolidando e atualizando uma série de disposições presentes em variados textos legais</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="well well-sm">
-                                        <p>Iniciado em: 00/00/0000</p>
-                                        <p>Finalizado: 00/00/0000</p>
-                                        <p class="divider-top"><i class="fa fa-users"></i> 0000 participaram</p>
-                                        <p><i class="fa fa-comments"></i> comentários</p>
+                                        <p>Iniciado em: <?php echo $inicio; ?></p>
+                                        <p>Finalizado: <?php echo $fim; ?></p>
+                                        <?php if ($resultados): ?>
+                                        <p class="divider-top"><i class="fa fa-users"></i><?php echo $resultados; ?></p>
+                                        <?php endif; ?>
+<!--                                        <p><i class="fa fa-comments"></i> comentários</p>-->
                                     </div>
                                 </div>
                             </div>
                         </section>
 
-                        <section class="mt-md pb-md">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <a href="<?php echo site_url("https://participacao.mj.gov.br/pensandoodireito/codcom/"); ?>" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/outros/cpc-230x175.png" class="img-adptive" alt="Código do Processo Civil"></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h4><strong class="red"><a href="<?php echo site_url("https://participacao.mj.gov.br/pensandoodireito/cpc/"); ?>" target="_blank">Código do Processo Civil</a></strong></h4>
-                                    <p>A proposta do projeto é caracterizar o Direito Empresarial e fortalecê-lo enquanto ciência autônoma, consolidando e atualizando uma série de disposições presentes em variados textos legais</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="well well-sm">
-                                        <p>Iniciado em: 00/00/0000</p>
-                                        <p>Finalizado: 00/00/0000</p>
-                                        <p class="divider-top"><i class="fa fa-users"></i> 0000 participaram</p>
-                                        <p><i class="fa fa-comments"></i> comentários</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        <?php endwhile; ?>
+
                     </div>
                 </div>
             </div>
