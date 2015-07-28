@@ -69,7 +69,7 @@
                         <div class="debate-item">
                             <header class="marco-civil">
                                 <div class="text-center">
-                                    <a href="<?php echo site_url("/marco-civil"); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/logos/marcocivil-w.png" class="img-adptive" alt="Marco Civil da Internet"></a>
+                                    <a href="<?php echo site_url("/marcocivil"); ?>" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/logos/marcocivil-w.png" class="img-adptive" alt="Marco Civil da Internet"></a>
                                 </div>
                             </header>
                             <div class="description">
@@ -79,7 +79,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p>
-                                            <a href="<?php echo site_url("/marco-civil"); ?>" class="btn btn-danger font-roboto">Confira como foi este debate!</a>
+                                            <a href="<?php echo site_url("/dadospessoais"); ?>" class="btn btn-danger font-roboto" target="_blank">Confira como foi este debate!</a>
                                         </p>
                                     </div>
                                     <div class="col-md-6">
@@ -95,7 +95,7 @@
                         <div class="debate-item">
                             <header class="protecao">
                                 <div class="text-center">
-                                    <a href="<?php echo site_url("/protecao"); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/logos/protecao-w.png" class="img-adptive" alt="Proteção de dados pessoais"></a>
+                                    <a href="<?php echo site_url("/protecao"); ?>" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/logos/protecao-w.png" class="img-adptive" alt="Proteção de dados pessoais"></a>
                                 </div>
                             </header>
                             <div class="description">
@@ -105,7 +105,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p>
-                                            <a href="<?php echo site_url("/marco-civil"); ?>" class="btn btn-danger font-roboto">Confira como foi este debate!</a>
+                                            <a href="<?php echo site_url("/marco-civil"); ?>" class="btn btn-danger font-roboto" target="_blank">Confira como foi este debate!</a>
                                         </p>
                                     </div>
                                     <div class="col-md-6">
