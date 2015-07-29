@@ -151,15 +151,16 @@
                   <?php }?>
                   <a href="<?php echo get_post_permalink(); ?>" class="btn btn-danger">VISUALIZAR</a>
                 </div>
+                <p class="mt-md"><a href="<?php echo site_url("/publicacoes"); ?>"><strong>Todas as publicações</strong></a></p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <!-- AGENDA -->
-      <div class="col-md-4">
+        <div class="col-md-4">
           <?php get_template_part('agenda'); ?>
-          </div>
+        </div>
       </div> <!-- /col-md-4 -->
     </div>
   </div>
