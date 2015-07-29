@@ -13,11 +13,12 @@
   font-size: 20px;
   height: 268px;
   vertical-align: middle;
-  display: table-cell;
   width: 206px;
+  margin: 0 auto;
 }
 .destaque p {
-  color: #ffffff;
+  color: #FFF;
+  padding-top: 45%;
 }
 .card {
   background: url("../images/publicacoes/capa-card.gif") #c5212a;
