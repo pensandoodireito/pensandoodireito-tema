@@ -1,0 +1,23 @@
+#main-parceiros .list-group {
+  margin: 20px 0;
+}
+#main-parceiros .list-group .list-group-item {
+  padding: 20px 15px;
+}
+@media (max-width: 768px) {
+  #main-parceiros .list-group .list-group-item .list-group-item-heading {
+    margin-top: 20px;
+  }
+}
+#main-parceiros .list-group .list-group-item img {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+#main-parceiros .list-group .list-group-item:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+#main-parceiros .list-group .list-group-item:hover img {
+  filter: grayscale(0);
+  -webkit-filter: grayscale(0);
+}
