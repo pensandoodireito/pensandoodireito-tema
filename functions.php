@@ -1,8 +1,9 @@
 <?php
 
+include_once ( get_stylesheet_directory() . DIRECTORY_SEPARATOR . 'post-types.php' );
+
 // Tamanhos de imagem pré-definidos
 add_image_size('thumb-debate-capa', 300, 182, true);
-
 
 // this adds jquery tooltip and styles it
 function pensandoodireito_scripts() {
