@@ -276,26 +276,57 @@ function arq_debate_post_type() {
     // http://wpbin.io/dfwy8d
     function add_debate_metaboxes() {
         add_meta_box('pd_debate_status', 'Debate aberto', 'pd_debate_status', 'debate', 'side', 'high');
+        add_meta_box('pd_debate_destaque', 'Debate em destaque', 'pd_debate_destaque', 'debate', 'side', 'high');
+        add_meta_box('pd_debate_imagem_fundo', 'Imagem de fundo', 'pd_debate_imagem_fundo', 'debate', 'side', 'default');
         add_meta_box('pd_debate_detalhes', 'Detalhes do debate', 'pd_debate_detalhes', 'debate', 'normal', 'default');
     }
 
     function pd_debate_status($post) {
-        $destaque_ativo = "";
+        $debate_aberto = "";
         echo '<input type="hidden" name="debatemeta_noncename" id="debatemeta_noncename" value="' . wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
         wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js' , array(), false, true );
         wp_enqueue_media();
 
         $debate_aberto = get_post_meta($post->ID, 'debate_aberto', true);
         echo '<input type="radio" name="debate_aberto" id="debate_aberto" ';
-        if ($destaque_ativo == "aberto") {
+        if ($debate_aberto == "aberto") {
             echo 'checked';
         }
         echo ' value="aberto"/> Aberto<br/>';
         echo '<input type="radio" name="debate_aberto" id="debate_encerrado" ';
-        if ($destaque_ativo != "aberto") {
+        if ($debate_aberto != "aberto") {
             echo 'checked';
         }
         echo ' value="encerrado"/> Encerrado';
+    }
+
+    function pd_debate_destaque($post) {
+        $debate_destaque = get_post_meta($post->ID, 'debate_destaque', true);
+        echo '<input type="hidden" name="debate_destaque" value="comum" /> ';
+        echo '<label><input type="checkbox" name="debate_destaque" id="debate_destaque" ';
+        if ($debate_destaque == "destaque") {
+            echo 'checked';
+        }
+        echo ' value="destaque"/> Destacado</label>';
+    }
+
+    function pd_debate_imagem_fundo($post) {
+
+        $imagem = get_post_meta($post->ID, 'imagem', true);
+
+        $midia_html = '<label for="imagem">';
+
+        $midia_html .= '<input id="upload_debate_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem"/>';
+        $midia_html .= '<input id="imagem" type="text" size="25" name="imagem" value="' . $imagem . '"/>';
+        $midia_html .= '<br/>';
+        $midia_html .= '<div id="img_preview_frame">';
+        if ( !empty($imagem) && $imagem != "" ) {
+            $midia_html .= '<img style="width: 100%;" class="img_preview" id="img_preview" src="' . $imagem . '"/>';
+        }
+        $midia_html .= '</div>';
+
+        $midia_html .= '</label>';
+        echo $midia_html;
     }
 
     function pd_debate_detalhes($post) {
@@ -309,7 +340,7 @@ function arq_debate_post_type() {
 
         $debate_html = '<label for="debate_detalhes">';
         $debate_html .= '<strong>Link:</strong><br/><input type="url" name="debate_link" id="debate_link" size="80" value="' . $link . '"/><br/>';
-        $debate_html .= '<strong>Perído:</strong><br/>';
+        $debate_html .= '<strong>Período:</strong><br/>';
         $debate_html .= 'De: <input type="text" name="debate_periodo_de" value="' . $periodo_de . '" class="datePick" required> ';
         $debate_html .= 'Até: <input type="text" name="debate_periodo_para" value="' . $periodo_para . '" class="datePick" required><br/>';
         $debate_html .= '<strong>Assunto Principal:</strong><br/><input type="text" name="debate_assunto" id="debate_assunto" size="80" value="' . $assunto . '"/><br/>';
@@ -344,6 +375,14 @@ function arq_debate_post_type() {
 
         if ( isset( $_REQUEST['debate_aberto'] ) ) {
             $debate_meta['debate_aberto'] = $_REQUEST['debate_aberto'];
+        }
+
+        if ( isset( $_REQUEST['debate_destaque'] ) ) {
+            $debate_meta['debate_destaque'] = $_REQUEST['debate_destaque'];
+        }
+
+        if ( isset( $_REQUEST['imagem']  ) && $_REQUEST['imagem'] != '' ) {
+            $debate_meta['imagem'] = $_REQUEST['imagem'];
         }
 
         if ( isset( $_REQUEST['debate_link'] ) ) {
