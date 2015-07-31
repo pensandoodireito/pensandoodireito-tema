@@ -11,7 +11,6 @@
         <!--p><?php the_excerpt(); ?></p-->
         <p><?php the_content(); ?></p>
 
-      <p><small><a href="#">Ver autores</a></small></p>
     </div>
     <div class="row">
       <div id="social-bar" class="col-md-4">
