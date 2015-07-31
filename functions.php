@@ -2,7 +2,7 @@
 
 // Tamanhos de imagem pré-definidos
 add_image_size('thumb-debate-capa', 300, 182, true);
-
+add_image_size('thumb-debate-pagina', 230, 175, true);
 
 // this adds jquery tooltip and styles it
 function pensandoodireito_scripts() {
@@ -958,7 +958,12 @@ function pd_create_pages() {
 //   fundamentalmente quando o tema é ativado (e também desativado)
 add_action('after_switch_theme', 'pd_create_pages');
 
+function pd_converter_datacorrida($debate_periodo_para) {
+    $periodo_para_partes = explode('/', $debate_periodo_para);
+    $periodo_para_timestamp = mktime(0,0,0,$periodo_para_partes[1], $periodo_para_partes[0], $periodo_para_partes[2]);
 
+    return date('d \d\e F \d\e Y', $periodo_para_timestamp);
+}
 
 
 
