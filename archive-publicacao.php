@@ -97,7 +97,6 @@ $destaqueID = get_the_ID();
                 <p><?php the_excerpt(); ?><a href="<?php echo get_post_permalink(); ?>">Leia mais</a></p>
                 <?php if ($autores) { ?>
                   <p>
-                    <small><a href="#">Ver autores</a></small>
                   </p> <?php } ?>
                 <div class="row">
                   <div id="social-bar" class="col-md-4">
