@@ -20,6 +20,21 @@
                 </div>
             </div>
         </header>
+        <?php
+            $debate_destaque = new WP_Query(array( 'post_type' => 'debate', 'meta_key' => 'debate_destaque', 'meta_value' => 'destaque' ));
+
+            $posts_exibidos = array();
+
+            if ($debate_destaque->have_posts()) {
+                $debate_destaque->the_post();
+
+                $posts_exibidos[] = get_the_ID();
+                $debate_link = get_post_meta(get_the_ID(), 'debate_link', true);
+                $imagem_fundo = get_post_meta(get_the_ID(), 'imagem', true);
+                $debate_status = get_post_meta(get_the_ID(), 'debate_status', true);
+                $debate_periodo_para = get_post_meta(get_the_ID(), 'debate_periodo_para', true);
+
+        ?>
         <section>
             <div class="container">
                 <div class="row">
@@ -30,24 +45,26 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="debate-item">
-                            <header class="anticorrupcao">
+                            <header style="background-image: url(<?php echo $imagem_fundo; ?>); background-position: center;">
                                 <div class="text-center">
-                                    <a href="<?php echo site_url("/anticorrupcao"); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/logos/logo-anticorrupcao-w.png" class="img-adptive mt-lg" alt="Medidas Anticorrupção"></a>
+                                    <a href="<?php echo $debate_link; ?>"><?php the_post_thumbnail('medium', array('class' => "img-adptive mt-lg", 'alt' => get_the_title())); ?></a>
                                 </div>
                             </header>
                             <div class="description">
                                 <p>
-                                    Depois do sucesso da plataforma digital que ajudou a construir o Marco Civil da Internet e debateu os Dados Abertos, agora é a vez do governo pedir ajuda à sociedade para encontrar novas medidas de combate à corrupção e impunidade.
+                                    <?php the_excerpt(); ?>
                                 </p>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p>
-                                            <a href="<?php echo site_url("/anticorrupcao"); ?>" class="btn btn-danger font-roboto">Confira como foi este debate!</a>
+                                            <a href="<?php echo $debate_link; ?>" class="btn btn-danger font-roboto">
+                                                <?php echo ($debate_status == "aberto" ? "Participe do debate!" : "Confira como foi este debate!"); ?>
+                                            </a>
                                         </p>
                                     </div>
                                     <div class="col-md-6">
                                         <p class="text-right mt-xs">
-                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> Debate encerrado dia 8 de julho de 2015</span>
+                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> <?php echo ($debate_status == "aberto" ? "Debate aberto até o" : "Debate encerrado"); ?> dia <?php echo pd_converter_datacorrida($debate_periodo_para); ?></span>
                                         </p>
                                     </div>
                                 </div>
@@ -57,6 +74,13 @@
                 </div>
             </div>
         </section>
+        <?php } ?>
+        <?php
+        $debates_recentes = new WP_Query(array( 'post_type' => 'debate', 'post__not_in' => $posts_exibidos, 'posts_per_page' => 2 ));
+
+
+        if ($debates_recentes->have_posts()) { ?>
+
         <section class="mt-lg">
             <div class="container">
                 <div class="row">
@@ -65,61 +89,57 @@
                     </div>
                 </div>
                 <div class="row">
+
+                    <?php
+                        while($debates_recentes->have_posts()):
+                            $debates_recentes->the_post();
+
+                            $posts_exibidos[] = get_the_ID();
+                            $debate_link = get_post_meta(get_the_ID(), 'debate_link', true);
+                            $imagem_fundo = get_post_meta(get_the_ID(), 'imagem', true);
+                            $debate_status = get_post_meta(get_the_ID(), 'debate_status', true);
+                            $debate_periodo_para = get_post_meta(get_the_ID(), 'debate_periodo_para', true);
+                    ?>
                     <div class="col-md-6">
                         <div class="debate-item">
-                            <header class="marco-civil">
+                            <header style="background-image: url(<?php echo $imagem_fundo; ?>); background-position: center;">
                                 <div class="text-center">
-                                    <a href="<?php echo site_url("/marcocivil"); ?>" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/logos/marcocivil-w.png" class="img-adptive" alt="Marco Civil da Internet"></a>
+                                    <a href="<?php echo $debate_link; ?>"><?php the_post_thumbnail('medium', array('class' => "img-adptive mt-lg", 'alt' => get_the_title())); ?></a>
                                 </div>
                             </header>
                             <div class="description">
                                 <p>
-                                    Essa regulamentação será feita de maneira colaborativa, utilizando uma plataforma   participativa, seguindo o padrão de debate público utilizado quando o Marco Civil ainda era um Anteprojeto de Lei.
+                                    <?php the_excerpt(); ?>
                                 </p>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p>
-                                            <a href="<?php echo site_url("/marcocivil"); ?>" class="btn btn-danger font-roboto" target="_blank">Confira como foi este debate!</a>
+                                            <a href="<?php echo $debate_link; ?>" class="btn btn-danger font-roboto">
+                                                <?php echo ($debate_status == "aberto" ? "Participe do debate!" : "Confira como foi este debate!"); ?>
+                                            </a>
                                         </p>
                                     </div>
                                     <div class="col-md-6">
                                         <p class="text-right mt-xs">
-                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> Debate encerrado dia 30 de abril de 2015</span>
+                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> <?php echo ($debate_status == "aberto" ? "Debate aberto até o" : "Debate encerrado"); ?> dia <?php echo pd_converter_datacorrida($debate_periodo_para); ?></span>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="debate-item">
-                            <header class="protecao">
-                                <div class="text-center">
-                                    <a href="<?php echo site_url("/dadospessoais"); ?>" target="_blank"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/debates/logos/protecao-w.png" class="img-adptive" alt="Proteção de dados pessoais"></a>
-                                </div>
-                            </header>
-                            <div class="description">
-                                <p>
-                                    O debate busca promover a participação da sociedade brasileira na elaboração do anteprojeto de lei para proteção de dados pessoais, por meio da formulação de comentários e sugestões sobre o texto proposto.
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p>
-                                            <a href="<?php echo site_url("/dadospessoais"); ?>" class="btn btn-danger font-roboto" target="_blank">Confira como foi este debate!</a>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="text-right mt-xs">
-                                            <span class="fontsize-sm text-orange"><i class="fa fa-exclamation-triangle"></i> Debate encerrado dia 5 de julho de 2015</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endwhile; ?>
                 </div>
             </div>
         </section>
+
+        <?php } ?>
+        <?php
+        $outros_debates = new WP_Query(array( 'post_type' => 'debate', 'post__not_in' => $posts_exibidos ));
+
+
+        if ($outros_debates->have_posts()) { ?>
+
         <section class="mt-lg">
             <div class="container">
                 <div class="row">
@@ -131,9 +151,7 @@
                     <div class="col-md-12">
 
                         <?php
-                        query_posts(array( 'post_type' => 'debate' ));
-
-                        while(have_posts()): the_post();
+                        while($outros_debates->have_posts()): $outros_debates->the_post();
 
                             $link = get_post_meta(get_the_ID(), 'debate_link', true);
                             $inicio = get_post_meta(get_the_ID(), 'debate_periodo_de', true);
@@ -144,7 +162,7 @@
                         <section class="mt-md divider-bottom pb-md">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <a href="<?php echo $link; ?>" target="_blank"><?php the_post_thumbnail(array(230,175), array('class' => 'img-adptive')); ?></a>
+                                    <a href="<?php echo $link; ?>" target="_blank"><?php the_post_thumbnail('thumb-debate-pagina', array('class' => 'img-adptive')); ?></a>
                                 </div>
                                 <div class="col-sm-6">
                                     <h4><strong class="red"><a href="<?php echo $link; ?>" target="_blank"><?php the_title(); ?></a></strong></h4>
@@ -169,6 +187,7 @@
                 </div>
             </div>
         </section>
+        <?php } ?>
     </div>
 <?php get_template_part('mini-tutorial'); ?>
 <?php get_footer(); ?>
