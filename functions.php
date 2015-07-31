@@ -453,7 +453,7 @@ function destaque_post_type() {
         'label'               => __( 'destaque', 'pensandoodireito' ),
         'description'         => __( 'Descrição do Destaque', 'pensandoodireito' ),
         'labels'              => $labels,
-        'supports'            => array( 'title' ), //'editor',
+        'supports'            => array( 'title', 'thumbnail' ), //'editor',
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
@@ -597,21 +597,15 @@ function destaque_post_type() {
             $video = 'block';
         }
 
-        $img_formats_patterns = ['#\.jpg$#', '#\.png$#', '#\.jpeg#'];
-
-        $midia_html .= '<input id="upload_debate_image_button" class="button midia_imagem" type="button" value="Selecione a Imagem" style="display:' . $img . ';"/>';
         $midia_html .= '<p class="midia_video" style="display:' . $video . ';">Coloque a url do vídeo no youtube na caixa abaixo.</p>';
         $midia_html .= '<input id="midia_destaque" class="midia_video" type="text" size="80" name="midia_destaque" value="' . $midia_destaque . '" style="display:' . $video . ';" />';
-        $midia_html .= '<br/>';
-        $midia_html .= '<img style="width: 300px;" class="midia_imagem" style="display:' . $img  . '" id="img_preview" src="';
+        $midia_html .= '<div class="midia_imagem" style="display:' . $img  . '" id="img_preview" >';
+
         if ($tipo_midia_img) {
-            foreach ($img_formats_patterns as $pattern) { // Cycle through the $events_meta array!
-                if ( preg_match( $pattern, $midia_destaque ) ) {
-                    $midia_html .= $midia_destaque;
-                }
-            }
+            $midia_html .= get_the_post_thumbnail();
         }
-        $midia_html .= '"/>';
+
+        $midia_html .= '</div>';
 
         if( $midia_destaque && $midia_destaque != '' ) {
             if (!$tipo_midia_img && getYoutubeIdFromUrl($midia_destaque) ) {

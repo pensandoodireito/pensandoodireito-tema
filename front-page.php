@@ -60,14 +60,14 @@
                             echo get_post_meta(get_the_ID(), 'destaque_link', true);
                             echo '">';
                         }
-                        echo '<img class="midia_imagem img-full" id="img_preview" src="' . get_post_meta(get_the_ID(), 'midia_destaque', true) . '"/>';
+                        the_post_thumbnail(array(1170,420));
                         if ( $modelo_destaque == 'img_full' ) {
                              echo '</a>';
                         }
 
                     } else {
                         echo '<div class="embed-responsive embed-responsive-16by9">';
-                            echo do_shortcode('[youtube id="' . getYoutubeIdFromUrl(get_post_meta(get_the_ID(), 'midia_destaque', true)) . '"]');
+                            echo do_shortcode('<iframe src="http://www.youtube.com/embed/' . getYoutubeIdFromUrl(get_post_meta(get_the_ID(), 'midia_destaque', true)) . '" frameborder="0" allowfullscreen></iframe>');
                         echo '</div>';
                     }
 
