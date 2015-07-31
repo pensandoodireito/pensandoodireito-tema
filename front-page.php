@@ -14,20 +14,22 @@
             $destaques = new WP_Query( $destaque_query_array );
         ?>
       <div id="carousel-destaques-home" class="carousel slide" data-ride="carousel">
-        <!-- indicadores -->
-        <ol class="carousel-indicators">
-            <?php
-                $counter = 0;
-                while ( $counter < count($destaques->posts) ) {
-                    echo '<li data-target="#carousel-destaques-home" data-slide-to="' . $counter . '"';
-                    if ( $counter == 0 ) {
-                        echo ' class="active"';
+        <?php if ($destaques->found_posts > 1) { ?>
+            <!-- indicadores -->
+            <ol class="carousel-indicators">
+                <?php
+                    $counter = 0;
+                    while ( $counter < count($destaques->posts) ) {
+                        echo '<li data-target="#carousel-destaques-home" data-slide-to="' . $counter . '"';
+                        if ( $counter == 0 ) {
+                            echo ' class="active"';
+                        }
+                        echo '">';
+                        $counter++;
                     }
-                    echo '">';
-                    $counter++;
-                }
-            ?>
-        </ol>
+                ?>
+            </ol>
+          <?php } ?>
         <!-- Divs do carrossel -->
         <div class="carousel-inner" role="listbox">
         <?php
@@ -90,15 +92,17 @@
             }
         ?>
         </div>
-        <!-- Controles -->
-        <a class="left carousel-control" href="#carousel-destaques-home" role="button" data-slide="prev">
-          <i class="fa fa-chevron-left" aria-hidden="true"></i>
-          <span class="sr-only">Anterior</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-destaques-home" role="button" data-slide="next">
-          <i class="fa fa-chevron-right" aria-hidden="true"></i>
-          <span class="sr-only">Próximo</span>
-        </a>
+          <?php if ($destaques->found_posts > 1) { ?>
+            <!-- Controles -->
+            <a class="left carousel-control" href="#carousel-destaques-home" role="button" data-slide="prev">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+              <span class="sr-only">Anterior</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-destaques-home" role="button" data-slide="next">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              <span class="sr-only">Próximo</span>
+            </a>
+          <?php } ?>
       </div>
     </div>
   </section>
