@@ -892,62 +892,6 @@ function pd_create_pages() {
   // Página "o que é"
   pd_create_page( array('titulo' => 'O que é?', 'nome' => 'o-que-e') );
 
-  // Página "parceiros"
-  pd_create_page( array(
-   'titulo' => 'Parceiros',
-   'nome' => 'parceiros',
-   'conteudo' => '<p>Parcerias estabelecidas pela SAL/MJ com instituições acadêmicas, centros de pesquisa, ONG’s e também com demais entes públicos para a consecução dos objetivos próprios do Projeto Pensando o Direito.</p>
-        <ul id="lista-parceiros">
-        <li>Associação dos Advogados de São Paulo</li>
-        <li>Associação dos Juízes para a Democracia</li>
-        <li>Associação Nacional dos Defensores Públicos (Anadep)</li>
-        <li>Associações de defensoria</li>
-        <li>Central dos Movimentos Populares</li>
-        <li>Centro Feminista de Estudos e Assessoria (CFEMEA)</li>
-        <li>Comitê Gestor da Internet no Brasil (CGI.br)</li>
-        <li>Conselho Nacional de Justiça (CNJ)</li>
-        <li>Conselho Nacional do Ministério Público</li>
-        <li>Cultura Digital & Democracia</li>
-        <li>Defensoria Pública</li>
-        <li>Defensoria Pública da União</li>
-        <li>Defensoria Pública do Estado de São Paulo</li>
-        <li>Departamento Jurídico XI de Agosto</li>
-        <li>Escritório Modelo da PUC-SP</li>
-        <li>Estratégia Nacional de Combate à Lavagem de Dinheiro (ENCCLA)</li>
-        <li>Estratégia Nacional de Justiça e Segurança Pública (Enasp)</li>
-        <li>Federação Nacional de Estudantes de Direito (Fened)</li>
-        <li>Fórum Justiça</li>
-        <li>Instituo Brasileiro de Direito Processual</li>
-        <li>Instituto Beta para Internet e Democracia (Ibidem)</li>
-        <li>Instituto Brasileiro de Ciências Criminais (IBCCrim)</li>
-        <li>Instituto Brasileiro de Defesa do Consumidor (Idec)</li>
-        <li>Instituto Brasileiro de Direito de Família</li>
-        <li>Instituto Brasileiro de Direito Urbanístico (IBDU)</li>
-        <li>Instituto Carioca de Criminologia (ICC)</li>
-        <li>Instituto Pólis</li>
-        <li>Instituto Scarance</li>
-        <li>Instituto Sou da Paz</li>
-        <li>InternetLab</li>
-        <li>Intervozes (coletivo)</li>
-        <li>Movimento do Ministério Público Democrático (MPD)</li>
-        <li>Movimento dos Trabalhadores Rurais Sem-Terra (MST)</li>
-        <li>Movimento dos Trabalhadores Sem-Teto (MTST)</li>
-        <li>Oboré (empresa)</li>
-        <li>Oficina de Imagens</li>
-        <li>Ordem dos Advogados do Brasil (OAB)</li>
-        <li>Organização Internacional de Polícia Criminal (Interpol)</li>
-        <li>Pastoral Carcerária</li>
-        <li>Projeto Cala-boca já morreu</li>
-        <li>Proteste - Associação Brasileira de Defesa do Consumidor</li>
-        <li>Rede Nacional de Advogados e Advogados Populares (Renap)</li>
-        <li>Sociedade Brasileira de Direito Público (SBDP)</li>
-        <li>Terra de Direitos</li>
-        <li>União dos Movimentos de Moradia de São Paulo</li>
-        <li>Via Campesina</li>
-        <li>World Wide Web Consortium (W3C)</li>
-        </ul>'
-  ) );
-
 }
 
 // Chama a função apenas quando há troca de tema
