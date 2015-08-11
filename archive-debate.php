@@ -47,7 +47,7 @@
                         <div class="debate-item">
                             <header style="background-image: url(<?php echo $imagem_fundo; ?>); background-position: center;">
                                 <div class="text-center">
-                                    <a href="<?php echo $debate_link; ?>"><?php the_post_thumbnail('medium', array('class' => "img-adptive mt-lg", 'alt' => get_the_title())); ?></a>
+                                    <a href="<?php echo $debate_link; ?>"><?php the_post_thumbnail('large', array('class' => "img-adptive", 'alt' => get_the_title())); ?></a>
                                 </div>
                             </header>
                             <div class="description">
@@ -104,7 +104,7 @@
                         <div class="debate-item">
                             <header style="background-image: url(<?php echo $imagem_fundo; ?>); background-position: center;">
                                 <div class="text-center">
-                                    <a href="<?php echo $debate_link; ?>"><?php the_post_thumbnail('medium', array('class' => "img-adptive mt-lg", 'alt' => get_the_title())); ?></a>
+                                    <a href="<?php echo $debate_link; ?>"><?php the_post_thumbnail('large', array('class' => "img-adptive", 'alt' => get_the_title())); ?></a>
                                 </div>
                             </header>
                             <div class="description">
