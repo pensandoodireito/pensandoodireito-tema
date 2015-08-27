@@ -1,5 +1,7 @@
 <?php
 
+define('ID_BLOG_PENSANDO_DIREITO', 1);
+
 include_once ( get_stylesheet_directory() . DIRECTORY_SEPARATOR . 'post-types.php' );
 
 // Tamanhos de imagem pré-definidos
@@ -905,5 +907,74 @@ function pd_converter_datacorrida($debate_periodo_para) {
     return date('d \d\e F \d\e Y', $periodo_para_timestamp);
 }
 
+function blog_creation($blog_id){
 
+    // Muda para o tema pensando direito caso já não esteja nesse tema
+    switch_to_blog(ID_BLOG_PENSANDO_DIREITO);
 
+    // Pega os dados dos menus do tema anterior
+    $menus = wp_get_nav_menus();
+
+    foreach ( $menus as $menu ) {
+        $menu->items = wp_get_nav_menu_items($menu->term_id);
+
+        foreach($menu->items as $item){
+
+            // Se for uma página ou post type pega o post original
+            if($item->type == 'post_type'){
+                $item->orginal_post = get_post( (int) $item->object_id );
+            }
+
+        }
+    }
+
+    // Troca a conexão para salvar o menu no novo blog
+    switch_to_blog($blog_id);
+
+    foreach($menus as $menu){
+
+        //$menu_id = wp_create_nav_menu($menu->name);
+        $menu_id = wp_update_nav_menu_object( 0, array(
+            'menu-name' => $menu->name,
+            'menu-parent' => $menu->parent,
+            'menu-description' => $menu->description
+        ));
+
+        if(isset($menu->items)){
+            foreach($menu->items as $item){
+
+                // Se for um menu para um post cria o post no novo blog
+                if($item->type == 'post_type'){
+
+                    $data = array(
+                        'post_title'   => $item->orginal_post->post_title,
+                        'post_content' => $item->orginal_post->post_content,
+                        'post_status'  => $item->orginal_post->post_status,
+                        'post_type'    => $item->orginal_post->post_type
+                    );
+
+                    $new_post_id = wp_insert_post( $data );
+
+                    $item->object_id = is_int($new_post_id) ? $new_post_id:0;
+                }
+
+                // Insere o item no menu
+                wp_update_nav_menu_item($menu_id, 0, array(
+                        'menu-item-title' =>  $item->title,
+                        'menu-item-classes' => implode(" ", $item->classes),
+                        'menu-item-url' => $item->url,
+                        'menu-item-status' => $item->post_status,
+                        'menu-item-object-id' => (int) $item->object_id,
+                        'menu-item-object' => $item->object,
+                        'menu-item-type' => $item->type
+                    )
+                );
+
+            }
+        }
+    }
+
+    restore_current_blog();
+
+}
+add_action( 'wpmu_new_blog', 'blog_creation');
