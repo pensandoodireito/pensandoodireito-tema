@@ -1,4 +1,10 @@
-<?php get_header(); ?>
+<?php get_header(); 
+
+global $wp_query;
+$args = array_merge( $wp_query->query_vars, array( 'posts_per_page' => -1 ) );
+query_posts( $args );
+
+?>
 <div id="main-parceiros">
   <div class="container">
     <div class="row">
