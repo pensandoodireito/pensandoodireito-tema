@@ -4,7 +4,6 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="font-roboto red">Cadastre-se</h1>
-                <button type="button" data-toggle="modal" data-target="#modalcadastro">Launch modal</button>
             </div>
         </div>
         <div class="row mt-md">
@@ -160,33 +159,7 @@
 </div>
 
 
-<div class="modal fade" id="modalcadastro" tabindex="-1" role="dialog" aria-labelledby="modalcadastro">
-    <div class="modal-dialog">
-        <div class="modal-content modal-sm">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title red font-roboto">Login</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="text" class="form-control" id="email"
-                           placeholder="Seu e-mail">
-                </div>
-                <div class="form-group mt-md">
-                    <label for="senha">Sua senha:</label>
-                    <input type="password" class="form-control" id="senha"
-                           placeholder="Sua senha">
-                </div>
-                <button type="button" class="btn btn-danger">Entrar</button>
-            </div>
-            <div class="modal-footer">
-                <p><a href="#">Esqueceu a senha?</a> | <a href="#">Cadastre-se</a></p>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <?php get_footer(); ?>
