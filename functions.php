@@ -840,7 +840,7 @@ function publicacoes_paginacao_infinita(){
     $pubs_args = array(
       'paged' => $paged,
       'post_type' => 'publicacao',
-      'posts_per_page' => 4,
+      'posts_per_page' => 8,
       'post__not_in' => array($destaqueID ),
     );
 
