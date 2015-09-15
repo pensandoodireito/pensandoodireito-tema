@@ -8,6 +8,123 @@ include_once ( get_stylesheet_directory() . DIRECTORY_SEPARATOR . 'post-types.ph
 add_image_size('thumb-debate-capa', 300, 182, true);
 add_image_size('thumb-debate-pagina', 230, 175, true);
 
+
+function add_video_support(){
+    //add_theme_support( 'post-formats', array('video') );
+    add_post_type_support( 'video', 'post-formats' );
+}
+
+add_action('init', 'add_video_support');
+
+// http://www.wpbeginner.com/wp-themes/how-to-add-dynamic-widget-ready-sidebars-in-wordpress/
+// Creating the widget
+class video_widget extends WP_Widget {
+
+    function __construct() {
+        parent::__construct(
+        // Base ID of your widget
+            'video_widget',
+            // Widget name will appear in UI
+            __('Vídeo', 'wpb_widget_domain'),
+
+            // Widget description
+            array( 'description' => __( 'Widget que mostra o último vídeo em destaque', 'wpb_widget_domain' ), )
+        );
+    }
+
+    // Creating widget front-end
+    // This is where the action happens
+    public function widget( $args, $instance ) {
+        $title = apply_filters( 'widget_title', $instance['title'] );
+        // before and after widget arguments are defined by themes
+
+        $params = array (
+            'post_type'              => array( 'video' ),
+            'pagination'             => false,
+            'posts_per_page'         => '1',
+            'order'                  => 'DESC',
+            'meta_query'             => array(
+                array(
+                    'key'       => 'video_destaque',
+                    'value'     => '1',
+                    'compare'   => '=',
+                ),
+            )
+        );
+        $the_query = new WP_Query( $params );
+
+        echo $args['before_widget'];
+
+        // get_youtube_embed()
+        if ( $the_query->have_posts() ) : ?>
+
+            <!-- the loop -->
+            <?php while ( $the_query->have_posts() ) : $the_query->the_post();
+                echo $args['before_title'];
+                the_title();
+                echo $args['after_title'];
+            ?>
+                <?php echo get_youtube_embed(get_the_ID(), 360); ?>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-2">
+                        <?php the_excerpt();?>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+            <!-- end of the loop -->
+        <?php endif;
+
+        echo $args['after_widget'];
+    }
+
+    // Widget Backend
+    public function form( $instance ) {
+        if ( isset( $instance[ 'title' ] ) ) {
+            $title = $instance[ 'title' ];
+        }
+        else {
+            $title = __( 'New title', 'wpb_widget_domain' );
+        }
+        // Widget admin form
+        ?>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+        </p>
+        <?php
+    }
+
+    // Updating widget replacing old instances with new
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+        return $instance;
+    }
+} // Class wpb_widget ends here
+
+// Register and load the widget
+function video_load_widget() {
+    register_widget( 'video_widget' );
+}
+add_action( 'widgets_init', 'video_load_widget' );
+
+/**
+ * Criando uma area de widgets
+ *
+ */
+function widgets_novos_widgets_init() {
+
+    register_sidebar( array(
+        'name' => 'Barra lateral',
+        'id' => 'sidebar_widgets',
+        'before_widget' => '<div class="panel panel-default">',
+        'after_widget' => '</div>',
+        'before_title' => '<div class="panel-heading"><h4 class="red font-roboto">',
+        'after_title' => '</h4></div>',
+    ) );
+}
+add_action( 'widgets_init', 'widgets_novos_widgets_init' );
+
 // this adds jquery tooltip and styles it
 function pensandoodireito_scripts() {
     wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js' , array(), false, true );
@@ -234,6 +351,155 @@ function publicacao_post_type() {
     register_post_type( 'publicacao', $args );
 
 }
+
+function video_post_type(){
+
+    $labels = array(
+        'name'                => _x( 'Vídeos', 'Post Type General Name', 'pensandoodireito' ),
+        'singular_name'       => _x( 'Vídeo', 'Post Type Singular Name', 'pensandoodireito' ),
+        'menu_name'           => __( 'Vídeos', 'pensandoodireito' ),
+        'name_admin_bar'      => __( 'Vídeos', 'pensandoodireito' ),
+        'parent_item_colon'   => __( 'Vídeo pai:', 'pensandoodireito' ),
+        'all_items'           => __( 'Todos vídeos', 'pensandoodireito' ),
+        'add_new_item'        => __( 'Adicionar novo vídeo', 'pensandoodireito' ),
+        'add_new'             => __( 'Adicionar novo', 'pensandoodireito' ),
+        'new_item'            => __( 'Novo vídeo', 'pensandoodireito' ),
+        'edit_item'           => __( 'Editar vídeo', 'pensandoodireito' ),
+        'update_item'         => __( 'Atualizar vídeo', 'pensandoodireito' ),
+        'view_item'           => __( 'Ver vídeo', 'pensandoodireito' ),
+        'search_items'        => __( 'Buscar vídeo', 'pensandoodireito' ),
+        'not_found'           => __( 'Não encontrado', 'pensandoodireito' ),
+        'not_found_in_trash'  => __( 'Não encontrado na lixeira', 'pensandoodireito' ),
+    );
+
+    $args = array(
+        'label'               => __( 'debate', 'pensandoodireito' ),
+        'description'         => __( 'Descrição do Debate', 'pensandoodireito' ),
+        'labels'              => $labels,
+        'supports'            => array( 'title', 'excerpt' ),
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_position'       => 9,
+        'show_in_admin_bar'   => true,
+        'show_in_nav_menus'   => true,
+        'has_archive'         => true,
+        'exclude_from_search' => false,
+        'publicly_queryable'  => true,
+        'public' => true,
+        'register_meta_box_cb' => 'add_video_metaboxes', //Para adicionar novos campos
+        'rewrite'             => array( 'slug' => 'videos', 'with_front' => false),
+    );
+
+    function add_video_metaboxes() {
+        add_meta_box('pd_video_url', 'URL do Youtube:', 'pd_video_url', 'video', 'normal', 'default');
+        add_meta_box('pd_video_destaque', 'Vídeo em destaque', 'pd_video_destaque', 'video', 'side', 'high');
+    }
+
+    function pd_video_url($post){
+        $youtube_url = get_post_meta($post->ID, 'video_youtube_url', true);
+        echo  "<input type=\"url\" name=\"video_youtube_url\" value=\"{$youtube_url}\" size=\"100\" required />";
+    }
+
+    function pd_video_destaque($post) {
+        $debate_destaque = get_post_meta($post->ID, 'video_destaque', true);
+        echo '<label><input type="checkbox" name="video_destaque" id="video_destaque" ';
+        if ($debate_destaque) {
+            echo 'checked';
+        }
+        echo ' value="destaque"/> Destacado</label>';
+    }
+
+    register_post_type( 'video', $args );
+
+
+    add_action('save_post', 'pd_save_video_meta', 1, 2); // save the custom fields
+    // Save the Metabox Data
+    function pd_save_video_meta($post_id, $post) {
+
+        $custom_youtube_field = 'video_youtube_url';
+        $custom_destaque_field = 'video_destaque';
+
+
+        $youtube_url = null;
+        if(isset($_POST[$custom_youtube_field]))
+            $youtube_url = $_POST[$custom_youtube_field];
+        else
+            return $post->ID;
+
+        $destaque = isset($_REQUEST[$custom_destaque_field]) && $_REQUEST[$custom_destaque_field] == "destaque";
+
+        // verify this came from the our screen and with proper authorization,
+        // because save_post can be triggered at other times
+        if (is_null($youtube_url)) {
+            return $post->ID;
+        }
+
+        if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return $post->ID;
+        }
+
+        // Is the user allowed to edit the post or page?
+        if ( !current_user_can( 'edit_post', $post->ID )) {
+            return $post->ID;
+        }
+
+        if( $post->post_type == 'revision' ) return; // Don't store custom data twice
+
+        set_post_format($post, 'video');
+
+        if(get_post_meta($post->ID, $custom_youtube_field, FALSE))
+        { // If the custom field already has a value
+            update_post_meta($post->ID, $custom_youtube_field, $youtube_url);
+        } else { // If the custom field doesn't have a value
+            add_post_meta($post->ID, $custom_youtube_field, $youtube_url);
+        }
+
+
+        if(get_post_meta($post->ID, $custom_destaque_field, FALSE))
+        { // If the custom field already has a value
+            update_post_meta($post->ID, $custom_destaque_field, $destaque);
+        } else { // If the custom field doesn't have a value
+            add_post_meta($post->ID, $custom_destaque_field, $destaque);
+        }
+
+    }
+}
+
+function get_youtube_embed( $post_id, $width = 480 ){
+    $meta = get_post_meta($post_id, 'video_youtube_url');
+
+    set_error_handler(
+        create_function(
+            '$severity, $message, $file, $line',
+            'throw new ErrorException($message, $severity, $severity, $file, $line);'
+        )
+    );
+
+    try {
+        if(!empty($meta)){
+            $content = file_get_contents("http://www.youtube.com/oembed?url=" . $meta[0]);
+            if($content !== false)
+            {
+                $json = json_decode($content);
+                echo '<div class="embed_youtube">' . $json->html . '</div>';
+                ?>
+                <script type="text/javascript">
+                    jQuery(document).ready(function(){
+                        jQuery('.embed_youtube iframe').attr('width', <?php echo $width;?>);
+                    });
+                </script>
+                <?php
+            }
+        }
+    }
+    catch (Exception $e) {
+        echo '<p>Erro ao carregar o vídeo.</p>';
+    }
+
+    restore_error_handler();
+}
+
+add_action( 'init', 'video_post_type', 0 );
 
 // Iniciarlizar publicação.
 add_action( 'init', 'publicacao_post_type', 0 );
@@ -846,7 +1112,7 @@ function publicacoes_paginacao_infinita(){
     $pubs_args = array(
       'paged' => $paged,
       'post_type' => 'publicacao',
-      'posts_per_page' => 4,
+      'posts_per_page' => 8,
       'post__not_in' => array($destaqueID ),
     );
 
