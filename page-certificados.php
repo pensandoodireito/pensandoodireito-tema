@@ -1,5 +1,5 @@
 <?php
-if ($_POST['id_certificado']) {
+if (@$_POST['id_certificado']) {
 
 	global $wpdb;
 
@@ -25,7 +25,7 @@ if ($_POST['id_certificado']) {
 
 	$pdf->Cell(0,8, iconv("UTF-8", "CP1252",$certificado->nome),0,1,'C');
 
-	$arquivo_certificado = ereg_replace("[^+A-Za-z0-9]", "", str_replace(" ","_",$certificado->nome)).".pdf";
+	$arquivo_certificado = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(" ","_",$certificado->nome)).".pdf";
 
 	$pdf->Output($arquivo_certificado,'D');
 
@@ -34,43 +34,32 @@ if ($_POST['id_certificado']) {
 
 get_header(); ?>
 
-    <div id="content">
-        <a name="conteudo"></a>
+<section>
+    <div class="container mt-lg mb-lg">
         <?php if (have_posts()) : ?>
             <?php while (have_posts()) :
             the_post(); ?>
 
-                <div class="post-single" id="post-<?php the_ID(); ?>">
-
-                <h1><?php the_title(); ?></h1>
-
-                <div class="post-content">
+                <div class="col-md-8 col-md-offset-1" id="conteudo">
+                    <h1 class="red font-roboto mt-lg"><?php the_title(); ?></h1>
                     <?php the_content('Leia mais...'); ?>
-                </div>
-                <!-- .post-content -->
                 </div>
             <?php endwhile;
         endif; ?>
 
-        <div class="box-escolha-nome">
+        <div class="box-escolha-nome col-md-8 col-md-offset-1">
 		    <form method="POST">
 			    <p>
                 <label for="nome_certificado">Digite seu nome: </label></p>
-                <p><input type="text" name="nome_certificado"/></p>
+                <p><input class="form-control" type="text" name="nome_certificado"/></p>
 
                 <p id="resumo-certificado"></p>
-                <p class="texto-centralizado">
-                <input type="hidden" name="id_certificado"/>
-			    <button id="botao-emitir-certificado" type="submit" style="display:none;">Emitir certificado</button>
+                <p class="text-center">
+                    <input type="hidden" name="id_certificado"/>
+			        <button class="btn btn-primary" id="botao-emitir-certificado" type="submit" style="display:none;">Emitir certificado</button>
                 </p>
 		    </form>
 	    </div>
-
-
-    </div><!-- #content -->
-
-    <div id="sidebar">
-        <?php dynamic_sidebar( 'inside' ); ?>
-    </div><!-- #sidebar -->
-
+    </div>
+</section>
 <?php get_footer();?>
