@@ -134,7 +134,7 @@ add_action( 'admin_enqueue_scripts', 'pensandoodireito_scripts' );
 //teste de script
 add_action( 'wp_enqueue_scripts','pensandoodireito_frontend_scripts' );
 function pensandoodireito_frontend_scripts() {
-    wp_enqueue_script( 'pensando', get_stylesheet_directory_uri() . '/js/pensando_frontend.js' , array('jquery', 'jquery-ui-autocomplete') );
+    wp_enqueue_script( 'pensando_frontend', get_stylesheet_directory_uri() . '/js/pensando_frontend.js' , array('jquery', 'jquery-ui-autocomplete') );
 }
 
 //Script to ajax load more publicacoes
@@ -1179,6 +1179,9 @@ function pd_converter_datacorrida($debate_periodo_para) {
     return date('d \d\e F \d\e Y', $periodo_para_timestamp);
 }
 
+// Criação de menus com base do blog 1 no ato de criação de novos sites
+add_action( 'wpmu_new_blog', 'blog_creation');
+
 function blog_creation($blog_id){
 
     // Muda para o tema pensando direito caso já não esteja nesse tema
@@ -1249,4 +1252,27 @@ function blog_creation($blog_id){
     restore_current_blog();
 
 }
-add_action( 'wpmu_new_blog', 'blog_creation');
+
+add_action( 'wp_ajax_certificados', 'busca_nome_certificado' );
+add_action( 'wp_ajax_nopriv_certificados', 'busca_nome_certificado' );
+function busca_nome_certificado() {
+
+    global $wpdb;
+
+    $nomes_encontrados = $wpdb->get_results ($wpdb->prepare( "SELECT c.id as id, c.nome as nome, e.nome as nome_evento
+                              FROM participantes c INNER JOIN evento e
+                              ON (e.id = c.evento_id) WHERE c.nome like %s", '%' . $_POST['q'] . '%' ));
+
+    echo json_encode($nomes_encontrados);
+
+    die();
+}
+
+// Adiciona estilos adicionais para outros serviços
+add_action('wp_print_styles', 'pensando_certificado_styles');
+
+function pensando_certificado_styles() {
+    if (is_page('certificados')) {
+        wp_enqueue_style('theme-certificados', get_stylesheet_directory_uri() . '/css/theme-certificados.css');
+    }
+}
