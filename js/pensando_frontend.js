@@ -1,8 +1,8 @@
-jQuery(function() {
+jQuery(function($) {
     jQuery( 'input[name="nome_certificado"]' ).autocomplete({
         source: function( request, response ) {
             jQuery.ajax({
-                url: ajaxurl,
+                url: participacao.ajaxurl,
                 dataType: "json",
                 type: 'post',
                 data: {
