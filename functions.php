@@ -134,7 +134,7 @@ add_action( 'admin_enqueue_scripts', 'pensandoodireito_scripts' );
 //teste de script
 add_action( 'wp_enqueue_scripts','pensandoodireito_frontend_scripts' );
 function pensandoodireito_frontend_scripts() {
-    wp_enqueue_script( 'pensando', get_stylesheet_directory_uri() . '/js/pensando.js' , array('jquery', 'jquery-ui-autocomplete') );
+    wp_enqueue_script( 'pensando', get_stylesheet_directory_uri() . '/js/pensando_frontend.js' , array('jquery', 'jquery-ui-autocomplete') );
 }
 
 //Script to ajax load more publicacoes
