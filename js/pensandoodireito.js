@@ -49,7 +49,7 @@ jQuery(document).ready(function($){
 
 function destaque_controla_midia(valor) {
     jQuery('#midia_destaque').val('');
-    if (valor == 'img_texto' || valor == 'img_full') {
+    if (valor == 'img_full') {
         jQuery('.midia_video').fadeOut('300',function(){
             jQuery('.midia_imagem').fadeIn('300');
         });
@@ -57,11 +57,6 @@ function destaque_controla_midia(valor) {
         jQuery('.midia_imagem').fadeOut('300',function(){
             jQuery('.midia_video').fadeIn('300');
         });
-    }
-    if (valor == 'img_texto' || valor == 'video_texto') {
-        jQuery('#label_destaque_texto').fadeIn('300');
-    } else {
-        jQuery('#label_destaque_texto').fadeOut('300');
     }
 }
 
@@ -104,5 +99,63 @@ jQuery(document).ready(function($){
         //Open the uploader dialog
         debate_uploader.open();
 
+    });
+});
+
+//Carrega o media uploader para a imagem de background do destaque
+jQuery(document).ready(function($){
+
+    var bg_uploader;
+
+    $('#set-background-image').click(function(e) {
+
+        e.preventDefault();
+
+        //If the uploader object has already been created, reopen the dialog
+        if (bg_uploader) {
+            bg_uploader.open();
+            return;
+        }
+
+        //Extend the wp.media object
+        bg_uploader = wp.media.frames.file_frame = wp.media({
+            title: 'Escolha a imagem de background',
+            button: {
+                text: 'Escolha a imagem de background'
+            },
+            multiple: false
+        });
+
+        //When a file is selected, grab the URL and set it as the text field's value
+        bg_uploader.on('select', function () {
+            var attachment = bg_uploader.state().get('selection').first().toJSON();
+            var img = $('<img />', {
+                    id: 'background-image',
+                    src: attachment.url,
+                    alt: 'Imagem de background',
+                    style: 'max-width: 100%; height: auto; width: auto;'
+                }
+            );
+            $('#set-background-image').before(img);
+
+            $('#set-background-image').hide();
+            $('#remove-background-image').show();
+
+            $('#background_img_url').val(attachment.url);
+        });
+
+        //Open the uploader dialog
+        bg_uploader.open();
+
+    });
+
+    $('#remove-background-image').click(function(e) {
+        e.preventDefault();
+
+        $('#background_img_url').val('');
+        $('#background-image').remove();
+
+        $('#set-background-image').show();
+        $('#remove-background-image').hide();
     });
 });

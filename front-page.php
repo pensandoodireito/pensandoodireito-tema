@@ -56,31 +56,18 @@
 					<?php
 				} else { //is image :)
 
-					$isCompoundImage = false; //verificar se também foi feito upload de background
+					$background_img_url = get_post_meta( get_the_ID(), 'background_img_url', true );
 
-					if ( $isCompoundImage ) {
-
-						$bgImage = array(
-							get_stylesheet_directory_uri() . '/images/bck-destaque-full.jpg',
-							null,
-							null
-						);
-
-						if ( $bgImage ) {
-							list( $src, $width, $height ) = $bgImage;
-							?>
-
-							<div class="fill has-background" style="background-image:url(<?= $src ?>)">
-								<a href=" <?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>">
-									<?php the_post_thumbnail( 'post-thumbnail', array(
-										'class' => 'img-adptive',
-										'alt'   => 'destaque'
-									) ); ?>
-								</a>
-							</div>
-							<?php
-						}
-
+					if ( $background_img_url ) { ?>
+						<div class="fill has-background" style="background-image:url(<?= $background_img_url ?>)">
+							<a href=" <?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>">
+								<?php the_post_thumbnail( 'post-thumbnail', array(
+									'class' => 'img-adptive',
+									'alt'   => 'destaque'
+								) ); ?>
+							</a>
+						</div>
+						<?php
 					} else {
 						$bgImage = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'post-thumbnail' );
 
