@@ -876,12 +876,12 @@ function destaque_post_type() {
 
         if ( ! $isVideo ) {
             if ( $background_img_url ) {
-                $midia_html .= '<div class="fill has-background" style="background-image:url(' . $background_img_url . ')">';
+                $midia_html .= '<div class="fill has-background" style="max-width:100%;height:auto;width:auto;background-image:url(' . $background_img_url . ')">';
                 $midia_html .= '<a href="' . get_post_meta( get_the_ID(), 'destaque_link', true ) . '">';
-                $midia_html .= get_the_post_thumbnail( $post->ID, 'post-thumbnail');
+                $midia_html .= get_the_post_thumbnail( null, 'post-thumbnail', array( 'style' => 'max-width:100%;height:auto;width:auto;' ) );
                 $midia_html .= '</a></div>';
             } else {
-                $midia_html .= get_the_post_thumbnail();
+                $midia_html .= get_the_post_thumbnail( null, 'post-thumbnail', array( 'style' => 'max-width:100%;height:auto;width:auto;' ) );
             }
         }
 

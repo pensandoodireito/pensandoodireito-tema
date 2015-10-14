@@ -35,59 +35,61 @@
 
 			<!-- Wrapper for Slides -->
 			<div class="carousel-inner" role="listbox">
-				<?php
-				$first_item = true;
-				while ( $destaques->have_posts() ) {
-				echo '<div class="item';
-				if ( $first_item ) {
-					echo ' active';
-					$first_item = false;
-				}
-				echo '">';
+                <?php
+                $first_item = true;
+                while ( $destaques->have_posts() ) {
+                echo '<div class="item';
+                if ( $first_item ) {
+                    echo ' active';
+                    $first_item = false;
+                }
+                echo '">';
 
-				$destaques->the_post();
-				$modelo_destaque = get_post_meta( get_the_ID(), 'modelo_destaque', true );
-				$isVideo         = ( $modelo_destaque == 'video_texto' || $modelo_destaque == 'video_full' );
+                $destaques->the_post();
+                $modelo_destaque = get_post_meta( get_the_ID(), 'modelo_destaque', true );
+                $isVideo         = ( $modelo_destaque == 'video_texto' || $modelo_destaque == 'video_full' );
 
-				if ( $isVideo ) { ?>
-					<div class="fill">
-						<?php echo do_shortcode( '<iframe src="http://www.youtube.com/embed/' . getYoutubeIdFromUrl( get_post_meta( get_the_ID(), 'midia_destaque', true ) ) . '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>' ); ?>
-					</div>
-					<?php
-				} else { //is image :)
+                if ( $isVideo ) { ?>
+                    <div class="fill">
+                        <?php echo do_shortcode( '<iframe src="http://www.youtube.com/embed/' . getYoutubeIdFromUrl( get_post_meta( get_the_ID(), 'midia_destaque', true ) ) . '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>' ); ?>
+                    </div>
+                    <?php
+                } else { //is image :)
 
-					$background_img_url = get_post_meta( get_the_ID(), 'background_img_url', true );
+                    $background_img_url = get_post_meta( get_the_ID(), 'background_img_url', true );
+                    $texto_destaque     = get_post_meta( get_the_ID(), 'destaque_texto', true );
+                    if ( $background_img_url ) { ?>
+                        <div class="fill has-background" style="background-image:url(<?= $background_img_url ?>)">
+                            <a href=" <?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>">
+                                <?php the_post_thumbnail( 'post-thumbnail', array(
+                                    'class' => 'img-adptive',
+                                    'alt'   => 'destaque'
+                                ) ); ?>
+                            </a>
+                        </div>
+                        <?php
+                    } else {
+                        $bgImage = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'post-thumbnail' );
 
-					if ( $background_img_url ) { ?>
-						<div class="fill has-background" style="background-image:url(<?= $background_img_url ?>)">
-							<a href=" <?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>">
-								<?php the_post_thumbnail( 'post-thumbnail', array(
-									'class' => 'img-adptive',
-									'alt'   => 'destaque'
-								) ); ?>
-							</a>
-						</div>
-						<?php
-					} else {
-						$bgImage = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'post-thumbnail' );
+                        if ( $bgImage ) {
+                            list( $src, $width, $height ) = $bgImage; ?>
 
-						if ( $bgImage ) {
-							list( $src, $width, $height ) = $bgImage; ?>
+                            <div class="fill has-background" style="background-image:url(<?= $src ?>)">
+                                <a href="<?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>"><span></span></a>
+                            </div>
+                            <?php
+                        }
+                    }
+                    if ( $texto_destaque ) { ?>
+                        <div class="carousel-caption">
+                            <p> <?= $texto_destaque ?> </p>
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
 
-							<div class="fill has-background" style="background-image:url(<?= $src ?>)">
-								<a href="<?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>"><span></span></a>
-							</div>
-							<?php
-						}
-					}
-				}
-				?>
-
-				<div class="carousel-caption">
-					<p> <?= get_post_meta( get_the_ID(), 'destaque_texto', true ) ?> </p>
-				</div>
-
-			</div>
+            </div>
 		<? } ?>
 		</div>
 
