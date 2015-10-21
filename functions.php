@@ -1150,7 +1150,7 @@ function pd_converter_datacorrida($debate_periodo_para) {
     $periodo_para_partes = explode('/', $debate_periodo_para);
     $periodo_para_timestamp = mktime(0,0,0,$periodo_para_partes[1], $periodo_para_partes[0], $periodo_para_partes[2]);
 
-    return date('d \d\e F \d\e Y', $periodo_para_timestamp);
+    return date_i18n('d \d\e F \d\e Y', $periodo_para_timestamp);
 }
 
 // Criação de menus com base do blog 1 no ato de criação de novos sites
