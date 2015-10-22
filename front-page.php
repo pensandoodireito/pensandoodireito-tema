@@ -169,12 +169,7 @@ if ( $fp_pub_query->have_posts() ) {
 					</div>
 				</div>
 			</div>
-			<!-- AGENDA -->
-			<div class="col-md-4">
-				<?php get_template_part( 'agenda' ); ?>
-			</div>
 		</div>
-		<!-- /col-md-4 -->
 	</div>
 <?php }
 get_footer(); ?>
