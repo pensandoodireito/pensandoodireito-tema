@@ -1,274 +1,268 @@
 @import "../../../participacao-tema/css/less/elements.less";
+
 /*publicacoes*/
 
 .capa {
-    color: #FFF;
-    text-align: center;
-    width: 156px;
-    margin: auto;
-    margin-top: 10px;
+  color: #FFF;
+  text-align: center;
+  width: 156px;
+  margin: auto;
+  margin-top: 10px;
 }
 
 .destaque {
-    background: url("../images/publicacoes/big-capa-card.gif") #c5212a;
-    background-position: center;
-    background-repeat: no-repeat;
-    font-size: 20px;
-    height: 268px;
-    vertical-align: middle;
-    //display: table-cell;
-    width: 206px;
-    margin:0 auto;
-    p {
-        color: #FFF;
-        padding-top:45%;
-    }
+  background: url("../images/publicacoes/big-capa-card.gif") #c5212a;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-size: 20px;
+  height: 268px;
+  vertical-align: middle;
+  //display: table-cell;
+  width: 206px;
+  margin: 0 auto;
+  p {
+    color: #FFF;
+    padding-top: 45%;
+  }
 }
 
 .card {
-    background: url("../images/publicacoes/capa-card.gif") #c5212a;
-    background-position: center;
-    background-repeat: no-repeat;
-    font-size: 15px;
-    height: 206px;
-    vertical-align: middle;
-    display: table-cell;
-    width: 156px;
-    p {
-        color: #FFF
-    }
+  background: url("../images/publicacoes/capa-card.gif") #c5212a;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-size: 15px;
+  height: 206px;
+  vertical-align: middle;
+  display: table-cell;
+  width: 156px;
+  p {
+    color: #FFF
+  }
 }
 
 .nounderline {
-    text-decoration: none!important
+  text-decoration: none !important
 }
 
 .ribbon-wrapper {
-    width: 150px;
-    height: 85px;
-    overflow: hidden;
-    position: absolute;
-    top: 15px;
+  width: 150px;
+  height: 85px;
+  overflow: hidden;
+  position: absolute;
+  top: 15px;
 }
-.img-redondo{
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+
+.img-redondo {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .ribbon {
-    font: bold 12px Sans-Serif;
-    color: #333;
-    text-align: center;
-    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
-    -webkit-transform: rotate(-33deg);
-    -moz-transform: rotate(-33deg);
-    -ms-transform: rotate(-33deg);
-    -o-transform: rotate(-33deg);
-    position: relative;
-    padding: 4px 0;
-    left: -38px;
-    top: 15px;
-    width: 150px;
-    background-color: #FFF;
-    color: #6a6340;
-    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  font: bold 12px Sans-Serif;
+  color: #333;
+  text-align: center;
+  text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+  -webkit-transform: rotate(-33deg);
+  -moz-transform: rotate(-33deg);
+  -ms-transform: rotate(-33deg);
+  -o-transform: rotate(-33deg);
+  position: relative;
+  padding: 4px 0;
+  left: -38px;
+  top: 15px;
+  width: 150px;
+  background-color: #FFF;
+  color: #6a6340;
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
 .ribbon:before,
 .ribbon:after {
-    content: "";
-    border-top: 3px solid #6e8900;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-    position: absolute;
-    bottom: -3px;
+  content: "";
+  border-top: 3px solid #6e8900;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  position: absolute;
+  bottom: -3px;
 }
 
 .ribbon:before {
-    left: 0;
+  left: 0;
 }
 
 .ribbon-:after {
-    right: 0;
+  right: 0;
 }
 
 #lista-publicacoes {
-    .description-publicacao {
-        overflow-y: hidden;
-        height: 255px;
-        margin-bottom: 0;
+  .description-publicacao {
+    overflow-y: hidden;
+    height: 255px;
+    margin-bottom: 0;
+  }
+  .social-bar {
+    @media (max-width: @screen-md) {
+      width: 90%;
+      margin-bottom: 60px;
     }
-    .social-bar {
-       @media(max-width: @screen-md) {
-           width: 90%; 
-           margin-bottom: 60px;
-        }
-        @media(max-width: @screen-sm) {
-           width: 87%;
-        }
-        @media(max-width: @screen-xs) {
-           width: 80%;
-        }
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 26%);
-        border-radius: 0 0 6px 6px;
-        bottom: 0;
-        width: 79%;
-        position: absolute;
-        padding-top: 60px;
-        margin-bottom: 80px;
-       
+    @media (max-width: @screen-sm) {
+      width: 87%;
     }
-}
+    @media (max-width: @screen-xs) {
+      width: 80%;
+    }
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 26%);
+    border-radius: 0 0 6px 6px;
+    bottom: 0;
+    width: 79%;
+    position: absolute;
+    padding-top: 60px;
+    margin-bottom: 80px;
 
+  }
+}
 
 // customiza os comentários
 #respond {
-    &.comment-respond {
-        border-top: 1px solid #ccc;
-        padding-top: 20px;
-        margin-top: 20px;
-        .comments-area {
-            #comments {
-                header {
-                    padding: 0;
-                }
-            }
+  &.comment-respond {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    margin-top: 20px;
+    .comments-area {
+      #comments {
+        header {
+          padding: 0;
         }
-        .comment-reply-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-        #cancel-comment-reply-link {
-            font-weight: 700;
-            color: #bc3f38;
-            margin-left: 40px;
-        }
-        #comment {
-            display: block;
-            width: 100%;
-        }
-        .comments-title {
-            font-size: 18px;
-            font-weight: 700;
-        }
-        li.comment {
-            background: #ededed;
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #D3D3D3;
-        }
-        .comment-form-comment {
-            label {
-                margin-right: 20px;
-            }
-        }
-        .form-submit {
-            text-align: left;
-        }
-        .comment-content {
-            background-color: #fff;
-            padding: 10px;
-            margin: 5px 0 10px 0;
-        }
-        .form-allowed-tags {
-            font-size: 11px;
-        }
-        .submit {
-            .button-variant(@btn-primary-color;
-            @btn-primary-bg;
-            @btn-primary-border);
-            display: inline-block;
-            margin-bottom: 0; // For input.btn
-            font-weight: @btn-font-weight;
-            text-align: center;
-            vertical-align: middle;
-            cursor: pointer;
-            background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-            border: 1px solid transparent;
-            white-space: nowrap;
-            .button-size(@padding-base-vertical;
-            @padding-base-horizontal;
-            @font-size-base;
-            @line-height-base;
-            @border-radius-base);
-            .user-select(none);
-            &,
-            &:active,
-            &.active {
-                &:focus {
-                    .tab-focus();
-                }
-            }
-            &:hover,
-            &:focus {
-                color: #fff;
-                text-decoration: none;
-            }
-            &:active,
-            &.active {
-                outline: 0;
-                background-image: none;
-                .box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
-            }
-        }
+      }
     }
+    .comment-reply-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 10px 0;
+    }
+    #cancel-comment-reply-link {
+      font-weight: 700;
+      color: #bc3f38;
+      margin-left: 40px;
+    }
+    #comment {
+      display: block;
+      width: 100%;
+    }
+    .comments-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    li.comment {
+      background: #ededed;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #D3D3D3;
+    }
+    .comment-form-comment {
+      label {
+        margin-right: 20px;
+      }
+    }
+    .form-submit {
+      text-align: left;
+    }
+    .comment-content {
+      background-color: #fff;
+      padding: 10px;
+      margin: 5px 0 10px 0;
+    }
+    .form-allowed-tags {
+      font-size: 11px;
+    }
+    .submit {
+      .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+      display: inline-block;
+      margin-bottom: 0; // For input.btn
+      font-weight: @btn-font-weight;
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+      border: 1px solid transparent;
+      white-space: nowrap;
+      .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
+      .user-select(none);
+      &,
+      &:active,
+      &.active {
+        &:focus {
+          .tab-focus();
+        }
+      }
+      &:hover,
+      &:focus {
+        color: #fff;
+        text-decoration: none;
+      }
+      &:active,
+      &.active {
+        outline: 0;
+        background-image: none;
+        .box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
+      }
+    }
+  }
 }
 
 // altera comentários dos eixos
 #respond {
-    .comment-form-author,
-    .comment-form-email,
-    .comment-form-url {
-        float: left;
-        margin-right: 15px;
-        label {
-            display: block;
-        }
+  .comment-form-author,
+  .comment-form-email,
+  .comment-form-url {
+    float: left;
+    margin-right: 15px;
+    label {
+      display: block;
     }
-    .comment-form-comment {
-        clear: both;
-    }
-    p {
-        border: 0;
-    }
+  }
+  .comment-form-comment {
+    clear: both;
+  }
+  p {
+    border: 0;
+  }
 }
-
 
 /* comentários dentro da notícia */
 
 #comments {
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
-    margin-top: 20px;
-    .comments-title {
-        font-size: 18px;
-        font-weight: 700;
-        margin: 10px 0;
-    }
-    ol,
-    li {
-        list-style-type: none;
-    }
-    li.comment {
-        background: #ededed;
-        margin: 10px 0;
-        padding: 10px;
-        border: 1px solid #D3D3D3;
-    }
-    .delibera-comment-text {
-        background-color: #fff;
-        padding: 10px;
-        margin: 5px 0 10px 0;
-    }
-    .fn {
-        margin-left: 15px;
-    }
-    .comment-meta {
-        font-size: 11px;
-    }
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  margin-top: 20px;
+  .comments-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0;
+  }
+  ol,
+  li {
+    list-style-type: none;
+  }
+  li.comment {
+    background: #ededed;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #D3D3D3;
+  }
+  .delibera-comment-text {
+    background-color: #fff;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+  }
+  .fn {
+    margin-left: 15px;
+  }
+  .comment-meta {
+    font-size: 11px;
+  }
 }

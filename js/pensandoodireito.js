@@ -1,22 +1,22 @@
 /**
  * Created by DiRaOL on 11/03/15.
  */
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     <!-- invoke the tooltip on any element with the class tooltiped -->
     //jQuery('.tooltiped').tooltip(); // Was meant to be used on the sidebar-publicacao
 
     <!-- invoke the date picker on any element with the class date-pick -->
     Date.firstDayOfWeek = 7;
     jQuery('.datePick').datepicker({
-        dateFormat : 'dd/mm/yy'
+        dateFormat: 'dd/mm/yy'
     });
 });
 
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($) {
 
     var custom_uploader;
 
-    $('#upload_image_button').click(function(e) {
+    $('#upload_image_button').click(function (e) {
 
         e.preventDefault();
 
@@ -36,7 +36,7 @@ jQuery(document).ready(function($){
         });
 
         //When a file is selected, grab the URL and set it as the text field's value
-        custom_uploader.on('select', function() {
+        custom_uploader.on('select', function () {
             attachment = custom_uploader.state().get('selection').first().toJSON();
             $('#midia_destaque').val(attachment.url);
         });
@@ -50,22 +50,22 @@ jQuery(document).ready(function($){
 function destaque_controla_midia(valor) {
     jQuery('#midia_destaque').val('');
     if (valor == 'img_full') {
-        jQuery('.midia_video').fadeOut('300',function(){
+        jQuery('.midia_video').fadeOut('300', function () {
             jQuery('.midia_imagem').fadeIn('300');
         });
     } else {
-        jQuery('.midia_imagem').fadeOut('300',function(){
+        jQuery('.midia_imagem').fadeOut('300', function () {
             jQuery('.midia_video').fadeIn('300');
         });
     }
 }
 
 //Imagem button on Debate Archive
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($) {
 
     var debate_uploader;
 
-    $('#upload_debate_image_button').click(function(e) {
+    $('#upload_debate_image_button').click(function (e) {
 
         e.preventDefault();
 
@@ -85,11 +85,11 @@ jQuery(document).ready(function($){
         });
 
         //When a file is selected, grab the URL and set it as the text field's value
-        debate_uploader.on('select', function() {
+        debate_uploader.on('select', function () {
             attachment = debate_uploader.state().get('selection').first().toJSON();
             $('#imagem').val(attachment.url);
             var img_frame = $('#img_preview_frame');
-            if ( $('#img_preview').length == 0 ) {
+            if ($('#img_preview').length == 0) {
                 img_frame.append('<img style="width: 100%;" class="img_preview" id="img_preview" src="' + attachment.url + '"/>');
             } else {
                 $('#img_preview').attr('src', attachment.url);
@@ -103,11 +103,11 @@ jQuery(document).ready(function($){
 });
 
 //Carrega o media uploader para a imagem de background do destaque
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($) {
 
     var bg_uploader;
 
-    $('#set-background-image').click(function(e) {
+    $('#set-background-image').click(function (e) {
 
         e.preventDefault();
 
@@ -149,7 +149,7 @@ jQuery(document).ready(function($){
 
     });
 
-    $('#remove-background-image').click(function(e) {
+    $('#remove-background-image').click(function (e) {
         e.preventDefault();
 
         $('#background_img_url').val('');
