@@ -1,26 +1,27 @@
 @import "../../../participacao-tema/css/less/elements.less";
+
 #main-parceiros {
-    .list-group {
-        margin: 20px 0;
-        .list-group-item {
-            padding: 20px 15px;
-            .list-group-item-heading {
-                @media(max-width: @screen-sm) {
-                    margin-top: 20px;
-                }
-            }
-            img {
-                filter: grayscale(100%);
-                -webkit-filter: grayscale(100%);
-            }
-            &:hover {
-                background-color: #f2f2f2;
-                cursor: pointer;
-                img {
-                    filter: grayscale(0);
-                    -webkit-filter: grayscale(0);
-                }
-            }
+  .list-group {
+    margin: 20px 0;
+    .list-group-item {
+      padding: 20px 15px;
+      .list-group-item-heading {
+        @media (max-width: @screen-sm) {
+          margin-top: 20px;
         }
+      }
+      img {
+        filter: grayscale(100%);
+        -webkit-filter: grayscale(100%);
+      }
+      &:hover {
+        background-color: #f2f2f2;
+        cursor: pointer;
+        img {
+          filter: grayscale(0);
+          -webkit-filter: grayscale(0);
+        }
+      }
     }
+  }
 }

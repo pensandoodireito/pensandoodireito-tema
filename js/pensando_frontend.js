@@ -1,6 +1,6 @@
-jQuery(function($) {
-    jQuery( 'input[name="nome_certificado"]' ).autocomplete({
-        source: function( request, response ) {
+jQuery(function ($) {
+    jQuery('input[name="nome_certificado"]').autocomplete({
+        source: function (request, response) {
             jQuery.ajax({
                 url: participacao.ajaxurl,
                 dataType: "json",
@@ -9,8 +9,8 @@ jQuery(function($) {
                     q: request.term,
                     action: "certificados"
                 },
-                success: function( data ) {
-                    response($.map( data, function( item ) {
+                success: function (data) {
+                    response($.map(data, function (item) {
                         return {
                             label: item.nome + ' - ' + item.nome_evento,
                             value: item.id,
@@ -22,7 +22,7 @@ jQuery(function($) {
             });
         },
         minLength: 3,
-        select: function( event, ui ) {
+        select: function (event, ui) {
 
             jQuery('#resumo-certificado').hide();
             jQuery('#botao-emitir-certificado').hide();
@@ -36,11 +36,11 @@ jQuery(function($) {
             return false;
 
         },
-        open: function() {
-            jQuery( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        open: function () {
+            jQuery(this).removeClass("ui-corner-all").addClass("ui-corner-top");
         },
-        close: function() {
-            jQuery( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        close: function () {
+            jQuery(this).removeClass("ui-corner-top").addClass("ui-corner-all");
         }
     });
 });
