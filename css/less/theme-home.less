@@ -159,3 +159,22 @@
   max-height: 400px;
   overflow: auto;
 }
+
+.noticias {
+  padding-right: 25px;
+  @media (max-width: @screen-md) {
+    padding-right: 0;
+  }
+  .destaques {
+    .not-titulo {
+
+      a {
+        font-size: 18px !important;
+        line-height: 1;
+      }
+      .destaque-principal {
+        font-size: 30px !important;
+      }
+    }
+  }
+}
