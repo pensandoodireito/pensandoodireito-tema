@@ -12,8 +12,7 @@
 				)
 			)
 		);
-		$destaques            = new WP_Query( $destaque_query_array );
-		?>
+		$destaques = new WP_Query( $destaque_query_array ); ?>
 
 		<div id="destaque-home" class="carousel slide" data-ride="carousel">
 			<?php if ( $destaques->found_posts > 1 ) { ?>
@@ -26,7 +25,7 @@
 						if ( $counter == 0 ) {
 							echo ' class="active"';
 						}
-						echo '">';
+						echo '" data-pause="true">';
 						$counter ++;
 					}
 					?>
@@ -59,8 +58,8 @@
                     $background_img_url = get_post_meta( get_the_ID(), 'background_img_url', true );
                     $texto_destaque     = get_post_meta( get_the_ID(), 'destaque_texto', true );
                     if ( $background_img_url ) { ?>
-                        <div class="fill has-background" style="background-image:url(<?= $background_img_url ?>)">
-                            <a href=" <?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>">
+                        <div class="fill has-background" style="background-image:url(<?php echo  $background_img_url ?>)">
+                            <a href=" <?php echo  get_post_meta( get_the_ID(), 'destaque_link', true ) ?>">
                                 <?php the_post_thumbnail( 'post-thumbnail', array(
                                     'class' => 'img-adptive',
                                     'alt'   => 'destaque'
@@ -74,15 +73,15 @@
                         if ( $bgImage ) {
                             list( $src, $width, $height ) = $bgImage; ?>
 
-                            <div class="fill has-background" style="background-image:url(<?= $src ?>)">
-                                <a href="<?= get_post_meta( get_the_ID(), 'destaque_link', true ) ?>"><span></span></a>
+                            <div class="fill has-background" style="background-image:url(<?php echo  $src ?>)">
+                                <a href="<?php echo  get_post_meta( get_the_ID(), 'destaque_link', true ) ?>"><span></span></a>
                             </div>
                             <?php
                         }
                     }
                     if ( $texto_destaque ) { ?>
                         <div class="carousel-caption">
-                            <p> <?= $texto_destaque ?> </p>
+                            <p><a href="<?php echo  get_post_meta( get_the_ID(), 'destaque_link', true ) ?>"><?php echo  $texto_destaque ?></a></p>
                         </div>
                         <?php
                     }
@@ -90,7 +89,7 @@
                 ?>
 
             </div>
-		<? } ?>
+		<?php } ?>
 		</div>
 
 		<?php if ( $destaques->found_posts > 1 ) { ?>
