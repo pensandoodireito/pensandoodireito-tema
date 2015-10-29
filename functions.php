@@ -53,7 +53,7 @@ class video_widget extends WP_Widget {
         );
         $the_query = new WP_Query( $params );
 
-        echo $args['before_widget'];
+//        echo $args['before_widget'];
 
         if ( $the_query->have_posts() ) :
             while ( $the_query->have_posts() ) :
@@ -62,6 +62,7 @@ class video_widget extends WP_Widget {
                 $url_params = parse_url($youtube_url[0]);
                 parse_str($url_params['query']);
                 ?>
+                <section class="pensando-videos">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <header><h2><a href="/videos"><?php echo $title;?></a></h2></header>
@@ -76,10 +77,11 @@ class video_widget extends WP_Widget {
                         </section>
                     </div>
                 </div>
+                </section>
             <?php endwhile;
              //end of the loop
         endif;
-        echo $args['after_widget'];
+//        echo $args['after_widget'];
     }
 
     // Widget Backend
@@ -112,21 +114,6 @@ function video_load_widget() {
     register_widget( 'video_widget' );
 }
 add_action( 'widgets_init', 'video_load_widget' );
-
-/**
- * Criando uma area de widgets
- *
- */
-function widgets_novos_widgets_init() {
-
-    register_sidebar( array(
-        'name' => 'Barra lateral',
-        'id' => 'sidebar_widgets',
-        'before_widget' => '<section class="pensando-videos">',
-        'after_widget' => '</section>',
-    ) );
-}
-add_action( 'widgets_init', 'widgets_novos_widgets_init' );
 
 // this adds jquery tooltip and styles it
 function pensandoodireito_scripts() {
