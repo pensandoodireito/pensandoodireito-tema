@@ -55,25 +55,30 @@ class video_widget extends WP_Widget {
 
         echo $args['before_widget'];
 
-        // get_youtube_embed()
-        if ( $the_query->have_posts() ) : ?>
-
-            <!-- the loop -->
-            <?php while ( $the_query->have_posts() ) : $the_query->the_post();
-                echo $args['before_title'];
-                the_title();
-                echo $args['after_title'];
-            ?>
-                <?php echo get_youtube_embed(get_the_ID(), 360); ?>
-                <div class="row">
-                    <div class="col-xs-10 col-xs-offset-2">
-                        <?php the_excerpt();?>
+        if ( $the_query->have_posts() ) :
+            while ( $the_query->have_posts() ) :
+                $the_query->the_post();
+                $youtube_url = get_post_meta(get_the_ID(), 'video_youtube_url');
+                $url_params = parse_url($youtube_url[0]);
+                parse_str($url_params['query']);
+                ?>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <header><h2><a href="/videos"><?php echo $title;?></a></h2></header>
+                        <section class="embed-responsive embed-responsive-16by9 mt-sm">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/<?php echo $v;?>" frameborder="0" allowfullscreen>
+                            </iframe>
+                        </section>
+                        <section class="video-description">
+                            <h3><a href="<?php the_guid();?>"><?php the_title();?></a></h3>
+                            <p><?php the_excerpt();?></p>
+                            <p><a href="https://www.youtube.com/channel/UCTKceQBthsUpwYUcQfD4W8g" class="fontsize-sm" target="_blank">Pensando o Direito no <i class="fa fa-youtube"></i> youtube</a></p>
+                        </section>
                     </div>
                 </div>
-            <?php endwhile; ?>
-            <!-- end of the loop -->
-        <?php endif;
-
+            <?php endwhile;
+             //end of the loop
+        endif;
         echo $args['after_widget'];
     }
 
@@ -117,10 +122,8 @@ function widgets_novos_widgets_init() {
     register_sidebar( array(
         'name' => 'Barra lateral',
         'id' => 'sidebar_widgets',
-        'before_widget' => '<div class="panel panel-default">',
-        'after_widget' => '</div>',
-        'before_title' => '<div class="panel-heading"><h4 class="red font-roboto">',
-        'after_title' => '</h4></div>',
+        'before_widget' => '<section class="pensando-videos">',
+        'after_widget' => '</section>',
     ) );
 }
 add_action( 'widgets_init', 'widgets_novos_widgets_init' );
@@ -468,40 +471,6 @@ function video_post_type(){
         }
 
     }
-}
-
-function get_youtube_embed( $post_id, $width = 480 ){
-    $meta = get_post_meta($post_id, 'video_youtube_url');
-
-    set_error_handler(
-        create_function(
-            '$severity, $message, $file, $line',
-            'throw new ErrorException($message, $severity, $severity, $file, $line);'
-        )
-    );
-
-    try {
-        if(!empty($meta)){
-            $content = file_get_contents("http://www.youtube.com/oembed?url=" . $meta[0]);
-            if($content !== false)
-            {
-                $json = json_decode($content);
-                echo '<div class="embed_youtube">' . $json->html . '</div>';
-                ?>
-                <script type="text/javascript">
-                    jQuery(document).ready(function(){
-                        jQuery('.embed_youtube iframe').attr('width', <?php echo $width;?>);
-                    });
-                </script>
-                <?php
-            }
-        }
-    }
-    catch (Exception $e) {
-        echo '<p>Erro ao carregar o vídeo.</p>';
-    }
-
-    restore_error_handler();
 }
 
 add_action( 'init', 'video_post_type', 0 );
@@ -1155,7 +1124,7 @@ function pd_converter_datacorrida($debate_periodo_para) {
     $periodo_para_partes = explode('/', $debate_periodo_para);
     $periodo_para_timestamp = mktime(0,0,0,$periodo_para_partes[1], $periodo_para_partes[0], $periodo_para_partes[2]);
 
-    return date('d \d\e F \d\e Y', $periodo_para_timestamp);
+    return date_i18n('d \d\e F \d\e Y', $periodo_para_timestamp);
 }
 
 // Criação de menus com base do blog 1 no ato de criação de novos sites
