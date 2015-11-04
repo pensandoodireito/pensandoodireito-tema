@@ -37,7 +37,7 @@
                                $myExcerpt = str_replace($tags, "", $myExcerpt);
                                echo $myExcerpt;
                                ?>">
-                                <div class="capa tooltiped"
+                                <div class="capa tooltiped mt-md"
                                      alt="<?php
                                      $myExcerpt = get_the_excerpt();
                                      $tags = array("<p>", "</p>");
