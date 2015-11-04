@@ -29,14 +29,14 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
-    &.has-background{
+    &.has-background {
       background-position: center;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       background-size: cover;
       -o-background-size: cover;
       text-align: center;
-      img{
+      img {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
@@ -59,13 +59,13 @@
     letter-spacing: -0.05em;
     font-family: "roboto", "opensans", Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+30,000000+100&amp;0+0,0.8+100 */
-    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.24) 30%, rgba(0,0,0,0.8) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(30%,rgba(0,0,0,0.24)), color-stop(100%,rgba(0,0,0,0.8))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.24) 30%,rgba(0,0,0,0.8) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.24) 30%,rgba(0,0,0,0.8) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.24) 30%,rgba(0,0,0,0.8) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.24) 30%,rgba(0,0,0,0.8) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 ); /* IE6-9 */
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.24) 30%, rgba(0, 0, 0, 0.8) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(30%, rgba(0, 0, 0, 0.24)), color-stop(100%, rgba(0, 0, 0, 0.8))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.24) 30%, rgba(0, 0, 0, 0.8) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.24) 30%, rgba(0, 0, 0, 0.8) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.24) 30%, rgba(0, 0, 0, 0.8) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.24) 30%, rgba(0, 0, 0, 0.8) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000', GradientType=0); /* IE6-9 */
     @media (max-width: @screen-md) {
       font-size: 20px
     }
@@ -155,26 +155,37 @@
   }
 }
 
-.box-publicacao {
-  max-height: 400px;
-  overflow: auto;
-}
-
-.noticias {
-  padding-right: 25px;
-  @media (max-width: @screen-md) {
-    padding-right: 0;
-  }
-  .destaques {
-    .not-titulo {
-
-      a {
-        font-size: 18px !important;
-        line-height: 1;
-      }
-      .destaque-principal {
-        font-size: 30px !important;
+#publicacoes {
+  .publicacoes-box {
+    border: 1px solid #c4c4c4;
+    border-top: 3px solid #bc3f38;
+    padding: 15px 0px;
+    border-radius: 3px;
+    .clearfix();
+    .descricao {
+      padding-right: 30px;
+      @media (max-width: @screen-sm) {
+        padding-right: 0;
       }
     }
+    .publicacoes-oquee {
+      margin: 0 !important;
+    }
+  }
+}
+
+.capa {
+  color: #fff;
+  background: url("../images/publicacoes/capa-destaque.jpg") no-repeat bottom left 100% #8a272b;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  text-align: center;
+  font-family: @font-family-roboto;
+  padding: 30px 15px;
+  .volume {
+    font-size: 40px;
+    font-weight: 700;
   }
 }

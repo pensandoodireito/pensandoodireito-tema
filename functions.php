@@ -240,12 +240,16 @@ function publicacao_post_type() {
         // Recupera a variáveis, se já adicionadas
         $pub_date = get_post_meta($post->ID, 'pub_date', true);
         $pub_number = get_post_meta($post->ID, 'pub_number', true);
+        $pub_coordenacao = get_post_meta($post->ID, 'pub_coordenacao', true);
 
         // Imprime o campo para Número da Publicação
         echo '<p><label>Número da Publicação</label><input type="number" name="pub_number" value="' . $pub_number . '" class="" required /></p>';
 
         // Imprime o campo para Data da Publicação
         echo '<p><label>Data da Publicação</label><input type="text" name="pub_date" value="' . $pub_date . '" class="datePick" required /></p>';
+
+        // Imprime o campo para Coordenação
+        echo '<p><label>Coordenação</label><input type="text" name="pub_coordenacao" value="' . $pub_coordenacao . '"/></p>';
     }
 
     //Geração do HTML para upload dos arquivos
@@ -291,6 +295,7 @@ function publicacao_post_type() {
         // We'll put it into an array to make it easier to loop though.
         $publicacao_meta['pub_date'] = $_POST['pub_date'];
         $publicacao_meta['pub_number'] = $_POST['pub_number'];
+        $publicacao_meta['pub_coordenacao'] = $_POST['pub_coordenacao'];
 
         // Make sure the file array isn't empty
         if(!empty($_FILES['pub_web_file']['name']) && !empty($_FILES['pub_dld_file']['name'])) {
