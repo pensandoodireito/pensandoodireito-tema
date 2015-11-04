@@ -158,6 +158,25 @@
   }
 }
 
+.noticias {
+  padding-right: 25px;
+  @media (max-width: @screen-md) {
+    padding-right: 0;
+  }
+  .destaques {
+    .not-titulo {
+
+      a {
+        font-size: 18px !important;
+        line-height: 1;
+      }
+      .destaque-principal {
+        font-size: 30px !important;
+      }
+    }
+  }
+}
+
 #publicacoes {
   .publicacoes-box {
     border: 1px solid #c4c4c4;
@@ -165,6 +184,21 @@
     padding: 15px 0px;
     border-radius: 3px;
     .clearfix();
+    .capa {
+      color: #fff;
+      background: url("../images/publicacoes/capa-destaque.jpg") no-repeat bottom left 100% #8a272b;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      background-size: cover;
+      -o-background-size: cover;
+      text-align: center;
+      font-family: @font-family-roboto;
+      padding: 30px 15px;
+      .volume {
+        font-size: 40px;
+        font-weight: 700;
+      }
+    }
     .descricao {
       padding-right: 30px;
       @media (max-width: @screen-sm) {
