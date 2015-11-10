@@ -18,6 +18,7 @@ $destaque_query_array = array(
 query_posts($destaque_query_array);
 
 $pub_ids = array();
+$current_page = isset($_GET['page'])?$_GET['page']:1;
 
 //TODO: Como adicionar diversos autores e mostrá-los?
 $autores = false;
@@ -53,10 +54,6 @@ function get_autores_from_excerpt( $excerpt ){
     return $array_autores;
 }
 
-//wp_reset_postdata();
-
-//Salvando ID da publicação em destaque
-$destaqueID = get_the_ID();
 
 $lista_autores = wp_cache_get('lista_autores');
 $volumes = wp_cache_get('volumes');
@@ -105,6 +102,13 @@ if(isset($_GET['sort-order'])){
 if(isset($_GET['filter-name'])){
     $default_params['filter-name'] = $_GET['filter-name'];
 }
+
+the_post();
+//Salvando ID da publicação em destaque
+$destaqueID = get_the_ID();
+$numero_publicacao = get_post_meta(get_the_ID(), 'pub_number', true);
+$total_pages = ceil(count($volumes) / 10)+1;
+
 ?>
 <div id="publicacoes">
     <div class="container">
@@ -178,9 +182,41 @@ if(isset($_GET['filter-name'])){
             </div>
             <!-- Fim da Publicação em destaque -->
         </div>
-        <?php if(empty($default_params)):
-        the_post();
-        $download_link = get_post_meta(get_the_ID(), 'pub_dld_file', true);
+        <div class="row text-right fontsize-sm">
+            <div class="col-sm-6 col-sm-offset-2 mt-sm">
+                <div class="btn-group" role="group" aria-label="publicacoes">
+                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            Página <?php echo $current_page;?>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <?php for($i=1;$i<$total_pages;$i++):?>
+                            <li><a href="<?php echo get_post_type_archive_link('publicacao');?>?page=<?php echo $i;?>">Página <?php echo $i+1;?></a></li>
+                            <?php endfor;?>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="col-md-4 mt-sm">
+                <form id="sort-filter-form" action="<?php echo get_post_type_archive_link('publicacao'); ?>" method="get">
+                    <div class="input-group">
+                        <input type="text" name="filter-name" class="form-control" placeholder="Digite sua busca... " value="<?php if (isset($_GET['filter-name']) && $_GET['filter-name'] != "") {
+                            echo $_GET['filter-name'];
+                        } ?>">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                          </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <?php
+        if(empty($default_params)):
+            $download_link = get_post_meta(get_the_ID(), 'pub_dld_file', true);
         ?>
         <div class="publicacoes-box mt-md">
             <div class="col-md-12">
@@ -192,7 +228,7 @@ if(isset($_GET['filter-name'])){
                         <div class="capa-principal">
                             <p class="fontsize-lg"><strong>Série Pensando o Direito</strong></p>
 
-                            <p class="fontsize-lg">Volume <br/> <span class="volume"><?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></span></p>
+                            <p class="fontsize-lg">Volume <br/> <span class="volume"><?php echo $numero_publicacao; ?></span></p>
                         </div>
                     </div>
                     <div class="col-sm-8">
@@ -275,7 +311,8 @@ if(isset($_GET['filter-name'])){
                     $pubs_args = array(
                         'post_type' => 'publicacao',
                         'post_status' => array( 'publish' ),
-                        'posts_per_page' => 8,
+                        'posts_per_page' => 10,
+                        'paged' => $current_page,
                         'post__not_in' => array($destaqueID),
                         'order' => $order,
                         'orderby' => 'meta_value_num',
@@ -314,6 +351,9 @@ if(isset($_GET['filter-name'])){
                         $counter++;
                     endwhile;
                     ?>
+                    <?php if(!$publicacoes->have_posts()):?>
+                    <li>Nenhum resultado encontrado.</li>
+                    <?php endif;?>
                 </ul>
             </div>
         </div>
