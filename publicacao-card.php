@@ -1,65 +1,72 @@
-<?php
-//TODO: Como adicionar diversos autores e mostrá-los?
-$autores = false;
-?>
 <!-- inicio card -->
-<div class="col-md-3">
-	<div class="thumbnail">
-		<a href="<?php echo get_post_permalink(); ?>" class="nounderline">
-			<div class="capa">
-				<div class="ribbon-wrapper">
-					<div class="ribbon">
-						Volume <?php echo get_post_meta( get_the_ID(), 'pub_number', true ); ?>
-					</div>
-				</div>
-				<div class="card">
-					<p><?php the_title_limit( 70 ); ?></p>
-				</div>
-			</div>
-		</a>
+<li>
+  <div class="row">
+    <div class="col-sm-2 col-xs-12">
+      <div class="capa">
+        <p class="fontsize-lg">Volume <br/>
+          <span class="volume"><?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></span></p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+      <div class="descricao">
+        <h4 class="red">
+            <strong>
+                <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" title="Download desta publicação">
+                    <?php the_title(); ?>
+                </a>
+            </strong>
+        </h4>
 
-		<div class="caption small">
-			<h6>
-				<a href="<?php echo get_post_permalink(); ?>">
-					Volume <?php echo get_post_meta( get_the_ID(), 'pub_number', true ); ?>
-					| <?php the_title(); ?>
-				</a>
-			</h6>
+        <p>
+            <a data-toggle="collapse" href="#resumo-<?php echo get_the_ID();?>" aria-expanded="false"
+              aria-controls="resumo-<?php echo get_the_ID();?>"> Resumo <i class="fa fa-caret-down"></i></a>
+        </p>
+          <?php
+          $lista_autores = get_autores_from_excerpt(get_the_excerpt());
+          ?>
+        <span class="collapse in" id="resumo-<?php echo get_the_ID();?>"><?php the_excerpt();?></span>
 
-			<p>
-				<mark>Data: <?php echo get_post_meta( get_the_ID(), 'pub_date', true ); ?></mark>
-			</p>
-			<div class="description-publicacao">
-				<p><?php the_excerpt(); ?></p>
-			</div>
-			<?php if ( $autores ) { ?>
+        <p>
+          <small class="text-muted">
+              Publicado em: <?php echo get_post_meta(get_the_ID(), 'pub_date', true); ?><br/>
+              <?php if(!empty($lista_autores)):?> Coordenação: <?php echo implode(' e ', $lista_autores);?><?php endif;?>
+          </small>
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-12">
+      <p><a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>" class="btn btn-default"><i class="fa fa-download"></i> Download
+          desta publicação </a></p>
 
-				<p>
-					<small><a href="#">Ver autores</a></small>
-				</p>
-			<?php } ?>
-			<div class="social-bar">
-				<?php get_template_part( 'part', 'social' ); ?>
-			</div>
-			</br>
-			<div class="btn-group mt-sm" role="group">
-				<?php
-				$dld_file = get_post_meta( get_the_ID(), 'pub_dld_file', true );
-				if ( ! empty( $dld_file ) ) { ?>
-					<a href="<?php echo get_post_meta( get_the_ID(), 'pub_dld_file', true ); ?>"
-					   class="btn btn-default">
-						<span class="fa fa-download"></span> BAIXAR
-					</a>
-				<?php } else { ?>
-					<a href="<?php echo get_post_permalink(); ?>" class="btn btn-default">
-						<span class="fa fa-download"></span> BAIXAR
-					</a>
-				<?php } ?>
-			</div>
-			<div class="btn-group mt-sm" role="group">
-				<a href="<?php echo get_post_permalink(); ?>" class="btn btn-default btn-danger">VISUALIZAR</a>
-			</div>
-		</div>
-	</div>
-</div>
+        <ul class="list-inline social-icons text-muted mt-0">
+            <li class="social-icons-rounded">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo get_post_permalink(); ?>"
+                   target="_blank"
+                   class="btn btn-rounded text-muted"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="Compartilhe no Facebook"><i
+                        class="fa fa-facebook"></i></a>
+            </li>
+            <li class="social-icons-rounded">
+                <a href="https://twitter.com/share?hashtags=pensandoodireito&text=<?php echo the_title(); ?>&url=<?php echo get_post_permalink(); ?>"
+                   target="_blank"
+                   class="btn btn-rounded text-muted"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="Compartilhe no Twitter"><i
+                        class="fa fa-twitter"></i></a>
+            </li>
+            <li class="social-icons-rounded">
+                <a
+                    href="https://www.linkedin.com/shareArticle?mini=true&title=<?php echo urlencode(get_the_title()); ?>&url=<?php echo urlencode(get_post_permalink()); ?>&summary=<?php echo urlencode(get_the_excerpt()); ?>&source=http://pensando.mj.gov.br"
+                    target="_blank" class="btn btn-rounded text-muted"
+                    data-toggle="tooltip"
+                    data-placement="top" title="Compartilhe no Linkedin"><i
+                        class="fa fa-linkedin"></i></a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</li>
 <!-- fim card -->
