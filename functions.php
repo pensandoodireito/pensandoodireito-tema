@@ -144,7 +144,7 @@ function publicacao_post_type() {
 		echo '<p><label>Data da Publicação</label><input type="text" name="pub_date" value="' . $pub_date . '" class="datePick" required /></p>';
 
 		// Imprime o campo para Coordenação
-		echo '<p><label>Coordenação</label><input type="text" name="pub_coordenacao" value="' . $pub_coordenacao . '"/></p>';
+		echo '<p><label>Coordenação</label><br/><input type="text" name="pub_coordenacao" value="' . $pub_coordenacao . '"/></p>';
 	}
 
 	//Geração do HTML para upload dos arquivos
@@ -1021,3 +1021,31 @@ function pensando_certificado_styles() {
 		wp_enqueue_style( 'theme-certificados', get_stylesheet_directory_uri() . '/css/theme-certificados.css' );
 	}
 }
+
+/**
+ * Filtro para incluir campos customizados de publicações na resposta das publicações
+ *
+ * @param $post_response
+ * @param $post
+ * @param $context
+ *
+ * @return mixed
+ */
+function json_api_prepare_post( $post_response, $post, $context ) {
+
+	if ( $post['post_type'] == 'publicacao' ) {
+		$dldField         = get_post_meta( $post['ID'], "pub_dld_file", true );
+		$volumeField      = get_post_meta( $post['ID'], "pub_number", true );
+		$dateField        = get_post_meta( $post['ID'], "pub_date", true );
+		$coordenacaoField = get_post_meta( $post['ID'], "pub_coordenacao", true );
+
+		$post_response['publicacao_url']         = $dldField;
+		$post_response['publicacao_volume']      = $volumeField;
+		$post_response['publicacao_data']        = $dateField;
+		$post_response['publicacao_coordenacao'] = $coordenacaoField;
+	}
+
+	return $post_response;
+}
+
+add_filter( 'json_prepare_post', 'json_api_prepare_post', 10, 3 );
