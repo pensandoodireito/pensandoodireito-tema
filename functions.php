@@ -46,6 +46,24 @@ function publicacoes_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'publicacoes_scripts' );
 
+function get_autores_from_excerpt( $excerpt ){
+	$array_autores = array();
+	preg_match('/Coordenação:(.*)/', $excerpt, $str_autores);
+	if(isset($str_autores[1])) {
+		$array_autores = explode(' e ', str_replace('.', '', $str_autores[1]));
+		$array_autores = array_slice($array_autores, 0, 2);
+		$array_autores = array_map(function ($item) {
+			$item = trim($item);
+			$nomes = explode(' ', $item);
+			if (count($nomes) > 3)
+				return implode(' ', array_slice($nomes, 0, 3));
+			else
+				return $item;
+		}, $array_autores);
+	}
+	return $array_autores;
+}
+
 /**
  * Registar post type publicação
  */
@@ -857,8 +875,11 @@ function publicacoes_paginacao_infinita() {
 	$pubs_args = array(
 		'paged'          => $paged,
 		'post_type'      => 'publicacao',
-		'posts_per_page' => 8,
+        'post_status' => array( 'publish' ),
+		'posts_per_page' => 10,
 		'post__not_in'   => array( $destaqueID ),
+        'orderby' => 'meta_value_num',
+        'meta_key' => 'pub_number'
 	);
 
 	if ( ! empty( $_POST ) ) {
@@ -888,14 +909,10 @@ function publicacoes_paginacao_infinita() {
 
 	$publicacoes = new WP_Query ( $pubs_args );
 
-	$counter = 0;
 	if ( $publicacoes->have_posts() ) {
 		while ( $publicacoes->have_posts() ) {
 			$publicacoes->the_post();
-			if ( $counter % 4 == 0 ) { ?> <div class="row"> <?php }
 			get_template_part( 'publicacao', 'card' );
-			if ( ( $counter + 1 ) % 4 == 0 ) { ?> </div> <?php }
-			$counter ++;
 		}
 	}
 
