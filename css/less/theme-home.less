@@ -6,12 +6,12 @@
 }
 
 #destaque-home {
-  height: 70%;
+  height: 350px;
   @media (max-width: @screen-md) {
-    height: 50%;
+    height: 300px
   }
   @media (max-width: @screen-sm) {
-    height: 35%;
+    height: 250px;
   }
   .carousel,
   .item,
@@ -57,13 +57,13 @@
     font-size: 25px;
     letter-spacing: -0.05em;
     font-family: "roboto", "opensans", Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+30,000000+100&amp;0+0,0.8+100 */
-    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.8) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(30%, rgba(0, 0, 0, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.8))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.8) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.8) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.8) 100%); /* IE10+ */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.8) 100%); /* W3C */
+    // /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+30,000000+100&amp;0+0,0.8+100 */
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 58%, rgba(0, 0, 0, 0.8) 140%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(58%, rgba(0, 0, 0, 0.4)), color-stop(140%, rgba(0, 0, 0, 0.8))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 58%, rgba(0, 0, 0, 0.8) 140%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 58%, rgba(0, 0, 0, 0.8) 140%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 58%, rgba(0, 0, 0, 0.8) 140%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 58%, rgba(0, 0, 0, 0.8) 140%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000', GradientType=0); /* IE6-9 */
     color: #fff;
     a {
@@ -78,8 +78,8 @@
   }
   .carousel-indicators {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: -30px;
+    //right: 0;
     left: initial;
     z-index: 15;
     width: 60%;
@@ -91,10 +91,16 @@
     .active {
       height: 12px !important;
     }
+    li {
+      border: 1px solid #641E1E;
+    }
+    .active {
+      background-color: #641E1E;
+    }
   }
   .carousel-control {
-    top: 30px;
-    bottom: 30px;
+    top: 0;
+    bottom: 25%;
     width: 5%;
     &.left, &.right {
       background-image: none;
