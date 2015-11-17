@@ -36,25 +36,6 @@ function custom_excerpt_length_200( $length ) {
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length_530', 999 );
 
-function get_autores_from_excerpt( $excerpt ){
-    $array_autores = array();
-    preg_match('/Coordenação:(.*)/', $excerpt, $str_autores);
-    if(isset($str_autores[1])) {
-        $array_autores = explode(' e ', str_replace('.', '', $str_autores[1]));
-        $array_autores = array_slice($array_autores, 0, 2);
-        $array_autores = array_map(function ($item) {
-            $item = trim($item);
-            $nomes = explode(' ', $item);
-            if (count($nomes) > 3)
-                return implode(' ', array_slice($nomes, 0, 3));
-            else
-                return $item;
-        }, $array_autores);
-    }
-    return $array_autores;
-}
-
-
 $lista_autores = wp_cache_get('lista_autores');
 $volumes = wp_cache_get('volumes');
 if(!$lista_autores){
@@ -183,25 +164,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
             <!-- Fim da Publicação em destaque -->
         </div>
         <div class="row text-right fontsize-sm">
-            <div class="col-sm-6 col-sm-offset-2 mt-sm">
-                <div class="btn-group" role="group" aria-label="publicacoes">
-                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-left"></i></button>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            Página <?php echo $current_page;?>
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <?php for($i=1;$i<$total_pages;$i++):?>
-                            <li><a href="<?php echo get_post_type_archive_link('publicacao');?>?page=<?php echo $i;?>">Página <?php echo $i+1;?></a></li>
-                            <?php endfor;?>
-                        </ul>
-                    </div>
-                    <button type="button" class="btn btn-default"><i class="fa fa-chevron-right"></i></button>
-                </div>
-            </div>
-            <div class="col-md-4 mt-sm">
+            <div class="col-md-4 col-sm-offset-8 mt-sm">
                 <form id="sort-filter-form" action="<?php echo get_post_type_archive_link('publicacao'); ?>" method="get">
                     <div class="input-group">
                         <input type="text" name="filter-name" class="form-control" placeholder="Digite sua busca... " value="<?php if (isset($_GET['filter-name']) && $_GET['filter-name'] != "") {
@@ -357,7 +320,10 @@ $total_pages = ceil(count($volumes) / 10)+1;
                 </ul>
             </div>
         </div>
-      </form>
+      <script>
+        var publicacoesPaginasMaximas = <?php echo $publicacoes->max_num_pages; ?>;
+        var destaqueID = <?php echo $destaqueID; ?>;
+      </script>
     </div>
   </div>
 </div>

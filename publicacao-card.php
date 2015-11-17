@@ -1,5 +1,5 @@
 <!-- inicio card -->
-<li>
+<li data-id="<?php echo get_the_ID();?>">
   <div class="row">
     <div class="col-sm-2 col-xs-12">
       <div class="capa">
@@ -24,7 +24,7 @@
           <?php
           $lista_autores = get_autores_from_excerpt(get_the_excerpt());
           ?>
-        <span class="collapse in" id="resumo-<?php echo get_the_ID();?>"><?php the_excerpt();?></span>
+        <span class="collapse" id="resumo-<?php echo get_the_ID();?>"><?php the_excerpt();?></span>
 
         <p>
           <small class="text-muted">
