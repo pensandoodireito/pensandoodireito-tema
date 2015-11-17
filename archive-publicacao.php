@@ -101,7 +101,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-categories">
-                    <ul class="list-inline list-categories">
+                    <ul class="list-unstyled list-categories">
                         <li class="categories-master">
                             <a href="<?php echo get_post_type_archive_link('publicacao');?>" class="categorie-link">Todas</a>
                         </li>
@@ -141,7 +141,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
                                             <?php
                                             $volume_parts = explode(' ', $volume['vol']);
                                             echo implode(' ', array_slice($volume_parts,0,10));
-                                            if(count($volume_parts) > 10) echo ' ...';
+                                            if(count($volume_parts) > 10) {echo ' ...';}
                                             ?>
                                         </a>
                                     <?php endforeach;?>
@@ -157,32 +157,29 @@ $total_pages = ceil(count($volumes) / 10)+1;
                                 </li>
                             </ul>
                         </li>
+                        <li class="col-sm-3 pull-right">
+                            <form id="sort-filter-form" action="<?php echo get_post_type_archive_link('publicacao'); ?>" method="get">
+                                <div class="input-group">
+                                    <input type="text" name="filter-name" class="form-control" placeholder="Buscar em publicações... " value="<?php if (isset($_GET['filter-name']) && $_GET['filter-name'] != "") {
+                                        echo $_GET['filter-name'];
+                                    } ?>">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                      </span>
+                                </div>
+                            </form>
+                        </li>
                     </ul>
                 </div>
-              </a>
             </div>
             <!-- Fim da Publicação em destaque -->
-        </div>
-        <div class="row text-right fontsize-sm">
-            <div class="col-md-4 col-sm-offset-8 mt-sm">
-                <form id="sort-filter-form" action="<?php echo get_post_type_archive_link('publicacao'); ?>" method="get">
-                    <div class="input-group">
-                        <input type="text" name="filter-name" class="form-control" placeholder="Digite sua busca... " value="<?php if (isset($_GET['filter-name']) && $_GET['filter-name'] != "") {
-                            echo $_GET['filter-name'];
-                        } ?>">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                          </span>
-                    </div>
-                </form>
-            </div>
         </div>
         <?php
         if(empty($default_params)):
             $download_link = get_post_meta(get_the_ID(), 'pub_dld_file', true);
         ?>
         <div class="publicacoes-box mt-md">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <h3><span class="red font-roboto">Última publicação</span>
                     <?php /**<small class="ml-lg fontsize-sm"><a href="#" class="blue">Todas as publicações</a></small> **/ ?>
                 </h3>
@@ -258,6 +255,26 @@ $total_pages = ceil(count($volumes) / 10)+1;
                 * <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/publicacoes/autor.jpg" class="img-adptive img-thumbnail autor" alt="Autor">
             * </div>**/
             ?>
+            <div class="col-md-4">
+                <div class="well publicacoes-oquee">
+                    <h4 class="font-roboto red">
+                        <strong>
+                            Série Pensando o Direito:<br/>
+                            O que são as Publicações?
+                        </strong>
+                    </h4>
+                    <p>Desde a criação do Projeto Pensando o Direito, as pesquisas desenvolvidas
+                        pelas
+                        equipes contratadas resultam em relatórios completos e em publicações
+                        resumidas
+                        que sintetizam os principais dados levantados a partir dos processos de
+                        investigação desenvolvidos.</p>
+
+                    <p><strong><a href="#">Todas as publicações</a></strong></p>
+
+                    <p><strong><a href="#">Editais de participacao</a></strong></p>
+                </div>
+            </div>
         </div>
         <div class="row mt-lg">
             <div class="col-lg-12">
