@@ -100,7 +100,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="header-categories fix-header">
+                <div class="header-categories">
                     <div class="container">
                         <ul class="list-unstyled list-categories">
                             <li class="categories-master">
@@ -117,9 +117,9 @@ $total_pages = ceil(count($volumes) / 10)+1;
                                 $new_params['sort-order'] = $new_order;
                                 ?>
                                 <a href="/publicacoes?<?php echo http_build_query($new_params);?>" class="categorie-link">
-                                    <?php echo isset($_GET['sort-order']) && $_GET['sort-order']=='DESC'?'Reordenar crescente':'Reordenar decrescente';?>
+                                    <?php echo $new_order=='ASC'?'Reordenar crescente':'Reordenar decrescente';?>
                                 </a>
-                                <span class="text-muted fontsize-sm"><?php echo isset($_GET['sort-order']) && $_GET['sort-order'] == 'DESC' ? '(1-100)':'(100-1)';?></span>
+                                <span class="text-muted fontsize-sm"><?php echo $new_order=='ASC'? '(1 - 100)':'(100 - 1)';?></span>
                             </li>
                             <li class="dropdown categories-master">
                                 <a href="#" class="categorie-link" id="menu-autores" data-toggle="dropdown"
