@@ -100,76 +100,80 @@ $total_pages = ceil(count($volumes) / 10)+1;
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="header-categories">
-                    <ul class="list-unstyled list-categories">
-                        <li class="categories-master">
-                            <a href="<?php echo get_post_type_archive_link('publicacao');?>" class="categorie-link">Todas</a>
-                        </li>
-                        <li class="categories-master">
-                            <?php
-                            if(isset($_GET['sort-order'])){
-                                $new_order = $_GET['sort-order'] == 'ASC'?'DESC':'ASC';
-                            }else{
-                                $new_order = 'ASC';
-                            }
-                            $new_params = $default_params;
-                            $new_params['sort-order'] = $new_order;
-                            ?>
-                            <a href="/publicacoes?<?php echo http_build_query($new_params);?>" class="categorie-link">
-                                <?php echo isset($_GET['sort-order']) && $_GET['sort-order']=='DESC'?'100-1':'1-100';?>
-                            </a>
-                            <span class="text-muted fontsize-sm"><?php echo isset($_GET['sort-order']) && $_GET['sort-order'] == 'DESC' ? '(Decrescente)':'(Crescente)';?></span>
-                        </li>
-                        <li class="dropdown categories-master">
-                            <a href="#" class="categorie-link" id="menu-autores" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Autores <i class="fa fa-caret-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="menu-autores">
-                                <li class="categories-master">
-                                    <?php foreach($lista_autores as $autor):?>
-                                    <a href="/publicacoes?filter-name=<?php echo urlencode($autor);?>" class="categorie-link"><?php echo $autor;?></a>
-                                    <?php endforeach;?>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown categories-master indice-dropdown">
-                            <a href="#" class="categorie-link" id="menu-indice" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Índice <i class="fa fa-caret-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="menu-indice">
-                                <li class="categories-master">
-                                    <?php foreach($volumes as $volume):?>
-                                        <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true);?>" class="categorie-link" title="<?php echo htmlentities($volume['vol']);?>" target="_blank">
-                                            <?php
-                                            $volume_parts = explode(' ', $volume['vol']);
-                                            echo implode(' ', array_slice($volume_parts,0,10));
-                                            if(count($volume_parts) > 10) {echo ' ...';}
-                                            ?>
-                                        </a>
-                                    <?php endforeach;?>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown categories-master">
-                            <a href="#" class="categorie-link" id="menu-mais" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Mais <i class="fa fa-caret-down"></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="menu-mais">
-                                <li class="categories-master in">
-                                    <a href="<?php echo get_post_type_archive_link('publicacao');?>?sort-option=title" class="categorie-link">Por título</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="col-sm-3 pull-right">
-                            <form id="sort-filter-form" action="<?php echo get_post_type_archive_link('publicacao'); ?>" method="get">
-                                <div class="input-group">
-                                    <input type="text" name="filter-name" class="form-control" placeholder="Buscar em publicações... " value="<?php if (isset($_GET['filter-name']) && $_GET['filter-name'] != "") {
-                                        echo $_GET['filter-name'];
-                                    } ?>">
-                                      <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                                      </span>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
+                <div class="header-categories fix-header">
+                    <div class="container">
+                        <ul class="list-unstyled list-categories">
+                            <li class="categories-master">
+                                <a href="<?php echo get_post_type_archive_link('publicacao');?>" class="categorie-link">Última publicação</a>
+                            </li>
+                            <li class="categories-master">
+                                <?php
+                                if(isset($_GET['sort-order'])){
+                                    $new_order = $_GET['sort-order'] == 'ASC'?'DESC':'ASC';
+                                }else{
+                                    $new_order = 'ASC';
+                                }
+                                $new_params = $default_params;
+                                $new_params['sort-order'] = $new_order;
+                                ?>
+                                <a href="/publicacoes?<?php echo http_build_query($new_params);?>" class="categorie-link">
+                                    <?php echo isset($_GET['sort-order']) && $_GET['sort-order']=='DESC'?'Reordenar crescente':'Reordenar decrescente';?>
+                                </a>
+                                <span class="text-muted fontsize-sm"><?php echo isset($_GET['sort-order']) && $_GET['sort-order'] == 'DESC' ? '(1-100)':'(100-1)';?></span>
+                            </li>
+                            <li class="dropdown categories-master">
+                                <a href="#" class="categorie-link" id="menu-autores" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">Por autor <i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu" aria-labelledby="menu-autores">
+                                    <li class="categories-master">
+                                        <?php foreach($lista_autores as $autor):?>
+                                        <a href="/publicacoes?filter-name=<?php echo urlencode($autor);?>" class="categorie-link"><?php echo $autor;?></a>
+                                        <?php endforeach;?>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown categories-master indice-dropdown">
+                                <a href="#" class="categorie-link" id="menu-indice" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">Índice <i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu" aria-labelledby="menu-indice">
+                                    <li class="categories-master">
+                                        <?php foreach($volumes as $volume):?>
+                                            <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true);?>" class="categorie-link" title="<?php echo htmlentities($volume['vol']);?>" target="_blank">
+                                                <?php
+                                                $volume_parts = explode(' ', $volume['vol']);
+                                                echo implode(' ', array_slice($volume_parts,0,10));
+                                                if(count($volume_parts) > 10) {echo ' ...';}
+                                                ?>
+                                            </a>
+                                        <?php endforeach;?>
+                                    </li>
+                                </ul>
+                            </li>
+                            <?php /*
+                            <li class="dropdown categories-master">
+                                <a href="#" class="categorie-link" id="menu-mais" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">Mais <i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu" aria-labelledby="menu-mais">
+                                    <li class="categories-master in">
+                                        <a href="<?php echo get_post_type_archive_link('publicacao');?>?sort-option=title" class="categorie-link">Por título</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            */?>
+                            <li class="col-sm-3 pull-right">
+                                <form id="sort-filter-form" action="<?php echo get_post_type_archive_link('publicacao'); ?>" method="get">
+                                    <div class="input-group">
+                                        <input type="text" name="filter-name" class="form-control" placeholder="Buscar em publicações... " value="<?php if (isset($_GET['filter-name']) && $_GET['filter-name'] != "") {
+                                            echo $_GET['filter-name'];
+                                        } ?>">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                          </span>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!-- Fim da Publicação em destaque -->
