@@ -34,12 +34,14 @@ function getQueryParameters(str) {
 };
 
 jQuery(function ($) {
-    $(window).scroll(function () {
-        if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
-            if (!publicacaoLock) {
-                carregar_publicacoes();
-            }
+    if (location.href.indexOf("publicacoes") != -1) {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
+                if (!publicacaoLock) {
+                    carregar_publicacoes();
+                }
 
-        }
-    });
+            }
+        });
+    }
 });
