@@ -53,7 +53,7 @@ if ( $fp_pub_query->have_posts() ) {
 										<h4><strong><a href="<?php echo get_post_permalink(); ?>"
 										               class="red"><?php the_title(); ?></a></strong></h4>
 
-										<p><?php the_excerpt(); ?></p>
+										<p><?php the_content(); ?></p>
 
 										<p>
 											<small class="text-muted">

@@ -200,7 +200,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
                         <div class="descricao">
                             <h4><strong><a href="<?php echo $download_link; ?>" class="red"><?php the_title_limit(70);?></a></strong></h4>
 
-                            <p><?php the_excerpt(); ?></p>
+                            <p><?php the_content(); ?></p>
 
                             <p>
                                 <small class="text-muted">
