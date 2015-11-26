@@ -23,7 +23,7 @@
                 <?php
                 $lista_autores = get_autores_from_excerpt(get_the_excerpt());
                 ?>
-                <div class="collapse" id="resumo-<?php echo get_the_ID(); ?>"><?php the_excerpt(); ?></div>
+                <div class="collapse" id="resumo-<?php echo get_the_ID(); ?>"><?php the_content(); ?></div>
 
                 <p>
                     <small class="text-muted">
