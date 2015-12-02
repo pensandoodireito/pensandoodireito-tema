@@ -72,9 +72,12 @@ class Pensando_API_Publicacoes extends WP_JSON_CustomPostType {
 			$publicacao['date']        = $dateField;
 			$publicacao['coordenacao'] = $coordenacaoField;
 
+			list( $title, $subtitle ) = $this->parseTitle( $post_response['title'] );
+
 			/*Campos do Post*/
 			$publicacao['ID']             = $post_response['ID'];
-			$publicacao['title']          = $post_response['title'];
+			$publicacao['title']          = $title;
+			$publicacao['subtitle']       = $subtitle;
 			$publicacao['content']        = $post_response['content'];
 			$publicacao['link']           = $post_response['link'];
 			$publicacao['slug']           = $post_response['slug'];
@@ -85,5 +88,23 @@ class Pensando_API_Publicacoes extends WP_JSON_CustomPostType {
 		} else {
 			return $post_response;
 		}
+	}
+
+	public function parseTitle( $title ) {
+		$subtitle = '';
+		$parts    = preg_split( "/[:–-]/", $title );
+
+		if ( $parts ) {
+			$title = $parts[0];
+
+			for ( $i = 1; $i < count( $parts ); $i ++ ) {
+				$trimmed = trim( $parts[ $i ] );
+				if ( strlen( $trimmed ) > 0 ) {
+					$subtitle .= $trimmed . ' ';
+				}
+			}
+		}
+
+		return array( trim( $title ), trim( $subtitle ) );
 	}
 }
