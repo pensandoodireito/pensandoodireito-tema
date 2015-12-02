@@ -46,21 +46,23 @@ function publicacoes_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'publicacoes_scripts' );
 
-function get_autores_from_excerpt( $excerpt ){
+function get_autores_from_excerpt( $excerpt ) {
 	$array_autores = array();
-	preg_match('/Coordenação:(.*)/', $excerpt, $str_autores);
-	if(isset($str_autores[1])) {
-		$array_autores = explode(' e ', str_replace('.', '', $str_autores[1]));
-		$array_autores = array_slice($array_autores, 0, 2);
-		$array_autores = array_map(function ($item) {
-			$item = trim($item);
-			$nomes = explode(' ', $item);
-			if (count($nomes) > 3)
-				return implode(' ', array_slice($nomes, 0, 3));
-			else
+	preg_match( '/Coordenação:(.*)/', $excerpt, $str_autores );
+	if ( isset( $str_autores[1] ) ) {
+		$array_autores = explode( ' e ', str_replace( '.', '', $str_autores[1] ) );
+		$array_autores = array_slice( $array_autores, 0, 2 );
+		$array_autores = array_map( function ( $item ) {
+			$item  = trim( $item );
+			$nomes = explode( ' ', $item );
+			if ( count( $nomes ) > 3 ) {
+				return implode( ' ', array_slice( $nomes, 0, 3 ) );
+			} else {
 				return $item;
-		}, $array_autores);
+			}
+		}, $array_autores );
 	}
+
 	return $array_autores;
 }
 
@@ -875,11 +877,11 @@ function publicacoes_paginacao_infinita() {
 	$pubs_args = array(
 		'paged'          => $paged,
 		'post_type'      => 'publicacao',
-        'post_status' => array( 'publish' ),
+		'post_status'    => array( 'publish' ),
 		'posts_per_page' => 10,
 		'post__not_in'   => array( $destaqueID ),
-        'orderby' => 'meta_value_num',
-        'meta_key' => 'pub_number'
+		'orderby'        => 'meta_value_num',
+		'meta_key'       => 'pub_number'
 	);
 
 	if ( ! empty( $_POST ) ) {
@@ -1039,30 +1041,20 @@ function pensando_certificado_styles() {
 	}
 }
 
-/**
- * Filtro para incluir campos customizados de publicações na resposta das publicações
- *
- * @param $post_response
- * @param $post
- * @param $context
- *
- * @return mixed
- */
-function json_api_prepare_post( $post_response, $post, $context ) {
+function pensando_api_init( $server ) {
+	global $pensando_api_publicacoes;
 
-	if ( $post['post_type'] == 'publicacao' ) {
-		$dldField         = get_post_meta( $post['ID'], "pub_dld_file", true );
-		$volumeField      = get_post_meta( $post['ID'], "pub_number", true );
-		$dateField        = get_post_meta( $post['ID'], "pub_date", true );
-		$coordenacaoField = get_post_meta( $post['ID'], "pub_coordenacao", true );
+	require_once dirname( __FILE__ ) . '/class-pensando-api-publicacoes.php';
 
-		$post_response['publicacao_url']         = $dldField;
-		$post_response['publicacao_volume']      = $volumeField;
-		$post_response['publicacao_data']        = $dateField;
-		$post_response['publicacao_coordenacao'] = $coordenacaoField;
-	}
-
-	return $post_response;
+	$pensando_api_publicacoes = new Pensando_API_Publicacoes( $server );
+	$pensando_api_publicacoes->register_filters();
 }
 
-add_filter( 'json_prepare_post', 'json_api_prepare_post', 10, 3 );
+add_action( 'wp_json_server_before_serve', 'pensando_api_init' );
+
+// descomentar quando estiver utilizando o aplicativo localmente
+//add_action( 'init', 'allow_origin' );
+//function allow_origin() {
+//	header( "Access-Control-Allow-Origin: *" );
+//}
+
