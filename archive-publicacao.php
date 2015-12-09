@@ -198,7 +198,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
                     </div>
                     <div class="col-sm-8">
                         <div class="descricao">
-                            <h4><strong><a href="<?php echo $download_link; ?>" class="red"><?php the_title_limit(70);?></a></strong></h4>
+                            <h4 class="red"><strong><?php the_title_limit(70);?></strong></h4>
 
                             <p><?php the_content(); ?></p>
 
@@ -268,16 +268,20 @@ $total_pages = ceil(count($volumes) / 10)+1;
                             O que são as Publicações?
                         </strong>
                     </h4>
-                    <p>Desde a criação do Projeto Pensando o Direito, as pesquisas desenvolvidas
+                    <p>
+                        Desde a criação do Projeto Pensando o Direito, as pesquisas desenvolvidas
                         pelas
                         equipes contratadas resultam em relatórios completos e em publicações
                         resumidas
                         que sintetizam os principais dados levantados a partir dos processos de
-                        investigação desenvolvidos.</p>
+                        investigação desenvolvidos.
+                    </p>
 
-                    <p><strong><a href="#">Todas as publicações</a></strong></p>
-
-                    <p><strong><a href="#">Editais de participacao</a></strong></p>
+                    <p>
+                        <strong>
+                            <a href="<?php echo site_url( "/editais" ); ?>">Editais</a>
+                        </strong>
+                    </p>
                 </div>
             </div>
 
