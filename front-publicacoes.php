@@ -67,11 +67,11 @@ if ( $fp_pub_query->have_posts() ) {
 											</small>
 										</p>
 									</div>
-									<div class="row">
+									<div class="row divider-top">
 										<div class="col-md-6">
 											<a href="<?php echo get_post_meta( get_the_ID(), 'pub_dld_file', true ); ?>"
-											   class="btn btn-default"><i class="fa fa-download"></i>
-												Download desta publicação
+											   class="btn btn-danger"><i class="fa fa-download"></i>
+												Download volume <?php echo get_post_meta( get_the_ID(), 'pub_number', true ); ?>
 											</a>
 										</div>
 										<div class="col-md-6">
