@@ -129,7 +129,7 @@ if ( $fp_pub_query->have_posts() ) {
 
 								<p>
 									<strong>
-										<a href="<?php echo site_url( "/editais" ); ?>">Editais de participação</a>
+										<a href="<?php echo site_url( "/editais" ); ?>">Editais</a>
 									</strong>
 								</p>
 

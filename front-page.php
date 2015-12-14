@@ -108,6 +108,5 @@
 
 <?php get_template_part( 'front', 'noticias' ); ?>
 <?php get_template_part( 'destaque', 'debates' ); ?>
-<?php get_template_part( 'mini-tutorial' ); ?>
 <?php get_template_part( 'front', 'publicacoes' ); ?>
 <?php get_footer(); ?>
