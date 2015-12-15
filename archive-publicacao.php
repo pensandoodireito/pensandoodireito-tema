@@ -213,11 +213,11 @@ $total_pages = ceil(count($volumes) / 10)+1;
                                 </small>
                             </p>
                         </div>
-                        <div class="row">
+                        <div class="row divider-top">
                             <div class="col-md-6">
-                                <a href="<?php echo $download_link;?>" class="btn btn-default">
+                                <a href="<?php echo $download_link;?>" class="btn btn-danger">
                                     <i class="fa fa-download"></i>
-                                    Download desta publicação
+                                    Download volume <?php echo $numero_publicacao; ?>
                                 </a>
                             </div>
                             <div class="col-md-6">
