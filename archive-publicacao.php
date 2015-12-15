@@ -1,7 +1,11 @@
 <?php
 get_header();
+$pub_id = null; // variavel de controle para saber se um destaque especifico foi solicitado
+$destaque_is_ultima = true;
+$has_destaque = true; //variaveld e controle para saber se existe destaque
+
 // Recuperando o "Post de Destaque", levando em consideração os filtros aplicados
-$destaque_query_array = array(
+$default_destaque_params = array(
     'post_type' => 'publicacao',
     'post_status' => array( 'publish' ),
     'posts_per_page' => 1,
@@ -15,9 +19,24 @@ $destaque_query_array = array(
     )
 );
 
-query_posts($destaque_query_array);
+$destaque_params = $default_destaque_params;
 
-$pub_ids = array();
+if (isset($_GET['pub_id'])){
+    $pub_id = $_GET['pub_id'];
+    $destaque_params['p'] = $pub_id;
+    $destaque_is_ultima = false;
+}
+
+$destaque_query = new WP_Query($destaque_params);
+
+if (!$destaque_query->have_posts()){
+    $destaque_is_ultima = true;
+    $destaque_query = new WP_Query($default_destaque_params);
+    if (!$destaque_query->have_posts()){
+        $has_destaque = false;
+    }
+}
+
 $current_page = isset($_GET['page'])?$_GET['page']:1;
 
 //TODO: Como adicionar diversos autores e mostrá-los?
@@ -47,14 +66,14 @@ if(!$lista_autores){
         'posts_per_page'         => '-1',
         'post_status'            => array( 'publish' )
     );
-    $query = new WP_Query( $args );
+    $autor_query = new WP_Query( $args );
 
     $volumes = array();
 
     // The Loop
     $lista_autores = array();
-    while ( $query->have_posts() ) {
-        $query->the_post();
+    while ( $autor_query->have_posts() ) {
+        $autor_query->the_post();
         $volumes[] = array(
             'vol' => 'Volume ' . str_pad(get_post_meta(get_the_ID(), 'pub_number', true),2,'0', STR_PAD_LEFT).' - '.get_the_title(),
             'download' => get_post_meta(get_the_ID(), 'pub_dld_file', true)
@@ -84,12 +103,13 @@ if(isset($_GET['filter-name'])){
     $default_params['filter-name'] = $_GET['filter-name'];
 }
 
-the_post();
+$destaque_query->the_post();
 //Salvando ID da publicação em destaque
 $destaqueID = get_the_ID();
 $numero_publicacao = get_post_meta(get_the_ID(), 'pub_number', true);
 $total_pages = ceil(count($volumes) / 10)+1;
 
+$mais_publicacoes_title = $destaque_is_ultima ? "Publicações anteriores" : "Outras publicações";
 ?>
 <div id="publicacoes">
     <div class="container">
@@ -179,15 +199,12 @@ $total_pages = ceil(count($volumes) / 10)+1;
             <!-- Fim da Publicação em destaque -->
         </div>
 
-        <?php
-        if(empty($default_params)):
-            $download_link = get_post_meta(get_the_ID(), 'pub_dld_file', true);
-        ?>
+        <?php if ($has_destaque && empty($default_params)) : ?>
         <div class="publicacoes-box mt-md">
             <div class="col-md-8">
-                <h3><span class="red font-roboto">Última publicação</span>
-                    <?php /**<small class="ml-lg fontsize-sm"><a href="#" class="blue">Todas as publicações</a></small> **/ ?>
-                </h3>
+                <?php if ($destaque_is_ultima) : ?>
+                <h3><span class="red font-roboto">Última publicação</span></h3>
+                <?php endif; ?>
                 <div class="row mt-md">
                     <div class="col-sm-4">
                         <div class="capa-principal">
@@ -215,7 +232,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
                         </div>
                         <div class="row divider-top">
                             <div class="col-md-6">
-                                <a href="<?php echo $download_link;?>" class="btn btn-danger">
+                                <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true);?>" class="btn btn-danger">
                                     <i class="fa fa-download"></i>
                                     Download volume <?php echo $numero_publicacao; ?>
                                 </a>
@@ -288,7 +305,7 @@ $total_pages = ceil(count($volumes) / 10)+1;
         </div>
         <div class="row mt-lg">
             <div class="col-lg-12">
-                <h2 class="font-roboto red">Publicações anteriores</h2>
+                <h2 class="font-roboto red"><?php echo $mais_publicacoes_title; ?></h2>
             </div>
         </div>
         <?php endif;?>
