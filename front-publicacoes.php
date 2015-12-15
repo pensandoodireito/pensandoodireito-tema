@@ -50,8 +50,7 @@ if ( $fp_pub_query->have_posts() ) {
 								</div>
 								<div class="col-sm-8">
 									<div class="descricao">
-										<h4><strong><a href="<?php echo get_post_permalink(); ?>"
-										               class="red"><?php the_title(); ?></a></strong></h4>
+										<h4 class="red"><strong><?php the_title(); ?></strong></h4>
 
 										<p><?php the_content(); ?></p>
 
@@ -129,7 +128,7 @@ if ( $fp_pub_query->have_posts() ) {
 
 								<p>
 									<strong>
-										<a href="<?php echo site_url( "/editais" ); ?>">Editais de participação</a>
+										<a href="<?php echo site_url( "/editais" ); ?>">Editais</a>
 									</strong>
 								</p>
 
