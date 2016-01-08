@@ -158,7 +158,7 @@ $mais_publicacoes_title = $destaque_is_ultima ? "Publicações anteriores" : "Ou
                                 <ul class="dropdown-menu" aria-labelledby="menu-indice">
                                     <li class="categories-master">
                                         <?php foreach($volumes as $volume):?>
-                                            <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true);?>" class="categorie-link" title="<?php echo htmlentities($volume['vol']);?>" target="_blank">
+                                            <a href="<?php echo $volume['download'];?>" class="categorie-link" title="<?php echo htmlentities($volume['vol']);?>" target="_blank">
                                                 <?php
                                                 $volume_parts = explode(' ', $volume['vol']);
                                                 echo implode(' ', array_slice($volume_parts,0,10));
