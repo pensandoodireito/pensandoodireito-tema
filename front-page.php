@@ -21,7 +21,7 @@
 				<?php
 				$counter = 0;
 				while ( $counter < count( $destaques->posts ) ) {
-					echo '<li data-target="#carousel-destaques-home" data-slide-to="' . $counter . '"';
+					echo '<li data-target="#destaque-home" data-slide-to="' . $counter . '"';
 					if ( $counter == 0 ) {
 						echo ' class="active"';
 					}
