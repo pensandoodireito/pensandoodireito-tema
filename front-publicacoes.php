@@ -76,26 +76,29 @@ if ( $fp_pub_query->have_posts() ) {
 										<div class="col-md-6">
 											<ul class="list-inline social-icons text-muted mt-0">
 												<li class="social-icons-rounded">
-													<a href="https://www.facebook.com/projetopd" target="_blank"
-													   class="btn btn-rounded text-muted" data-toggle="tooltip"
-													   data-placement="top" title="Compartilhe no Facebook">
-														<i class="fa fa-facebook"></i>
-													</a>
+                                                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo get_post_permalink(); ?>"
+                                                       target="_blank"
+                                                       class="btn btn-rounded text-muted"
+                                                       data-toggle="tooltip"
+                                                       data-placement="top"
+                                                       title="Compartilhe no Facebook"><i
+                                                                class="fa fa-facebook"></i></a>
+
+                                                </li>
+												<li class="social-icons-rounded">
+                                                    <a href="https://twitter.com/share?hashtags=pensandoodireito&text=<?php echo the_title(); ?>&url=<?php echo get_post_permalink(); ?>"
+                                                       target="_blank"
+                                                       class="btn btn-rounded text-muted"
+                                                       data-toggle="tooltip"
+                                                       data-placement="top"
+                                                       title="Compartilhe no Twitter"><i
+                                                                class="fa fa-twitter"></i></a>
 												</li>
 												<li class="social-icons-rounded">
-													<a href="https://twitter.com/projetopd" target="_blank"
-													   class="btn btn-rounded text-muted" data-toggle="tooltip"
-													   data-placement="top" title="Compartilhe no Twitter">
-														<i class="fa fa-twitter"></i>
-													</a>
-												</li>
-												<li class="social-icons-rounded">
-													<a href="https://www.youtube.com/user/pensandoodireito"
-													   target="_blank" class="btn btn-rounded text-muted"
-													   data-toggle="tooltip"
-													   data-placement="top" title="Compartilhe no YouTube">
-														<i class="fa fa-youtube"></i>
-													</a>
+                                                    <a href="https://www.linkedin.com/shareArticle?mini=true&title=<?php echo urlencode(get_the_title()); ?>&url=<?php echo urlencode(get_post_permalink()); ?>&summary=<?php echo urlencode(get_the_excerpt()); ?>&source=http://pensando.mj.gov.br"
+                                                       target="_blank" class="btn btn-rounded text-muted"
+                                                       data-toggle="tooltip"
+                                                       data-placement="top" title="Compartilhe no Linkedin"><i class="fa fa-linkedin"></i></a>
 												</li>
 											</ul>
 										</div>
