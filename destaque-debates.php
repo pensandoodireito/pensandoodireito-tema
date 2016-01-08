@@ -24,7 +24,7 @@
 				$status      = get_post_meta( get_the_ID(), 'debate_aberto', true );
 
 				?>
-				<div class="col-sm-4 debate-box">
+				<div class="col-md-4 debate-box">
 					<div class="">
 						<div class="text-center">
 							<a href="<?php echo $debate_link ?>"><?php the_post_thumbnail( 'thumb-debate-capa', array(
@@ -32,7 +32,7 @@
 									'alt'   => get_the_title()
 								) ) ?></a>
 						</div>
-						<div class="description">
+						<div class="description text-justify">
 							<strong class="red"><a href="<?php echo $debate_link; ?>"><?php the_title(); ?></a></strong>
 							<span class="label label-info small"><?php echo $status; ?></span>
 
