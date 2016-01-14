@@ -9,13 +9,6 @@ add_image_size( 'thumb-debate-capa', 300, 182, true );
 add_image_size( 'thumb-debate-pagina', 230, 175, true );
 
 
-function add_video_support() {
-	add_post_type_support( 'posts', 'post-formats' );
-	add_theme_support( 'post-formats', array( 'video' ) );
-}
-
-add_action( 'init', 'add_video_support' );
-
 // this adds jquery tooltip and styles it
 function pensandoodireito_scripts() {
 	wp_enqueue_script( 'pensandoodireto', get_stylesheet_directory_uri() . '/js/pensandoodireito.js', array(), false, true );
