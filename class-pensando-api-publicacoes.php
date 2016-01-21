@@ -68,11 +68,12 @@ class Pensando_API_Publicacoes extends WP_JSON_CustomPostType {
 			/*Campos relacionados a publicação*/
 
 			$publicacao['url']         = $dldField;
+			$publicacao['file_size']   = $this->get_file_size( $dldField );
 			$publicacao['volume']      = $volumeField;
 			$publicacao['date']        = $dateField;
 			$publicacao['coordenacao'] = $coordenacaoField;
 
-			list( $title, $subtitle ) = $this->parseTitle( $post_response['title'] );
+			list( $title, $subtitle ) = $this->parse_title( $post_response['title'] );
 
 			/*Campos do Post*/
 			$publicacao['ID']             = $post_response['ID'];
@@ -90,7 +91,7 @@ class Pensando_API_Publicacoes extends WP_JSON_CustomPostType {
 		}
 	}
 
-	public function parseTitle( $title ) {
+	public function parse_title( $title ) {
 		$subtitle = '';
 		$parts    = preg_split( "/[:–-]/", $title );
 
@@ -106,5 +107,18 @@ class Pensando_API_Publicacoes extends WP_JSON_CustomPostType {
 		}
 
 		return array( trim( $title ), trim( $subtitle ) );
+	}
+
+	private function get_file_size( $url ) {
+
+		$filepath = str_replace( "/wp-content", "", parse_url( $url, PHP_URL_PATH ) );
+
+		$path = WP_CONTENT_DIR . $filepath;
+
+		if ( file_exists( $path ) ) {
+			return filesize( $path );
+		}
+
+		return 0;
 	}
 }
