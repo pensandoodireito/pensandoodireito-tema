@@ -47,7 +47,7 @@
     }
   }
   .carousel-caption {
-    height: 100%;
+    height: auto;
     position: absolute;
     left: 0;
     right: initial;
@@ -61,13 +61,12 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     font-size: 25px;
     letter-spacing: -0.05em;
-    font-family: "roboto", "opensans", Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    //font-family: "roboto", "opensans", Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.8+100 */
-    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.8) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 ); /* IE6-9 */
-
 
     color: #fff;
     a {
@@ -81,11 +80,14 @@
       font-size: 18px
     }
     p {
-      position: absolute;
-      bottom: 20px;
+      //position: absolute;
+      //bottom: 20px;
       text-align: center;
       width: 100%;
-      left: 0;
+      //left: 0;
+      padding: 0 30px;
+      margin: 0;
+      font-weight: 700;
     }
   }
   .carousel-indicators {
