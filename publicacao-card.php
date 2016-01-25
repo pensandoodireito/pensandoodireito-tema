@@ -34,7 +34,7 @@
             <div class="panel panel-submenu text-center">
                 <div class="panel-body">
                     <p><a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true); ?>"
-                          class="btn btn-danger"><i
+                          class="btn btn-danger" target="_blank"><i
                                 class="fa fa-download"></i> Download volume <?php echo get_post_meta(get_the_ID(), 'pub_number', true); ?></a></p>
 
                     <ul class="list-inline social-icons text-muted divider-top">

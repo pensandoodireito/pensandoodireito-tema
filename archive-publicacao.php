@@ -232,7 +232,7 @@ $mais_publicacoes_title = $destaque_is_ultima ? "Publicações anteriores" : "Ou
                         </div>
                         <div class="row divider-top">
                             <div class="col-md-6">
-                                <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true);?>" class="btn btn-danger">
+                                <a href="<?php echo get_post_meta(get_the_ID(), 'pub_dld_file', true);?>" class="btn btn-danger" target="_blank">
                                     <i class="fa fa-download"></i>
                                     Download volume <?php echo $numero_publicacao; ?>
                                 </a>
