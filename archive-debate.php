@@ -39,7 +39,7 @@
 			$posts_exibidos[]    = get_the_ID();
 			$debate_link         = get_post_meta( get_the_ID(), 'debate_link', true );
 			$imagem_fundo        = get_post_meta( get_the_ID(), 'imagem', true );
-			$debate_status       = get_post_meta( get_the_ID(), 'debate_status', true );
+			$debate_status       = get_post_meta( get_the_ID(), 'debate_aberto', true );
 			$debate_periodo_para = get_post_meta( get_the_ID(), 'debate_periodo_para', true );
 
 			?>
@@ -117,7 +117,7 @@
 							$posts_exibidos[]    = get_the_ID();
 							$debate_link         = get_post_meta( get_the_ID(), 'debate_link', true );
 							$imagem_fundo        = get_post_meta( get_the_ID(), 'imagem', true );
-							$debate_status       = get_post_meta( get_the_ID(), 'debate_status', true );
+							$debate_status       = get_post_meta( get_the_ID(), 'debate_aberto', true );
 							$debate_periodo_para = get_post_meta( get_the_ID(), 'debate_periodo_para', true );
 							?>
 							<div class="col-md-6">
