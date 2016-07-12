@@ -30,7 +30,7 @@ function publicacoes_scripts() {
 	wp_enqueue_script( 'publicacoes', get_stylesheet_directory_uri() . '/js/publicacoes.js', array(), false, true );
 	$publicacoes_data = array(
 		'ajaxurl'     => admin_url( 'admin-ajax.php' ),
-		'paginaAtual' => 3,
+		'paginaAtual' => 2,
 		'ajaxgif'     => get_template_directory_uri() . '/images/ajax-loader.gif'
 	);
 
