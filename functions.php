@@ -1041,6 +1041,14 @@ function pensando_api_init( $server ) {
 
 	$pensando_api_publicacoes = new Pensando_API_Publicacoes( $server );
 	$pensando_api_publicacoes->register_filters();
+
+	global $pensando_api_noticias;
+
+	require_once dirname( __FILE__ ) . '/class-pensando-api-noticias.php';
+
+	$pensando_api_noticias = new Pensando_API_Noticias( $server );
+	$pensando_api_noticias->register_filters();
+
 }
 
 add_action( 'wp_json_server_before_serve', 'pensando_api_init' );
